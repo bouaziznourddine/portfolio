@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nourddine Bouaziz</title>
+<meta name="description" content="Docteur en informatique — recherche opérationnelle, ordonnancement et simulation des systèmes de production. Python, Odoo, optimisation.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
+    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff; --shadow:0 1px 3px rgba(16,32,48,.06);
+    --maxw:860px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+      --accent-soft:#17222d; --border:#242f3a; --card:#151d25; --shadow:none;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+    --accent-soft:#17222d; --border:#242f3a; --card:#151d25; --shadow:none;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    padding:0 16px;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ---------- en-tête ---------- */
+  header{padding:56px 0 28px; border-bottom:1px solid var(--border)}
+  .name{
+    font-family:Georgia,"Times New Roman",serif; font-size:2.4rem; line-height:1.15;
+    margin:0 0 6px; letter-spacing:.01em;
+  }
+  .tagline{color:var(--muted); font-size:1.05rem; margin:0 0 4px}
+  .tagline2{color:var(--muted); font-size:.95rem; margin:0 0 18px}
+  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:14px}
+  .links a{
+    display:inline-block; padding:5px 11px; border:1px solid var(--border);
+    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
+  }
+  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+  .links a.primary{background:var(--accent); border-color:var(--accent); color:#fff}
+  .links a.primary:hover{opacity:.9; color:#fff}
+
+  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
+  .toolbar button{
+    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
+    background:var(--card); color:var(--muted);
+    border:1px solid var(--border); border-radius:999px;
+  }
+  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
+
+  /* ---------- sections ---------- */
+  section{padding:38px 0; border-bottom:1px solid var(--border)}
+  section:last-of-type{border-bottom:none}
+  h2{
+    font-size:.78rem; text-transform:uppercase; letter-spacing:.13em;
+    color:var(--accent); margin:0 0 20px; font-weight:700;
+  }
+  .lead{font-size:1.02rem; margin:0 0 14px}
+  .lead:last-child{margin-bottom:0}
+
+  /* ---------- projets ---------- */
+  .project{
+    padding:20px 0; border-top:1px solid var(--border);
+  }
+  .project:first-of-type{border-top:none; padding-top:0}
+  .p-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; margin-bottom:3px}
+  .p-title{font-size:1.06rem; font-weight:650; margin:0}
+  .p-period{color:var(--muted); font-size:.86rem; white-space:nowrap}
+  .p-org{color:var(--muted); font-size:.9rem; margin:0 0 9px}
+  .project p{margin:0 0 9px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+  .tag{
+    font-size:.76rem; padding:2px 9px; border-radius:4px;
+    background:var(--accent-soft); color:var(--accent); border:1px solid transparent;
+  }
+  .note{font-size:.87rem; color:var(--muted); font-style:italic}
+
+  /* ---------- publications ---------- */
+  .pub{padding:13px 0; border-top:1px solid var(--border)}
+  .pub:first-of-type{border-top:none; padding-top:0}
+  .pub-t{font-weight:600}
+  .pub-m{color:var(--muted); font-size:.9rem}
+
+  /* ---------- compétences ---------- */
+  .skill{margin-bottom:13px}
+  .skill:last-child{margin-bottom:0}
+  .skill b{display:block; font-size:.88rem; margin-bottom:2px}
+  .skill span{color:var(--muted); font-size:.94rem}
+
+  footer{padding:30px 0 50px; color:var(--muted); font-size:.85rem}
+
+  [hidden]{display:none !important}
+
+  @media (max-width:600px){
+    header{padding-top:34px}
+    .name{font-size:1.95rem}
+    section{padding:30px 0}
+    .p-period{white-space:normal}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="toolbar">
+    <button id="btn-fr" aria-pressed="true">Français</button>
+    <button id="btn-en" aria-pressed="false">English</button>
+    <button id="btn-theme" aria-pressed="false" title="Thème clair / sombre">◐</button>
+  </div>
+
+  <header>
+    <h1 class="name">Nourddine Bouaziz</h1>
+    <p class="tagline" data-fr="Docteur en informatique — recherche opérationnelle, ordonnancement et simulation" data-en="PhD in Computer Science — operations research, production scheduling and simulation">Docteur en informatique — recherche opérationnelle, ordonnancement et simulation</p>
+    <p class="tagline2" data-fr="Chercheur postdoctoral au CESI LINEACT · Rouen, France" data-en="Postdoctoral researcher at CESI LINEACT · Rouen, France">Chercheur postdoctoral au CESI LINEACT · Rouen, France</p>
+    <nav class="links">
+      <a class="primary" href="CV_Bouaziz_RO-RD_FR.pdf" data-fr="CV (français)" data-en="CV (French)">CV (français)</a>
+      <a class="primary" href="CV_Bouaziz_RO-RD_EN.pdf" data-fr="CV (anglais)" data-en="CV (English)">CV (anglais)</a>
+      <a href="https://www.linkedin.com/in/nourddine-bouaziz-b58224350/">LinkedIn</a>
+      <a href="https://scholar.google.fr/citations?user=P_OKvKwAAAAJ">Google&nbsp;Scholar</a>
+      <a href="https://github.com/Bouaziz19">GitHub</a>
+      <a href="https://www.researchgate.net/profile/Nourddine-Bouaziz">ResearchGate</a>
+      <a href="mailto:bouaziznourddine1@gmail.com">Email</a>
+    </nav>
+  </header>
+
+  <!-- ================= FRANÇAIS ================= -->
+  <main id="fr">
+
+    <section>
+      <h2>À propos</h2>
+      <p class="lead">Je conçois des outils d'aide à la décision pour la production : comprendre un problème d'atelier, le représenter par un modèle, puis livrer un logiciel qui calcule une solution et sait l'expliquer.</p>
+      <p class="lead">Mon parcours associe deux mondes qui se croisent rarement. D'un côté la recherche : un doctorat aux Arts et Métiers soutenu en juin 2025 sur l'ordonnancement sous incertitude du comportement humain, et cinq publications. De l'autre le développement industriel : cinq années de modules ERP Odoo livrés et utilisés, en logistique portuaire, en production et en point de vente.</p>
+      <p class="lead">Je suis aujourd'hui chercheur postdoctoral au CESI LINEACT, sur l'ordonnancement d'une cellule d'usinage robotisée avec Maugars Industrie.</p>
+    </section>
+
+    <section>
+      <h2>Projets de recherche</h2>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">OPTIMAN — ordonnancement d'une cellule d'usinage robotisée</h3>
+          <span class="p-period">2025 – aujourd'hui</span>
+        </div>
+        <p class="p-org">CESI LINEACT et Maugars Industrie · soutien Région Normandie et FEDER</p>
+        <p>Une cellule réunit deux centres d'usinage CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Une machine libre ne suffit pas à lancer une pièce : il faut aussi le bon montage, la bonne palette et, pour la première pièce de chaque phase, un opérateur présent.</p>
+        <p>J'ai formalisé ces contraintes avec l'industriel, structuré les données de production, puis développé l'outil de planification du projet : import Excel validé, heuristique constructive sous contraintes de ressources, API JSON, diagrammes de Gantt machines, robot et opérateurs, et un connecteur Odoo 12 qui permet de lancer un calcul et de consulter les résultats depuis l'ERP.</p>
+        <p class="note">Prototype de recherche. Une extension multiobjectif couplée à l'ERP fait l'objet d'un manuscrit en préparation.</p>
+        <div class="tags"><span class="tag">Ordonnancement</span><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Odoo 12</span><span class="tag">Gantt</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Doctorat — l'incertitude du comportement humain dans l'ordonnancement</h3>
+          <span class="p-period">2022 – 2025</span>
+        </div>
+        <p class="p-org">CESI LINEACT et Arts et Métiers · projet AntiHpert (RIN Tremplin 2019)</p>
+        <p>La plupart des modèles d'ordonnancement traitent les opérateurs comme des machines : toujours présents, toujours à la même vitesse. La réalité d'un atelier est autre. J'ai modélisé la ponctualité des opérateurs par des chaînes de Markov estimées sur des transitions réellement observées, puis enrichi ces profils par la fatigue, l'apprentissage et l'oubli.</p>
+        <p>Ces profils alimentent un simulateur multi-agents NetLogo d'un flow-shop à double contrainte de ressources, et un modèle d'optimisation non linéaire en nombres entiers qui affecte les opérateurs aux postes en maximisant le débit, résolu avec Gurobi et SCIP sous Julia. Une boucle de simulation–optimisation déclenche un réordonnancement lorsque l'écart au planning dépasse un seuil.</p>
+        <p>La thèse comprend aussi une revue systématique de 41 articles et un métamodèle de classification des modèles de comportement humain.</p>
+        <p class="note">Soutenue le 25 juin 2025, grade décerné à l'unanimité du jury.</p>
+        <div class="tags"><span class="tag">Chaînes de Markov</span><span class="tag">Simulation multi-agents</span><span class="tag">MINLP</span><span class="tag">Gurobi</span><span class="tag">SCIP</span><span class="tag">Julia</span><span class="tag">NetLogo</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Netlogopy — piloter NetLogo depuis Python</h3>
+          <span class="p-period">2024 – aujourd'hui</span>
+        </div>
+        <p class="p-org">Bibliothèque open source, licence MIT · auteur principal</p>
+        <p>NetLogo est excellent pour la simulation multi-agents, mais isolé de l'écosystème Python : pas d'optimisation, pas d'analyse de données, pas d'apprentissage automatique. Les passerelles existantes lancent une simulation et récupèrent des résultats, sans permettre de créer ni de manipuler les agents eux-mêmes.</p>
+        <p>Netlogopy comble ce manque : création et contrôle direct des agents depuis Python, modification de leurs propriétés en cours d'exécution, réutilisation des modèles NetLogo existants. Sur un cas de simulation à six machines et six opérateurs, le développement a demandé environ seize heures contre vingt-cinq en NetLogo seul, et l'ajout de scénarios une heure contre six.</p>
+        <p>
+          <a href="https://pypi.org/project/netlogopy/">PyPI</a> ·
+          <a href="https://github.com/Bouaziz19/netlogopy">Code source</a> ·
+          <a href="https://doi.org/10.36819/SW25.019">Article SW25</a>
+        </p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">NetLogo</span><span class="tag">Open source</span><span class="tag">MIT</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">FrogsNBots — instrumenter un atelier pour observer le travail réel</h3>
+          <span class="p-period">2023 – 2025</span>
+        </div>
+        <p class="p-org">CESI LINEACT et ESIGELEC · projet AntiHpert</p>
+        <p>Modéliser le comportement des opérateurs suppose de l'observer. J'ai contribué au dispositif de collecte : un module Odoo de suivi des opérations avec scans QR à chaque étape, des caméras fixes et motorisées synchronisées, et des métadonnées JSON reliant chaque opération à son opérateur, à son horodatage et à ses séquences vidéo.</p>
+        <p>Deux cas d'étude : la maintenance de robots éducatifs et le pliage d'origami, choisis pour produire des gestes répétitifs mesurables. Plus de quinze heures de vidéo annotée, six opérateurs.</p>
+        <p class="note">Manuscrit de description du jeu de données en cours.</p>
+        <div class="tags"><span class="tag">Odoo</span><span class="tag">QR</span><span class="tag">Vidéo multicaméra</span><span class="tag">JSON</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Flexibac — tri robotisé de colis</h3>
+          <span class="p-period">2026</span>
+        </div>
+        <p class="p-org">Étude de modélisation</p>
+        <p>Affectation de colis à des chariots sous contraintes de capacité, de cohérence des destinations et de fenêtres temporelles, avec deux objectifs : maximiser le nombre de colis traités par le robot et minimiser les changements de chariots. Formulation MILP hors ligne, couplée à un simulateur FlexSim par échange de fichiers pour évaluer les indicateurs et la faisabilité.</p>
+        <div class="tags"><span class="tag">MILP</span><span class="tag">FlexSim</span><span class="tag">Simulation–optimisation</span></div>
+      </article>
+    </section>
+
+    <section>
+      <h2>Projets industriels</h2>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Système d'information portuaire</h3>
+          <span class="p-period">2017 – 2018</span>
+        </div>
+        <p class="p-org">Entreprise Portuaire de Ghazaouet, Algérie</p>
+        <p>Analyse des procédures existantes et modélisation MERISE/UML, puis développement et intégration de quatre modules Odoo : GMAO, facturation, exploitation et commercial. La GMAO couvre les équipements, la maintenance préventive et corrective, les pièces de rechange, la planification des interventions et les comptes rendus. Formation des utilisateurs à la prise en main.</p>
+        <p>En parallèle, deux études d'optimisation : l'allocation des postes à quai, modélisée puis résolue avec OpenSolver, vérifiée sous LINGO et testée par simulation Arena sur les données réelles du terminal ; et le stockage de conteneurs par algorithmes génétiques. La solution d'allocation a été mise en œuvre par l'entreprise portuaire.</p>
+        <div class="tags"><span class="tag">Odoo</span><span class="tag">GMAO</span><span class="tag">MERISE/UML</span><span class="tag">OpenSolver</span><span class="tag">Arena</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Usine de verre trempé — prix de revient et plans de découpe</h3>
+          <span class="p-period">2018 – 2020</span>
+        </div>
+        <p class="p-org">Mission indépendante</p>
+        <p>L'usine facturait le verre au mètre carré. Deux commandes de même surface pouvaient pourtant coûter très différemment : la forme change les chutes, la fragilité change le taux de casse, l'encombrement change le transport. J'ai développé un module Odoo de calcul du prix unitaire intégrant ces facteurs, destiné au service commercial.</p>
+        <p>Un second module optimise les plans de découpe : répartition de plusieurs commandes sur une même plaque pour réduire les chutes, visualisation graphique du plan, export, et liaison avec le traitement des commandes.</p>
+        <div class="tags"><span class="tag">Odoo</span><span class="tag">Cutting stock</span><span class="tag">Tarification</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Point de vente, restauration et IoT</h3>
+          <span class="p-period">2020 – 2022</span>
+        </div>
+        <p class="p-org">SMARTSTUP Group, Algérie</p>
+        <p>Modules Odoo de production (MRP), de point de vente et de restauration : plan de salle, état des tables, commandes cuisine, encaissement. Intégration des périphériques par IoT Box sur Raspberry Pi — imprimantes thermiques, balances, afficheurs client, lecteurs. Développement d'applications web, mobile et desktop, formation des utilisateurs et documentation.</p>
+        <div class="tags"><span class="tag">Odoo POS</span><span class="tag">MRP</span><span class="tag">Raspberry Pi</span><span class="tag">IoT</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Optimisation logistique — travaux d'étude</h3>
+          <span class="p-period">2015 – 2020</span>
+        </div>
+        <p class="p-org">Projets académiques et missions indépendantes</p>
+        <p>Distribution de gaz butane pour Naftal à Tlemcen : tournées de véhicules à capacités hétérogènes (VRP/CVRP), modélisée sous LINGO et résolue par algorithme génétique en Java, avec interface de planification. Réseau de production–distribution agroalimentaire : modèle non linéaire multi-étapes sous LINGO et CPLEX. Planification agrégée multi-période avec gestion des effectifs et des heures supplémentaires. Ordonnancement d'ateliers — machine unique, machines parallèles, flow-shop — sous contraintes de ressources et d'indisponibilité. Localisation d'installations par p-médian et par logique floue.</p>
+        <div class="tags"><span class="tag">VRP/CVRP</span><span class="tag">LINGO</span><span class="tag">CPLEX</span><span class="tag">Algorithmes génétiques</span><span class="tag">Java</span></div>
+      </article>
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      <div class="pub">
+        <div class="pub-t">Incorporating uncertain human behavior in production scheduling for enhanced productivity in Industry 5.0 context</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>International Journal of Production Economics</i>, 274, 109311, 2024 — <a href="https://doi.org/10.1016/j.ijpe.2024.109311">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Netlogopy: Unlocking Advanced Simulation and Integration for NetLogo Using Python</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>Simulation Workshop 2025</i>, Exeter — <a href="https://doi.org/10.36819/SW25.019">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Modeling and simulation of worker profiles in production systems based on punctuality, fatigue, and experience</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>IEEE ICTMOD 2024</i>, Sharjah</div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Modeling and simulation of human behavior impact on production throughput</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine, Latreche — <i>IFAC-PapersOnLine</i>, 55(10), 1740–1745, 2022 — <a href="https://doi.org/10.1016/j.ifacol.2022.09.649">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Ordonnancement d'atelier de production flexible sous incertitude du comportement humain</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>2<sup>e</sup> congrès annuel de la SAGIP</i>, Villeurbanne, 2024 — <a href="https://hal.science/hal-04627782">HAL</a></div>
+      </div>
+      <p class="note" style="margin-top:14px">Trois articles de revue soumis en 2025 : revue systématique des modèles de comportement humain, Netlogopy, sim-optimisation dynamique.</p>
+    </section>
+
+    <section>
+      <h2>Compétences</h2>
+      <div class="skill"><b>Recherche opérationnelle</b><span>Modélisation MILP et MINLP · ordonnancement (flow-shop, job-shop flexible, double contrainte de ressources) · affectation · VRP · planification · métaheuristiques (algorithmes génétiques, NSGA-II)</span></div>
+      <div class="skill"><b>Solveurs</b><span>Gurobi · SCIP · CPLEX · LINGO · OpenSolver · OR-Tools</span></div>
+      <div class="skill"><b>Simulation</b><span>Multi-agents (NetLogo, Netlogopy) · événements discrets (Arena, FlexSim) · chaînes de Markov · couplage simulation–optimisation</span></div>
+      <div class="skill"><b>Développement</b><span>Python (Flask, Django, pandas, Pyomo, Pymoo) · Julia · Java · JavaScript · SQL et PostgreSQL · Git, Docker, Linux</span></div>
+      <div class="skill"><b>ERP et données</b><span>Odoo v9 à v16 (ORM, vues QWeb, API, modules métier) · MERISE et UML · données de production (Excel, CSV, JSON, API) · GMAO, MRP, POS</span></div>
+      <div class="skill"><b>Langues</b><span>Français et anglais (courant professionnel) · arabe (langue maternelle)</span></div>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p class="lead">Je suis ouvert aux échanges sur l'optimisation des opérations, la simulation et les logiciels industriels — en recherche comme en industrie.</p>
+      <p class="lead"><a href="mailto:bouaziznourddine1@gmail.com">bouaziznourddine1@gmail.com</a> · Rouen, France</p>
+    </section>
+
+  </main>
+
+  <!-- ================= ENGLISH ================= -->
+  <main id="en" hidden>
+
+    <section>
+      <h2>About</h2>
+      <p class="lead">I build decision-support tools for manufacturing: understand a shop-floor problem, turn it into a model, then deliver software that computes a solution and can explain it.</p>
+      <p class="lead">My career brings together two worlds that rarely meet. On one side, research: a PhD from Arts et Métiers defended in June 2025 on scheduling under human-behaviour uncertainty, and five publications. On the other, industrial development: five years of Odoo ERP modules delivered and used, in port logistics, manufacturing and point of sale.</p>
+      <p class="lead">I am currently a postdoctoral researcher at CESI LINEACT, working on the scheduling of a robotic machining cell with Maugars Industrie.</p>
+    </section>
+
+    <section>
+      <h2>Research projects</h2>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">OPTIMAN — scheduling a robotic machining cell</h3>
+          <span class="p-period">2025 – present</span>
+        </div>
+        <p class="p-org">CESI LINEACT and Maugars Industrie · supported by the Normandy Region and the ERDF</p>
+        <p>The cell combines two CNC machining centres, a shared handling robot, rotary magazines, pallets, fixtures and operators. A free machine is not enough to start a part: the right fixture and pallet must be available too, and the first part of each phase requires an operator on site.</p>
+        <p>I formalised these constraints with the industrial partner, structured the production data, then developed the project's planning tool: validated Excel import, constructive heuristic under resource constraints, JSON API, machine, robot and operator Gantt charts, and an Odoo 12 connector that runs a computation and shows the results from inside the ERP.</p>
+        <p class="note">Research prototype. A multi-objective extension coupled with the ERP is the subject of a manuscript in preparation.</p>
+        <div class="tags"><span class="tag">Scheduling</span><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Odoo 12</span><span class="tag">Gantt</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">PhD — human-behaviour uncertainty in production scheduling</h3>
+          <span class="p-period">2022 – 2025</span>
+        </div>
+        <p class="p-org">CESI LINEACT and Arts et Métiers · AntiHpert project (RIN Tremplin 2019)</p>
+        <p>Most scheduling models treat operators like machines: always present, always at the same pace. A real shop floor works differently. I modelled operator punctuality with Markov chains estimated from actually observed transitions, then enriched those profiles with fatigue, learning and forgetting.</p>
+        <p>These profiles feed a NetLogo agent-based simulator of a dual-resource-constrained flow shop, and a mixed-integer non-linear optimisation model that assigns operators to workstations to maximise throughput, solved with Gurobi and SCIP under Julia. A simulation–optimisation loop triggers rescheduling when the deviation from the plan exceeds a threshold.</p>
+        <p>The thesis also includes a systematic review of 41 papers and a meta-model for classifying human-behaviour models.</p>
+        <p class="note">Defended on 25 June 2025, degree awarded unanimously by the jury.</p>
+        <div class="tags"><span class="tag">Markov chains</span><span class="tag">Agent-based simulation</span><span class="tag">MINLP</span><span class="tag">Gurobi</span><span class="tag">SCIP</span><span class="tag">Julia</span><span class="tag">NetLogo</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Netlogopy — driving NetLogo from Python</h3>
+          <span class="p-period">2024 – present</span>
+        </div>
+        <p class="p-org">Open-source library, MIT licence · main author</p>
+        <p>NetLogo is excellent for agent-based simulation but cut off from the Python ecosystem: no optimisation, no data analysis, no machine learning. Existing bridges run a simulation and collect results, without letting you create or manipulate the agents themselves.</p>
+        <p>Netlogopy fills that gap: direct creation and control of agents from Python, property updates at runtime, reuse of existing NetLogo models. On a six-machine, six-operator simulation case, development took about sixteen hours against twenty-five in NetLogo alone, and adding scenarios one hour against six.</p>
+        <p>
+          <a href="https://pypi.org/project/netlogopy/">PyPI</a> ·
+          <a href="https://github.com/Bouaziz19/netlogopy">Source code</a> ·
+          <a href="https://doi.org/10.36819/SW25.019">SW25 paper</a>
+        </p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">NetLogo</span><span class="tag">Open source</span><span class="tag">MIT</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">FrogsNBots — instrumenting a workshop to observe real work</h3>
+          <span class="p-period">2023 – 2025</span>
+        </div>
+        <p class="p-org">CESI LINEACT and ESIGELEC · AntiHpert project</p>
+        <p>Modelling operator behaviour requires observing it. I contributed to the collection setup: an Odoo operation-tracking module with a QR scan at each step, synchronised fixed and motorised cameras, and JSON metadata linking every operation to its operator, timestamps and video sequences.</p>
+        <p>Two case studies: educational-robot maintenance and origami folding, chosen to produce measurable repetitive gestures. More than fifteen hours of annotated video, six operators.</p>
+        <p class="note">A dataset paper is in preparation.</p>
+        <div class="tags"><span class="tag">Odoo</span><span class="tag">QR</span><span class="tag">Multi-camera video</span><span class="tag">JSON</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Flexibac — robotic parcel sorting</h3>
+          <span class="p-period">2026</span>
+        </div>
+        <p class="p-org">Modelling study</p>
+        <p>Assignment of parcels to carts under capacity, destination-consistency and time-window constraints, with two objectives: maximise the number of parcels handled by the robot and minimise cart changes. Offline MILP formulation, coupled with a FlexSim simulator through file exchange to evaluate the indicators and feasibility.</p>
+        <div class="tags"><span class="tag">MILP</span><span class="tag">FlexSim</span><span class="tag">Simulation–optimisation</span></div>
+      </article>
+    </section>
+
+    <section>
+      <h2>Industrial projects</h2>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Port information system</h3>
+          <span class="p-period">2017 – 2018</span>
+        </div>
+        <p class="p-org">Port Authority of Ghazaouet, Algeria</p>
+        <p>Analysis of existing procedures and MERISE/UML modelling, then development and integration of four Odoo modules: CMMS, invoicing, operations and sales. The CMMS covers equipment, preventive and corrective maintenance, spare parts, intervention planning and reports. User training on handover.</p>
+        <p>In parallel, two optimisation studies: berth allocation, modelled and solved with OpenSolver, verified in LINGO and tested through Arena simulation on real terminal data; and container storage with genetic algorithms. The berth-allocation solution was implemented by the port authority.</p>
+        <div class="tags"><span class="tag">Odoo</span><span class="tag">CMMS</span><span class="tag">MERISE/UML</span><span class="tag">OpenSolver</span><span class="tag">Arena</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Tempered-glass factory — true cost and cutting plans</h3>
+          <span class="p-period">2018 – 2020</span>
+        </div>
+        <p class="p-org">Freelance engagement</p>
+        <p>The factory priced glass per square metre. Yet two orders of equal area could cost very differently: shape changes off-cuts, fragility changes breakage, bulk changes transport. I developed an Odoo unit-price module accounting for these factors, for the sales department.</p>
+        <p>A second module optimises cutting plans: several orders laid out on the same sheet to reduce waste, graphical visualisation of the layout, export, and a link to order processing.</p>
+        <div class="tags"><span class="tag">Odoo</span><span class="tag">Cutting stock</span><span class="tag">Pricing</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Point of sale, restaurant and IoT</h3>
+          <span class="p-period">2020 – 2022</span>
+        </div>
+        <p class="p-org">SMARTSTUP Group, Algeria</p>
+        <p>Odoo manufacturing (MRP), point-of-sale and restaurant modules: floor plan, table status, kitchen orders, checkout. Peripheral integration through an IoT Box on Raspberry Pi — thermal printers, scales, customer displays, readers. Web, mobile and desktop applications, user training and documentation.</p>
+        <div class="tags"><span class="tag">Odoo POS</span><span class="tag">MRP</span><span class="tag">Raspberry Pi</span><span class="tag">IoT</span></div>
+      </article>
+
+      <article class="project">
+        <div class="p-head">
+          <h3 class="p-title">Logistics optimisation — study work</h3>
+          <span class="p-period">2015 – 2020</span>
+        </div>
+        <p class="p-org">Academic projects and freelance engagements</p>
+        <p>Butane distribution for Naftal in Tlemcen: vehicle routing with heterogeneous capacities (VRP/CVRP), modelled in LINGO and solved with a genetic algorithm in Java, with a planning interface. Food production–distribution network: multi-stage non-linear model in LINGO and CPLEX. Multi-period aggregate planning with workforce and overtime management. Workshop scheduling — single machine, parallel machines, flow shop — under resource and unavailability constraints. Facility location with p-median and fuzzy logic.</p>
+        <div class="tags"><span class="tag">VRP/CVRP</span><span class="tag">LINGO</span><span class="tag">CPLEX</span><span class="tag">Genetic algorithms</span><span class="tag">Java</span></div>
+      </article>
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      <div class="pub">
+        <div class="pub-t">Incorporating uncertain human behavior in production scheduling for enhanced productivity in Industry 5.0 context</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>International Journal of Production Economics</i>, 274, 109311, 2024 — <a href="https://doi.org/10.1016/j.ijpe.2024.109311">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Netlogopy: Unlocking Advanced Simulation and Integration for NetLogo Using Python</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>Simulation Workshop 2025</i>, Exeter, UK — <a href="https://doi.org/10.36819/SW25.019">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Modeling and simulation of worker profiles in production systems based on punctuality, fatigue, and experience</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>IEEE ICTMOD 2024</i>, Sharjah, UAE</div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Modeling and simulation of human behavior impact on production throughput</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine, Latreche — <i>IFAC-PapersOnLine</i>, 55(10), 1740–1745, 2022 — <a href="https://doi.org/10.1016/j.ifacol.2022.09.649">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="pub-t">Ordonnancement d'atelier de production flexible sous incertitude du comportement humain</div>
+        <div class="pub-m">Bouaziz, Bettayeb, Sahnoun, Yassine — <i>2nd annual SAGIP congress</i>, Villeurbanne, France, 2024 — <a href="https://hal.science/hal-04627782">HAL</a></div>
+      </div>
+      <p class="note" style="margin-top:14px">Three journal articles submitted in 2025: systematic review of human-behaviour models, Netlogopy, dynamic simulation–optimisation.</p>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skill"><b>Operations research</b><span>MILP and MINLP modelling · scheduling (flow shop, flexible job shop, dual resource constraints) · assignment · VRP · planning · metaheuristics (genetic algorithms, NSGA-II)</span></div>
+      <div class="skill"><b>Solvers</b><span>Gurobi · SCIP · CPLEX · LINGO · OpenSolver · OR-Tools</span></div>
+      <div class="skill"><b>Simulation</b><span>Agent-based (NetLogo, Netlogopy) · discrete-event (Arena, FlexSim) · Markov chains · simulation–optimisation coupling</span></div>
+      <div class="skill"><b>Development</b><span>Python (Flask, Django, pandas, Pyomo, Pymoo) · Julia · Java · JavaScript · SQL and PostgreSQL · Git, Docker, Linux</span></div>
+      <div class="skill"><b>ERP and data</b><span>Odoo v9 to v16 (ORM, QWeb views, API, business modules) · MERISE and UML · production data (Excel, CSV, JSON, APIs) · CMMS, MRP, POS</span></div>
+      <div class="skill"><b>Languages</b><span>French and English (professional fluency) · Arabic (native)</span></div>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p class="lead">I welcome conversations about operations optimisation, simulation and industrial software — in research as well as in industry.</p>
+      <p class="lead"><a href="mailto:bouaziznourddine1@gmail.com">bouaziznourddine1@gmail.com</a> · Rouen, France</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <span data-fr="Dernière mise à jour : novembre 2026." data-en="Last updated: November 2026.">Dernière mise à jour : novembre 2026.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var fr = document.getElementById('fr'),
+      en = document.getElementById('en'),
+      bFr = document.getElementById('btn-fr'),
+      bEn = document.getElementById('btn-en'),
+      bTh = document.getElementById('btn-theme'),
+      root = document.documentElement;
+
+  function setLang(l){
+    var isFr = (l === 'fr');
+    fr.hidden = !isFr; en.hidden = isFr;
+    bFr.setAttribute('aria-pressed', isFr);
+    bEn.setAttribute('aria-pressed', !isFr);
+    root.lang = l;
+    document.querySelectorAll('[data-fr]').forEach(function(el){
+      el.textContent = el.getAttribute(isFr ? 'data-fr' : 'data-en');
+    });
+    try { localStorage.setItem('lang', l); } catch(e){}
+  }
+
+  bFr.addEventListener('click', function(){ setLang('fr'); });
+  bEn.addEventListener('click', function(){ setLang('en'); });
+
+  bTh.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    bTh.setAttribute('aria-pressed', String(!dark));
+    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
+  });
+
+  try {
+    var l = localStorage.getItem('lang');
+    if (l) setLang(l);
+    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
+    var t = localStorage.getItem('theme');
+    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
