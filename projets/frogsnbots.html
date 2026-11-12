@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="fr" data-title-en="FrogsNBots — instrumenting a workshop to observe real work · Nourddine Bouaziz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FrogsNBots — instrumenter un atelier pour observer le travail réel · Nourddine Bouaziz</title>
+<meta name="description" content="FrogsNBots : dispositif de collecte en atelier — module Odoo de suivi des opérations, scans QR, caméras fixes et PTZ synchronisées, métadonnées JSON.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
+    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff;
+    --maxw:860px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+      --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+    --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    padding:0 16px;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
+  .toolbar button{
+    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
+    background:var(--card); color:var(--muted);
+    border:1px solid var(--border); border-radius:999px;
+  }
+  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
+
+  .back{display:inline-block; margin-top:16px; font-size:.9rem; color:var(--muted)}
+  .back:hover{color:var(--accent)}
+
+  header{padding:12px 0 24px; border-bottom:1px solid var(--border)}
+  h1{font-family:Georgia,"Times New Roman",serif; font-size:2rem; line-height:1.2; margin:10px 0 10px}
+  .meta{color:var(--muted); font-size:.93rem; margin:0 0 3px}
+
+  section{padding:30px 0; border-bottom:1px solid var(--border)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; color:var(--accent); margin:0 0 16px; font-weight:700}
+  h3{font-size:1rem; margin:24px 0 8px}
+  p{margin:0 0 12px}
+  ul{margin:0 0 12px; padding-left:20px}
+  li{margin-bottom:6px}
+
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
+  .tag{font-size:.76rem; padding:2px 9px; border-radius:4px; background:var(--accent-soft); color:var(--accent)}
+  .note{font-size:.87rem; color:var(--muted); font-style:italic}
+  .callout{
+    border-left:3px solid var(--accent); background:var(--accent-soft);
+    padding:12px 14px; border-radius:0 8px 8px 0; margin:18px 0; font-size:.94rem;
+  }
+  .callout p:last-child{margin-bottom:0}
+  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px}
+  .links a{
+    display:inline-block; padding:5px 11px; border:1px solid var(--border);
+    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
+  }
+  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+
+  .fig{margin:22px 0; padding:16px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); overflow-x:auto}
+  .fig svg{display:block; width:100%; min-width:600px; height:auto}
+  .fig figcaption{font-size:.85rem; color:var(--muted); margin-top:10px; text-align:center}
+  .s-box{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.2}
+  .s-box2{fill:var(--bg); stroke:var(--border); stroke-width:1.2}
+  .s-t{fill:var(--fg); font:600 12.5px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .s-s{fill:var(--muted); font:11px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .s-l{stroke:var(--muted); stroke-width:1.4; fill:none}
+  .s-dash{stroke:var(--muted); stroke-width:1.2; fill:none; stroke-dasharray:4 4}
+  .s-ar{fill:var(--muted)}
+  .s-bar{fill:var(--accent); opacity:.85}
+  .s-bar2{fill:var(--muted); opacity:.35}
+  .s-bt{fill:var(--bg); font:600 11px system-ui,sans-serif}
+
+  footer{padding:26px 0 50px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--border)}
+  [hidden]{display:none !important}
+
+  @media (max-width:600px){
+    h1{font-size:1.6rem}
+    section{padding:24px 0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="toolbar">
+    <button id="btn-fr" aria-pressed="true">Français</button>
+    <button id="btn-en" aria-pressed="false">English</button>
+    <button id="btn-theme" aria-pressed="false" title="Thème clair / sombre">◐</button>
+  </div>
+
+  <a class="back" href="../index.html" data-fr="← Nourddine Bouaziz — tous les projets" data-en="← Nourddine Bouaziz — all projects">← Nourddine Bouaziz — tous les projets</a>
+
+  <header>
+    <h1 data-fr="FrogsNBots — instrumenter un atelier pour observer le travail réel" data-en="FrogsNBots — instrumenting a workshop to observe real work">FrogsNBots — instrumenter un atelier pour observer le travail réel</h1>
+    <p class="meta" data-fr="2023 – 2025 · Dispositif de collecte de données d'atelier" data-en="2023 – 2025 · Shop-floor data-collection setup">2023 – 2025 · Dispositif de collecte de données d'atelier</p>
+    <p class="meta" data-fr="CESI LINEACT et ESIGELEC · projet AntiHpert" data-en="CESI LINEACT and ESIGELEC · AntiHpert project">CESI LINEACT et ESIGELEC · projet AntiHpert</p>
+  </header>
+
+  <section>
+    <h2 data-fr="Pourquoi instrumenter" data-en="Why instrument">Pourquoi instrumenter</h2>
+    <p data-fr="On ne peut pas modéliser un comportement qu'on n'a pas mesuré. Pour estimer les chaînes de Markov de ma thèse, il me fallait des transitions réellement observées : à quel moment une personne quitte son poste, combien de temps elle s'absente, quand elle revient, combien de temps une opération lui prend la dixième fois comparée à la première." data-en="You cannot model a behaviour you have not measured. To estimate the Markov chains in my thesis I needed actually observed transitions: when someone leaves the workstation, how long they are away, when they come back, how long an operation takes them the tenth time compared with the first.">On ne peut pas modéliser un comportement qu'on n'a pas mesuré. Pour estimer les chaînes de Markov de ma thèse, il me fallait des transitions réellement observées : à quel moment une personne quitte son poste, combien de temps elle s'absente, quand elle revient, combien de temps une opération lui prend la dixième fois comparée à la première.</p>
+    <p data-fr="Un relevé manuel ne tient pas : il est trop grossier, il change le comportement qu'il observe et il ne se synchronise avec rien. Il fallait un dispositif qui enregistre tout seul, et surtout qui relie ce qui est filmé à ce qui est déclaré dans le système de production." data-en="Manual recording does not hold up: it is too coarse, it changes the very behaviour it observes, and it synchronises with nothing. The setup had to record on its own, and above all tie what is filmed to what is declared in the production system.">Un relevé manuel ne tient pas : il est trop grossier, il change le comportement qu'il observe et il ne se synchronise avec rien. Il fallait un dispositif qui enregistre tout seul, et surtout qui relie ce qui est filmé à ce qui est déclaré dans le système de production.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Le dispositif" data-en="The setup">Le dispositif</h2>
+    <p data-fr="J'ai contribué à un dispositif à deux canaux qui partagent la même horloge. D'un côté la vidéo : des caméras fixes et des caméras motorisées (PTZ) synchronisées couvrent le poste. De l'autre la déclaration : un module Odoo de suivi des opérations, où chaque étape est ouverte et fermée par un scan QR, avec son opérateur et son horodatage." data-en="I contributed to a two-channel setup sharing one clock. On one side, video: synchronised fixed and motorised (PTZ) cameras cover the workstation. On the other, declaration: an Odoo operation-tracking module where each step is opened and closed by a QR scan, with its operator and its timestamp.">J'ai contribué à un dispositif à deux canaux qui partagent la même horloge. D'un côté la vidéo : des caméras fixes et des caméras motorisées (PTZ) synchronisées couvrent le poste. De l'autre la déclaration : un module Odoo de suivi des opérations, où chaque étape est ouverte et fermée par un scan QR, avec son opérateur et son horodatage.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 266" role="img" aria-labelledby="b1t">
+        <title id="b1t" data-fr="Les deux canaux de collecte et leur jonction" data-en="The two collection channels and where they meet">Les deux canaux de collecte et leur jonction</title>
+        <defs><marker id="ab1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <rect class="s-box2" x="10" y="24" width="200" height="54" rx="7"/>
+        <text class="s-t" x="110" y="47" text-anchor="middle" data-fr="Caméras fixe et PTZ" data-en="Fixed and PTZ cameras">Caméras fixe et PTZ</text>
+        <text class="s-s" x="110" y="65" text-anchor="middle" data-fr="synchronisées" data-en="synchronised">synchronisées</text>
+
+        <path class="s-l" d="M210,51 L486,51" marker-end="url(#ab1)"/>
+
+        <rect class="s-box2" x="490" y="24" width="180" height="54" rx="7"/>
+        <text class="s-t" x="580" y="47" text-anchor="middle" data-fr="Séquences vidéo" data-en="Video sequences">Séquences vidéo</text>
+        <text class="s-s" x="580" y="65" text-anchor="middle" data-fr="horodatées" data-en="timestamped">horodatées</text>
+
+        <rect class="s-box2" x="10" y="110" width="200" height="54" rx="7"/>
+        <text class="s-t" x="110" y="133" text-anchor="middle" data-fr="Scan QR par opération" data-en="QR scan per operation">Scan QR par opération</text>
+        <text class="s-s" x="110" y="151" text-anchor="middle" data-fr="début et fin" data-en="start and end">début et fin</text>
+
+        <path class="s-l" d="M210,137 L246,137" marker-end="url(#ab1)"/>
+
+        <rect class="s-box" x="250" y="110" width="200" height="54" rx="7"/>
+        <text class="s-t" x="350" y="133" text-anchor="middle" data-fr="Module Odoo de suivi" data-en="Odoo tracking module">Module Odoo de suivi</text>
+        <text class="s-s" x="350" y="151" text-anchor="middle" data-fr="workflow d'états · opérateur" data-en="state workflow · operator">workflow d'états · opérateur</text>
+
+        <path class="s-l" d="M450,137 L486,137" marker-end="url(#ab1)"/>
+
+        <rect class="s-box2" x="490" y="110" width="180" height="54" rx="7"/>
+        <text class="s-t" x="580" y="133" text-anchor="middle" data-fr="Métadonnées JSON" data-en="JSON metadata">Métadonnées JSON</text>
+        <text class="s-s" x="580" y="151" text-anchor="middle" data-fr="horodatées" data-en="timestamped">horodatées</text>
+
+        <path class="s-l" d="M670,51 L710,51 L710,186 L380,186 L380,194" marker-end="url(#ab1)"/>
+        <path class="s-l" d="M670,137 L710,137"/>
+
+        <rect class="s-box" x="230" y="198" width="300" height="58" rx="7"/>
+        <text class="s-t" x="380" y="222" text-anchor="middle" data-fr="Jeu de données annoté" data-en="Annotated dataset">Jeu de données annoté</text>
+        <text class="s-s" x="380" y="242" text-anchor="middle" data-fr="plus de 15 h de vidéo · 6 opérateurs" data-en="more than 15 h of video · 6 operators">plus de 15 h de vidéo · 6 opérateurs</text>
+      </svg>
+      <figcaption data-fr="Figure 1 — Ce qui fait la valeur du jeu de données n'est pas la vidéo seule ni les déclarations seules, mais le fait qu'elles portent le même horodatage." data-en="Figure 1 — What makes the dataset valuable is neither the video alone nor the declarations alone, but the fact that both carry the same timestamp.">Figure 1 — Ce qui fait la valeur du jeu de données n'est pas la vidéo seule ni les déclarations seules, mais le fait qu'elles portent le même horodatage.</figcaption>
+    </figure>
+
+    <p data-fr="C'est cette jonction qui compte. Un enregistrement vidéo sans contexte oblige à tout regarder pour trouver quelque chose. Des déclarations sans image ne disent pas ce qui s'est passé pendant les blancs. Mises à la même horloge, les deux se répondent : chaque opération déclarée pointe directement sur la séquence vidéo qui la montre." data-en="That junction is the point. A video recording without context forces you to watch everything to find anything. Declarations without images say nothing about what happened during the gaps. Put on the same clock, the two answer each other: every declared operation points straight at the video sequence showing it.">C'est cette jonction qui compte. Un enregistrement vidéo sans contexte oblige à tout regarder pour trouver quelque chose. Des déclarations sans image ne disent pas ce qui s'est passé pendant les blancs. Mises à la même horloge, les deux se répondent : chaque opération déclarée pointe directement sur la séquence vidéo qui la montre.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 200" role="img" aria-labelledby="b2t">
+        <title id="b2t" data-fr="Alignement d'une opération sur la vidéo" data-en="Aligning an operation with the video">Alignement d'une opération sur la vidéo</title>
+
+        <text class="s-s" x="112" y="78" text-anchor="end" data-fr="Vidéo" data-en="Video">Vidéo</text>
+        <rect class="s-bar2" x="120" y="60" width="620" height="24" rx="3"/>
+        <rect class="s-bar" x="240" y="60" width="360" height="24" rx="3"/>
+        <text class="s-bt" x="420" y="77" text-anchor="middle" data-fr="séquence correspondante" data-en="matching sequence">séquence correspondante</text>
+
+        <text class="s-s" x="112" y="128" text-anchor="end" data-fr="Opération" data-en="Operation">Opération</text>
+        <rect class="s-bar" x="240" y="110" width="360" height="24" rx="3"/>
+        <text class="s-bt" x="420" y="127" text-anchor="middle" data-fr="opération déclarée dans Odoo" data-en="operation declared in Odoo">opération déclarée dans Odoo</text>
+
+        <path class="s-dash" d="M240,48 L240,158 M600,48 L600,158"/>
+        <text class="s-s" x="240" y="42" text-anchor="middle" data-fr="scan QR — début" data-en="QR scan — start">scan QR — début</text>
+        <text class="s-s" x="600" y="42" text-anchor="middle" data-fr="scan QR — fin" data-en="QR scan — end">scan QR — fin</text>
+
+        <path class="s-l" d="M120,158 L740,158"/>
+        <text class="s-s" x="740" y="178" text-anchor="end" data-fr="temps" data-en="time">temps</text>
+      </svg>
+      <figcaption data-fr="Figure 2 — Les deux scans bornent l'opération ; la même horloge découpe automatiquement la séquence vidéo correspondante." data-en="Figure 2 — The two scans bound the operation; the shared clock automatically cuts out the matching video sequence.">Figure 2 — Les deux scans bornent l'opération ; la même horloge découpe automatiquement la séquence vidéo correspondante.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 data-fr="Les deux cas d'étude" data-en="The two case studies">Les deux cas d'étude</h2>
+    <p data-fr="Deux activités ont été retenues parce qu'elles produisent des gestes répétitifs, comparables d'une personne à l'autre et mesurables sans capteur porté : la maintenance de robots éducatifs et le pliage d'origami. La répétition est ce qui rend l'apprentissage et la fatigue visibles dans les durées." data-en="Two activities were chosen because they produce repetitive gestures, comparable across people and measurable without any worn sensor: educational-robot maintenance and origami folding. Repetition is what makes learning and fatigue visible in the durations.">Deux activités ont été retenues parce qu'elles produisent des gestes répétitifs, comparables d'une personne à l'autre et mesurables sans capteur porté : la maintenance de robots éducatifs et le pliage d'origami. La répétition est ce qui rend l'apprentissage et la fatigue visibles dans les durées.</p>
+    <p data-fr="Au total : plus de quinze heures de vidéo annotée et six opérateurs. Un manuscrit de description du jeu de données est en préparation." data-en="In total: more than fifteen hours of annotated video and six operators. A dataset paper is in preparation.">Au total : plus de quinze heures de vidéo annotée et six opérateurs. Un manuscrit de description du jeu de données est en préparation.</p>
+
+    <div class="callout">
+      <p data-fr="Ce dispositif filme des personnes au travail. Aucune image, aucune vidéo et aucune donnée individuelle ne sont publiées sur ce site : seuls la méthode, l'architecture et les résultats agrégés le sont. Les enregistrements restent dans le cadre du projet de recherche qui les a recueillis." data-en="This setup films people at work. No image, no video and no individual data is published on this site: only the method, the architecture and the aggregated results are. The recordings stay within the research project that collected them.">Ce dispositif filme des personnes au travail. Aucune image, aucune vidéo et aucune donnée individuelle ne sont publiées sur ce site : seuls la méthode, l'architecture et les résultats agrégés le sont. Les enregistrements restent dans le cadre du projet de recherche qui les a recueillis.</p>
+    </div>
+
+    <div class="tags">
+      <span class="tag">Odoo</span>
+      <span class="tag">QR</span>
+      <span class="tag" data-fr="Vidéo multicaméra" data-en="Multi-camera video">Vidéo multicaméra</span>
+      <span class="tag">JSON</span>
+      <span class="tag" data-fr="Collecte de données" data-en="Data collection">Collecte de données</span>
+      <span class="tag" data-fr="Facteurs humains" data-en="Human factors">Facteurs humains</span>
+    </div>
+    <nav class="links">
+      <a href="doctorat.html" data-fr="Ce que ces données ont permis de modéliser →" data-en="What these data made it possible to model →">Ce que ces données ont permis de modéliser →</a>
+      <a href="../index.html" data-fr="Tous les projets" data-en="All projects">Tous les projets</a>
+    </nav>
+  </section>
+
+  <footer>
+    <span data-fr="Nourddine Bouaziz — dernière mise à jour : novembre 2026." data-en="Nourddine Bouaziz — last updated: November 2026.">Nourddine Bouaziz — dernière mise à jour : novembre 2026.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var bFr = document.getElementById('btn-fr'),
+      bEn = document.getElementById('btn-en'),
+      bTh = document.getElementById('btn-theme'),
+      root = document.documentElement,
+      titleFr = document.title,
+      titleEn = root.getAttribute('data-title-en') || document.title;
+
+  function setLang(l){
+    var isFr = (l === 'fr');
+    bFr.setAttribute('aria-pressed', isFr);
+    bEn.setAttribute('aria-pressed', !isFr);
+    root.lang = l;
+    document.title = isFr ? titleFr : titleEn;
+    document.querySelectorAll('[data-fr]').forEach(function(el){
+      var v = el.getAttribute(isFr ? 'data-fr' : 'data-en');
+      if (v !== null) el.textContent = v;
+    });
+    try { localStorage.setItem('lang', l); } catch(e){}
+  }
+
+  bFr.addEventListener('click', function(){ setLang('fr'); });
+  bEn.addEventListener('click', function(){ setLang('en'); });
+
+  bTh.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    bTh.setAttribute('aria-pressed', String(!dark));
+    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
+  });
+
+  try {
+    var l = localStorage.getItem('lang');
+    if (l) setLang(l);
+    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
+    var t = localStorage.getItem('theme');
+    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

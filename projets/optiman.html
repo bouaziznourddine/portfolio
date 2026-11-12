@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="fr" data-title-en="OPTIMAN — scheduling a robotic machining cell · Nourddine Bouaziz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPTIMAN — ordonnancement d'une cellule d'usinage robotisée · Nourddine Bouaziz</title>
+<meta name="description" content="OPTIMAN : ordonnancement d'une cellule d'usinage robotisée. Heuristique constructive sous contraintes de ressources, API JSON, Gantt et connecteur Odoo 12.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
+    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff; --shadow:0 1px 3px rgba(16,32,48,.06);
+    --maxw:860px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+      --accent-soft:#17222d; --border:#242f3a; --card:#151d25; --shadow:none;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+    --accent-soft:#17222d; --border:#242f3a; --card:#151d25; --shadow:none;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    padding:0 16px;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
+  .toolbar button{
+    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
+    background:var(--card); color:var(--muted);
+    border:1px solid var(--border); border-radius:999px;
+  }
+  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
+
+  .back{display:inline-block; margin-top:16px; font-size:.9rem; color:var(--muted)}
+  .back:hover{color:var(--accent)}
+
+  header{padding:12px 0 24px; border-bottom:1px solid var(--border)}
+  h1{font-family:Georgia,"Times New Roman",serif; font-size:2rem; line-height:1.2; margin:10px 0 10px}
+  .meta{color:var(--muted); font-size:.93rem; margin:0 0 3px}
+
+  section{padding:30px 0; border-bottom:1px solid var(--border)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; color:var(--accent); margin:0 0 16px; font-weight:700}
+  h3{font-size:1rem; margin:24px 0 8px}
+  p{margin:0 0 12px}
+  ul{margin:0 0 12px; padding-left:20px}
+  li{margin-bottom:6px}
+
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
+  .tag{font-size:.76rem; padding:2px 9px; border-radius:4px; background:var(--accent-soft); color:var(--accent)}
+  .note{font-size:.87rem; color:var(--muted); font-style:italic}
+  .callout{
+    border-left:3px solid var(--accent); background:var(--accent-soft);
+    padding:12px 14px; border-radius:0 8px 8px 0; margin:18px 0; font-size:.94rem;
+  }
+  .callout p:last-child{margin-bottom:0}
+  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px}
+  .links a{
+    display:inline-block; padding:5px 11px; border:1px solid var(--border);
+    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
+  }
+  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+
+  /* ---------- figures ---------- */
+  .fig{margin:22px 0; padding:16px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); overflow-x:auto}
+  .fig svg{display:block; width:100%; min-width:600px; height:auto}
+  .fig figcaption{font-size:.85rem; color:var(--muted); margin-top:10px; text-align:center}
+  .s-box{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.2}
+  .s-box2{fill:var(--bg); stroke:var(--border); stroke-width:1.2}
+  .s-t{fill:var(--fg); font:600 12.5px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .s-s{fill:var(--muted); font:11px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .s-l{stroke:var(--muted); stroke-width:1.4; fill:none}
+  .s-g{stroke:var(--border); stroke-width:1; fill:none}
+  .s-ar{fill:var(--muted)}
+  .s-bar{fill:var(--accent); opacity:.85}
+  .s-bar2{fill:var(--muted); opacity:.5}
+  .s-bt{fill:var(--bg); font:600 10px system-ui,sans-serif}
+
+  footer{padding:26px 0 50px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--border)}
+  [hidden]{display:none !important}
+
+  @media (max-width:600px){
+    h1{font-size:1.6rem}
+    section{padding:24px 0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="toolbar">
+    <button id="btn-fr" aria-pressed="true">Français</button>
+    <button id="btn-en" aria-pressed="false">English</button>
+    <button id="btn-theme" aria-pressed="false" title="Thème clair / sombre">◐</button>
+  </div>
+
+  <a class="back" href="../index.html" data-fr="← Nourddine Bouaziz — tous les projets" data-en="← Nourddine Bouaziz — all projects">← Nourddine Bouaziz — tous les projets</a>
+
+  <header>
+    <h1 data-fr="OPTIMAN — ordonnancement d'une cellule d'usinage robotisée" data-en="OPTIMAN — scheduling a robotic machining cell">OPTIMAN — ordonnancement d'une cellule d'usinage robotisée</h1>
+    <p class="meta" data-fr="Septembre 2025 – aujourd'hui · Chercheur postdoctoral" data-en="September 2025 – present · Postdoctoral researcher">Septembre 2025 – aujourd'hui · Chercheur postdoctoral</p>
+    <p class="meta" data-fr="CESI LINEACT et Maugars Industrie · soutien Région Normandie et FEDER" data-en="CESI LINEACT and Maugars Industrie · supported by the Normandy Region and the ERDF">CESI LINEACT et Maugars Industrie · soutien Région Normandie et FEDER</p>
+  </header>
+
+  <section>
+    <h2 data-fr="Le problème" data-en="The problem">Le problème</h2>
+    <p data-fr="Une cellule d'usinage réunit deux centres CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Dans un modèle d'ordonnancement classique, une machine libre suffit à lancer une pièce. Ici, non.">Une cellule d'usinage réunit deux centres CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Dans un modèle d'ordonnancement classique, une machine libre suffit à lancer une pièce. Ici, non.</p>
+    <p data-fr="Il faut que quatre conditions soient réunies en même temps : un centre d'usinage disponible, le montage compatible avec la phase à réaliser, une palette libre, et — pour la première pièce de chaque phase — un opérateur présent pour le réglage. Le robot, lui, est une ressource partagée : il ne peut pas charger deux machines à la fois, et ses déplacements s'intercalent entre les opérations." data-en="Four conditions must hold at the same time: an available machining centre, the fixture matching the phase to be run, a free pallet, and — for the first part of each phase — an operator on site for the setup. The robot is a shared resource: it cannot load two machines at once, and its moves have to be interleaved between operations.">Il faut que quatre conditions soient réunies en même temps : un centre d'usinage disponible, le montage compatible avec la phase à réaliser, une palette libre, et — pour la première pièce de chaque phase — un opérateur présent pour le réglage. Le robot, lui, est une ressource partagée : il ne peut pas charger deux machines à la fois, et ses déplacements s'intercalent entre les opérations.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 250" role="img" aria-labelledby="f1t">
+        <title id="f1t" data-fr="Les quatre conditions pour lancer une opération" data-en="The four conditions for starting an operation">Les quatre conditions pour lancer une opération</title>
+        <defs><marker id="ar1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <rect class="s-box2" x="10" y="24" width="170" height="54" rx="7"/>
+        <text class="s-t" x="95" y="47" text-anchor="middle" data-fr="Centre d'usinage" data-en="Machining centre">Centre d'usinage</text>
+        <text class="s-s" x="95" y="65" text-anchor="middle" data-fr="CNC 1 ou CNC 2" data-en="CNC 1 or CNC 2">CNC 1 ou CNC 2</text>
+
+        <rect class="s-box2" x="196" y="24" width="170" height="54" rx="7"/>
+        <text class="s-t" x="281" y="47" text-anchor="middle" data-fr="Montage" data-en="Fixture">Montage</text>
+        <text class="s-s" x="281" y="65" text-anchor="middle" data-fr="compatible avec la phase" data-en="matching the phase">compatible avec la phase</text>
+
+        <rect class="s-box2" x="382" y="24" width="170" height="54" rx="7"/>
+        <text class="s-t" x="467" y="47" text-anchor="middle" data-fr="Palette" data-en="Pallet">Palette</text>
+        <text class="s-s" x="467" y="65" text-anchor="middle" data-fr="libre dans le magasin" data-en="free in the magazine">libre dans le magasin</text>
+
+        <rect class="s-box2" x="568" y="24" width="170" height="54" rx="7"/>
+        <text class="s-t" x="653" y="47" text-anchor="middle" data-fr="Opérateur" data-en="Operator">Opérateur</text>
+        <text class="s-s" x="653" y="65" text-anchor="middle" data-fr="1re pièce de la phase" data-en="first part of the phase">1re pièce de la phase</text>
+
+        <path class="s-l" d="M95,78 L95,110" marker-end="url(#ar1)"/>
+        <path class="s-l" d="M281,78 L281,110" marker-end="url(#ar1)"/>
+        <path class="s-l" d="M467,78 L467,110" marker-end="url(#ar1)"/>
+        <path class="s-l" d="M653,78 L653,110" marker-end="url(#ar1)"/>
+
+        <rect class="s-box" x="10" y="116" width="728" height="44" rx="7"/>
+        <text class="s-t" x="374" y="143" text-anchor="middle" data-fr="L'opération peut démarrer" data-en="The operation can start">L'opération peut démarrer</text>
+
+        <path class="s-l" d="M374,160 L374,188" marker-end="url(#ar1)"/>
+
+        <rect class="s-box2" x="205" y="194" width="350" height="48" rx="7"/>
+        <text class="s-t" x="380" y="214" text-anchor="middle" data-fr="Robot de manutention" data-en="Handling robot">Robot de manutention</text>
+        <text class="s-s" x="380" y="231" text-anchor="middle" data-fr="ressource partagée : un transfert à la fois" data-en="shared resource: one transfer at a time">ressource partagée : un transfert à la fois</text>
+      </svg>
+      <figcaption data-fr="Figure 1 — Une machine libre ne suffit pas : quatre ressources doivent converger, puis le robot doit être disponible pour le transfert." data-en="Figure 1 — A free machine is not enough: four resources must converge, and the robot must then be available for the transfer.">Figure 1 — Une machine libre ne suffit pas : quatre ressources doivent converger, puis le robot doit être disponible pour le transfert.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 data-fr="Ce que j'ai fait" data-en="What I did">Ce que j'ai fait</h2>
+    <p data-fr="J'ai formalisé ces contraintes avec l'industriel, structuré et validé les données de production, puis développé l'outil de planification du projet, de l'import des données jusqu'à la restitution dans l'ERP." data-en="I formalised these constraints with the industrial partner, structured and validated the production data, then developed the project's planning tool, from data import through to presentation inside the ERP.">J'ai formalisé ces contraintes avec l'industriel, structuré et validé les données de production, puis développé l'outil de planification du projet, de l'import des données jusqu'à la restitution dans l'ERP.</p>
+    <ul>
+      <li data-fr="Modèle de données de la cellule : gammes et phases, ressources, précédences, calendriers des opérateurs, compatibilités montage–phase." data-en="Data model of the cell: routings and phases, resources, precedence, operator calendars, fixture–phase compatibility.">Modèle de données de la cellule : gammes et phases, ressources, précédences, calendriers des opérateurs, compatibilités montage–phase.</li>
+      <li data-fr="Import Excel contrôlé : les fichiers de l'atelier sont lus, vérifiés ligne à ligne et refusés avec un message précis quand une donnée manque ou se contredit." data-en="Controlled Excel import: shop-floor files are read, checked row by row and rejected with a precise message when data is missing or inconsistent.">Import Excel contrôlé : les fichiers de l'atelier sont lus, vérifiés ligne à ligne et refusés avec un message précis quand une donnée manque ou se contredit.</li>
+      <li data-fr="Moteur de planification en Python : une heuristique constructive place les opérations une à une en respectant les disponibilités de toutes les ressources ; le planning obtenu est ensuite noté par un score pondéré sur les indicateurs retenus." data-en="Planning engine in Python: a constructive heuristic places operations one by one while respecting the availability of every resource; the resulting schedule is then rated by a weighted score over the chosen indicators.">Moteur de planification en Python : une heuristique constructive place les opérations une à une en respectant les disponibilités de toutes les ressources ; le planning obtenu est ensuite noté par un score pondéré sur les indicateurs retenus.</li>
+      <li data-fr="Indicateurs de planning : retard par rapport aux dates dues, durée totale (makespan), temps morts des machines et du robot." data-en="Planning indicators: tardiness against due dates, total duration (makespan), machine and robot idle time.">Indicateurs de planning : retard par rapport aux dates dues, durée totale (makespan), temps morts des machines et du robot.</li>
+      <li data-fr="Backend Flask et API JSON : le calcul est un service, appelable aussi bien par l'interface web que par l'ERP." data-en="Flask backend and JSON API: the computation is a service, callable from the web interface as well as from the ERP.">Backend Flask et API JSON : le calcul est un service, appelable aussi bien par l'interface web que par l'ERP.</li>
+      <li data-fr="Restitution : diagrammes de Gantt séparés pour les machines, le robot et les opérateurs, plus les exports de résultats." data-en="Presentation: separate Gantt charts for machines, robot and operators, plus result exports.">Restitution : diagrammes de Gantt séparés pour les machines, le robot et les opérateurs, plus les exports de résultats.</li>
+    </ul>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 215" role="img" aria-labelledby="f2t">
+        <title id="f2t" data-fr="Chaîne logicielle de l'outil de planification" data-en="Software chain of the planning tool">Chaîne logicielle de l'outil de planification</title>
+        <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <rect class="s-box2" x="10" y="24" width="230" height="66" rx="7"/>
+        <text class="s-t" x="125" y="46" text-anchor="middle" data-fr="Données de production" data-en="Production data">Données de production</text>
+        <text class="s-s" x="125" y="63" text-anchor="middle" data-fr="gammes · ressources" data-en="routings · resources">gammes · ressources</text>
+        <text class="s-s" x="125" y="78" text-anchor="middle" data-fr="précédences · calendriers" data-en="precedence · calendars">précédences · calendriers</text>
+
+        <path class="s-l" d="M240,57 L263,57" marker-end="url(#ar2)"/>
+
+        <rect class="s-box" x="265" y="24" width="230" height="66" rx="7"/>
+        <text class="s-t" x="380" y="46" text-anchor="middle" data-fr="Moteur de planification" data-en="Planning engine">Moteur de planification</text>
+        <text class="s-s" x="380" y="63" text-anchor="middle" data-fr="heuristique constructive" data-en="constructive heuristic">heuristique constructive</text>
+        <text class="s-s" x="380" y="78" text-anchor="middle">Python · Flask</text>
+
+        <path class="s-l" d="M495,57 L518,57" marker-end="url(#ar2)"/>
+
+        <rect class="s-box2" x="520" y="24" width="230" height="66" rx="7"/>
+        <text class="s-t" x="635" y="51" text-anchor="middle">API JSON</text>
+        <text class="s-s" x="635" y="69" text-anchor="middle" data-fr="scénarios · calculs · exports" data-en="scenarios · runs · exports">scénarios · calculs · exports</text>
+
+        <path class="s-l" d="M635,90 L635,112"/>
+        <path class="s-l" d="M375,112 L635,112"/>
+        <path class="s-l" d="M375,112 L375,134" marker-end="url(#ar2)"/>
+        <path class="s-l" d="M635,112 L635,134" marker-end="url(#ar2)"/>
+
+        <rect class="s-box2" x="250" y="140" width="250" height="62" rx="7"/>
+        <text class="s-t" x="375" y="164" text-anchor="middle" data-fr="Diagrammes de Gantt" data-en="Gantt charts">Diagrammes de Gantt</text>
+        <text class="s-s" x="375" y="182" text-anchor="middle" data-fr="machines · robot · opérateurs" data-en="machines · robot · operators">machines · robot · opérateurs</text>
+
+        <rect class="s-box2" x="510" y="140" width="250" height="62" rx="7"/>
+        <text class="s-t" x="635" y="164" text-anchor="middle" data-fr="Connecteur Odoo 12" data-en="Odoo 12 connector">Connecteur Odoo 12</text>
+        <text class="s-s" x="635" y="182" text-anchor="middle" data-fr="calcul et résultats dans l'ERP" data-en="run and results inside the ERP">calcul et résultats dans l'ERP</text>
+      </svg>
+      <figcaption data-fr="Figure 2 — Le calcul est exposé comme un service : la même API sert l'interface web et l'ERP." data-en="Figure 2 — The computation is exposed as a service: the same API serves the web interface and the ERP.">Figure 2 — Le calcul est exposé comme un service : la même API sert l'interface web et l'ERP.</figcaption>
+    </figure>
+
+    <h3 data-fr="Le connecteur Odoo" data-en="The Odoo connector">Le connecteur Odoo</h3>
+    <p data-fr="L'atelier travaille déjà dans son ERP. Plutôt que d'ajouter un outil de plus à ouvrir, j'ai développé un module Odoo 12 qui porte les scénarios d'ordonnancement comme des objets de l'ERP : import des ordres de fabrication, paramétrage, lancement du calcul et consultation des résultats sans quitter Odoo. Les diagrammes de Gantt sont intégrés aux vues, sans dépendance aux modules Enterprise. Le module porte ses règles d'accès par société et ses tests de services et d'ORM." data-en="The workshop already works inside its ERP. Rather than adding one more tool to open, I developed an Odoo 12 module that carries scheduling scenarios as ERP records: import of manufacturing orders, parameter setting, computation launch and result review without leaving Odoo. The Gantt charts are embedded in the views, with no dependency on Enterprise modules. The module ships its own per-company access rules and its service and ORM tests.">L'atelier travaille déjà dans son ERP. Plutôt que d'ajouter un outil de plus à ouvrir, j'ai développé un module Odoo 12 qui porte les scénarios d'ordonnancement comme des objets de l'ERP : import des ordres de fabrication, paramétrage, lancement du calcul et consultation des résultats sans quitter Odoo. Les diagrammes de Gantt sont intégrés aux vues, sans dépendance aux modules Enterprise. Le module porte ses règles d'accès par société et ses tests de services et d'ORM.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="À quoi ressemble un planning" data-en="What a schedule looks like">À quoi ressemble un planning</h2>
+    <p data-fr="Le résultat se lit sur trois plans superposés : ce que font les machines, ce que fait le robot entre elles, et quand les opérateurs doivent être au poste. C'est cette superposition qui rend les conflits visibles." data-en="The result is read on three stacked planes: what the machines are doing, what the robot is doing between them, and when the operators must be at the workstation. That superposition is what makes conflicts visible.">Le résultat se lit sur trois plans superposés : ce que font les machines, ce que fait le robot entre elles, et quand les opérateurs doivent être au poste. C'est cette superposition qui rend les conflits visibles.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 215" role="img" aria-labelledby="f3t">
+        <title id="f3t" data-fr="Lecture d'un planning sur trois plans" data-en="Reading a schedule on three planes">Lecture d'un planning sur trois plans</title>
+
+        <path class="s-g" d="M100,26 L100,176 M180,26 L180,176 M260,26 L260,176 M340,26 L340,176 M420,26 L420,176 M500,26 L500,176 M580,26 L580,176 M660,26 L660,176 M740,26 L740,176"/>
+
+        <text class="s-s" x="92" y="51" text-anchor="end">CNC 1</text>
+        <text class="s-s" x="92" y="87" text-anchor="end">CNC 2</text>
+        <text class="s-s" x="92" y="123" text-anchor="end">Robot</text>
+        <text class="s-s" x="92" y="159" text-anchor="end" data-fr="Opérateur" data-en="Operator">Opérateur</text>
+
+        <rect class="s-bar" x="100" y="36" width="120" height="22" rx="3"/>
+        <text class="s-bt" x="160" y="51" text-anchor="middle">A · ph1</text>
+        <rect class="s-bar" x="260" y="36" width="160" height="22" rx="3"/>
+        <text class="s-bt" x="340" y="51" text-anchor="middle">C · ph1</text>
+        <rect class="s-bar" x="460" y="36" width="160" height="22" rx="3"/>
+        <text class="s-bt" x="540" y="51" text-anchor="middle">A · ph2</text>
+
+        <rect class="s-bar" x="140" y="72" width="160" height="22" rx="3"/>
+        <text class="s-bt" x="220" y="87" text-anchor="middle">B · ph1</text>
+        <rect class="s-bar" x="340" y="72" width="160" height="22" rx="3"/>
+        <text class="s-bt" x="420" y="87" text-anchor="middle">D · ph1</text>
+        <rect class="s-bar" x="540" y="72" width="200" height="22" rx="3"/>
+        <text class="s-bt" x="640" y="87" text-anchor="middle">B · ph2</text>
+
+        <rect class="s-bar2" x="220" y="108" width="24" height="22" rx="3"/>
+        <rect class="s-bar2" x="300" y="108" width="24" height="22" rx="3"/>
+        <rect class="s-bar2" x="420" y="108" width="24" height="22" rx="3"/>
+        <rect class="s-bar2" x="500" y="108" width="24" height="22" rx="3"/>
+        <rect class="s-bar2" x="620" y="108" width="24" height="22" rx="3"/>
+
+        <rect class="s-bar2" x="100" y="144" width="32" height="22" rx="3"/>
+        <rect class="s-bar2" x="140" y="144" width="32" height="22" rx="3"/>
+        <rect class="s-bar2" x="260" y="144" width="32" height="22" rx="3"/>
+        <rect class="s-bar2" x="340" y="144" width="32" height="22" rx="3"/>
+        <rect class="s-bar2" x="460" y="144" width="32" height="22" rx="3"/>
+        <rect class="s-bar2" x="540" y="144" width="32" height="22" rx="3"/>
+
+        <path class="s-l" d="M100,176 L740,176"/>
+        <text class="s-s" x="100" y="194" text-anchor="middle">0 h</text>
+        <text class="s-s" x="260" y="194" text-anchor="middle">2 h</text>
+        <text class="s-s" x="420" y="194" text-anchor="middle">4 h</text>
+        <text class="s-s" x="580" y="194" text-anchor="middle">6 h</text>
+        <text class="s-s" x="740" y="194" text-anchor="middle">8 h</text>
+      </svg>
+      <figcaption data-fr="Figure 3 — Schéma illustratif, données fictives. Les barres pleines sont des phases d'usinage, les barres grises les transferts du robot et les réglages opérateur." data-en="Figure 3 — Illustrative diagram, fictitious data. Solid bars are machining phases, grey bars are robot transfers and operator setups.">Figure 3 — Schéma illustratif, données fictives. Les barres pleines sont des phases d'usinage, les barres grises les transferts du robot et les réglages opérateur.</figcaption>
+    </figure>
+
+    <div class="callout">
+      <p data-fr="Aucune donnée réelle de l'atelier partenaire n'est publiée sur ce site. Les illustrations sont des schémas que j'ai dessinés à partir de valeurs fictives." data-en="No real data from the partner workshop is published on this site. The illustrations are diagrams I drew from fictitious values.">Aucune donnée réelle de l'atelier partenaire n'est publiée sur ce site. Les illustrations sont des schémas que j'ai dessinés à partir de valeurs fictives.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-fr="État du projet" data-en="Project status">État du projet</h2>
+    <p data-fr="Prototype de recherche, en cours. Une extension multiobjectif couplée à l'ERP fait l'objet d'un manuscrit en préparation." data-en="Research prototype, ongoing. A multi-objective extension coupled with the ERP is the subject of a manuscript in preparation.">Prototype de recherche, en cours. Une extension multiobjectif couplée à l'ERP fait l'objet d'un manuscrit en préparation.</p>
+    <div class="tags">
+      <span class="tag" data-fr="Ordonnancement" data-en="Scheduling">Ordonnancement</span>
+      <span class="tag">Python</span>
+      <span class="tag">Flask</span>
+      <span class="tag" data-fr="Heuristique constructive" data-en="Constructive heuristic">Heuristique constructive</span>
+      <span class="tag">Odoo 12</span>
+      <span class="tag">Gantt</span>
+      <span class="tag" data-fr="Données de production" data-en="Production data">Données de production</span>
+    </div>
+    <nav class="links">
+      <a href="doctorat.html" data-fr="Projet suivant : le doctorat →" data-en="Next project: the PhD →">Projet suivant : le doctorat →</a>
+      <a href="../index.html" data-fr="Tous les projets" data-en="All projects">Tous les projets</a>
+    </nav>
+  </section>
+
+  <footer>
+    <span data-fr="Nourddine Bouaziz — dernière mise à jour : novembre 2026." data-en="Nourddine Bouaziz — last updated: November 2026.">Nourddine Bouaziz — dernière mise à jour : novembre 2026.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var bFr = document.getElementById('btn-fr'),
+      bEn = document.getElementById('btn-en'),
+      bTh = document.getElementById('btn-theme'),
+      root = document.documentElement,
+      titleFr = document.title,
+      titleEn = root.getAttribute('data-title-en') || document.title;
+
+  function setLang(l){
+    var isFr = (l === 'fr');
+    bFr.setAttribute('aria-pressed', isFr);
+    bEn.setAttribute('aria-pressed', !isFr);
+    root.lang = l;
+    document.title = isFr ? titleFr : titleEn;
+    document.querySelectorAll('[data-fr]').forEach(function(el){
+      var v = el.getAttribute(isFr ? 'data-fr' : 'data-en');
+      if (v !== null) el.textContent = v;
+    });
+    try { localStorage.setItem('lang', l); } catch(e){}
+  }
+
+  bFr.addEventListener('click', function(){ setLang('fr'); });
+  bEn.addEventListener('click', function(){ setLang('en'); });
+
+  bTh.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    bTh.setAttribute('aria-pressed', String(!dark));
+    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
+  });
+
+  try {
+    var l = localStorage.getItem('lang');
+    if (l) setLang(l);
+    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
+    var t = localStorage.getItem('theme');
+    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

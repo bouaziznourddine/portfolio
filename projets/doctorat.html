@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="fr" data-title-en="PhD — human-behaviour uncertainty in production scheduling · Nourddine Bouaziz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doctorat — l'incertitude du comportement humain dans l'ordonnancement · Nourddine Bouaziz</title>
+<meta name="description" content="Doctorat : modéliser la ponctualité, la fatigue, l'apprentissage et l'oubli des opérateurs par chaînes de Markov, les simuler en multi-agents et les intégrer à un modèle MINLP d'ordonnancement.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
+    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff;
+    --maxw:860px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+      --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
+    --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    padding:0 16px;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
+  .toolbar button{
+    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
+    background:var(--card); color:var(--muted);
+    border:1px solid var(--border); border-radius:999px;
+  }
+  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
+
+  .back{display:inline-block; margin-top:16px; font-size:.9rem; color:var(--muted)}
+  .back:hover{color:var(--accent)}
+
+  header{padding:12px 0 24px; border-bottom:1px solid var(--border)}
+  h1{font-family:Georgia,"Times New Roman",serif; font-size:2rem; line-height:1.2; margin:10px 0 10px}
+  .meta{color:var(--muted); font-size:.93rem; margin:0 0 3px}
+
+  section{padding:30px 0; border-bottom:1px solid var(--border)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; color:var(--accent); margin:0 0 16px; font-weight:700}
+  h3{font-size:1rem; margin:24px 0 8px}
+  p{margin:0 0 12px}
+  ul{margin:0 0 12px; padding-left:20px}
+  li{margin-bottom:6px}
+
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
+  .tag{font-size:.76rem; padding:2px 9px; border-radius:4px; background:var(--accent-soft); color:var(--accent)}
+  .note{font-size:.87rem; color:var(--muted); font-style:italic}
+  .callout{
+    border-left:3px solid var(--accent); background:var(--accent-soft);
+    padding:12px 14px; border-radius:0 8px 8px 0; margin:18px 0; font-size:.94rem;
+  }
+  .callout p:last-child{margin-bottom:0}
+  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px}
+  .links a{
+    display:inline-block; padding:5px 11px; border:1px solid var(--border);
+    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
+  }
+  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+
+  .fig{margin:22px 0; padding:16px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); overflow-x:auto}
+  .fig svg{display:block; width:100%; min-width:600px; height:auto}
+  .fig figcaption{font-size:.85rem; color:var(--muted); margin-top:10px; text-align:center}
+  .s-box{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.2}
+  .s-box2{fill:var(--bg); stroke:var(--border); stroke-width:1.2}
+  .s-t{fill:var(--fg); font:600 12.5px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .s-s{fill:var(--muted); font:11px system-ui,-apple-system,"Segoe UI",sans-serif}
+  .s-l{stroke:var(--muted); stroke-width:1.4; fill:none}
+  .s-g{stroke:var(--border); stroke-width:1; fill:none}
+  .s-c{stroke:var(--accent); stroke-width:2; fill:none}
+  .s-dash{stroke:var(--muted); stroke-width:1.2; fill:none; stroke-dasharray:4 4}
+  .s-ar{fill:var(--muted)}
+
+  footer{padding:26px 0 50px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--border)}
+  [hidden]{display:none !important}
+
+  @media (max-width:600px){
+    h1{font-size:1.6rem}
+    section{padding:24px 0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="toolbar">
+    <button id="btn-fr" aria-pressed="true">Français</button>
+    <button id="btn-en" aria-pressed="false">English</button>
+    <button id="btn-theme" aria-pressed="false" title="Thème clair / sombre">◐</button>
+  </div>
+
+  <a class="back" href="../index.html" data-fr="← Nourddine Bouaziz — tous les projets" data-en="← Nourddine Bouaziz — all projects">← Nourddine Bouaziz — tous les projets</a>
+
+  <header>
+    <h1 data-fr="Doctorat — l'incertitude du comportement humain dans l'ordonnancement" data-en="PhD — human-behaviour uncertainty in production scheduling">Doctorat — l'incertitude du comportement humain dans l'ordonnancement</h1>
+    <p class="meta" data-fr="Avril 2022 – avril 2025 · Soutenue le 25 juin 2025, grade décerné à l'unanimité du jury" data-en="April 2022 – April 2025 · Defended on 25 June 2025, degree awarded unanimously by the jury">Avril 2022 – avril 2025 · Soutenue le 25 juin 2025, grade décerné à l'unanimité du jury</p>
+    <p class="meta" data-fr="CESI LINEACT et Arts et Métiers (HESAM Université) · projet AntiHpert, RIN Tremplin 2019" data-en="CESI LINEACT and Arts et Métiers (HESAM Université) · AntiHpert project, RIN Tremplin 2019">CESI LINEACT et Arts et Métiers (HESAM Université) · projet AntiHpert, RIN Tremplin 2019</p>
+  </header>
+
+  <section>
+    <h2 data-fr="Le point de départ" data-en="The starting point">Le point de départ</h2>
+    <p data-fr="La plupart des modèles d'ordonnancement traitent les opérateurs comme des machines : toujours présents, toujours à la même vitesse. Un atelier réel ne fonctionne pas ainsi. Les gens arrivent, s'absentent, se déplacent, fatiguent en fin de poste, vont plus vite sur une tâche qu'ils répètent, et plus lentement sur une tâche qu'ils n'ont pas faite depuis des semaines." data-en="Most scheduling models treat operators like machines: always present, always at the same pace. A real shop floor does not work that way. People arrive, step away, move around, tire towards the end of the shift, go faster on a task they repeat, and slower on one they have not done for weeks.">La plupart des modèles d'ordonnancement traitent les opérateurs comme des machines : toujours présents, toujours à la même vitesse. Un atelier réel ne fonctionne pas ainsi. Les gens arrivent, s'absentent, se déplacent, fatiguent en fin de poste, vont plus vite sur une tâche qu'ils répètent, et plus lentement sur une tâche qu'ils n'ont pas faite depuis des semaines.</p>
+    <p data-fr="Un planning calculé sans cette variabilité est optimal sur le papier et faux dès la première heure. La thèse part de là : représenter ce comportement de façon mesurable, puis s'en servir pour décider." data-en="A schedule computed without that variability is optimal on paper and wrong within the first hour. The thesis starts there: represent that behaviour in a measurable way, then use it to decide.">Un planning calculé sans cette variabilité est optimal sur le papier et faux dès la première heure. La thèse part de là : représenter ce comportement de façon mesurable, puis s'en servir pour décider.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Modéliser la présence au poste" data-en="Modelling presence at the workstation">Modéliser la présence au poste</h2>
+    <p data-fr="La ponctualité d'un opérateur n'est pas une constante, c'est un processus. Je l'ai représentée par une chaîne de Markov dont les états sont des zones de l'atelier — productives ou non productives — et dont les probabilités de transition sont estimées sur des transitions réellement observées, et non postulées." data-en="An operator's punctuality is not a constant, it is a process. I represented it with a Markov chain whose states are zones of the workshop — productive or non-productive — and whose transition probabilities are estimated from actually observed transitions rather than assumed.">La ponctualité d'un opérateur n'est pas une constante, c'est un processus. Je l'ai représentée par une chaîne de Markov dont les états sont des zones de l'atelier — productives ou non productives — et dont les probabilités de transition sont estimées sur des transitions réellement observées, et non postulées.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 240" role="img" aria-labelledby="g1t">
+        <title id="g1t" data-fr="Chaîne de Markov de la présence au poste" data-en="Markov chain of presence at the workstation">Chaîne de Markov de la présence au poste</title>
+        <defs><marker id="ag1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <circle class="s-box" cx="275" cy="120" r="60"/>
+        <text class="s-t" x="275" y="114" text-anchor="middle" data-fr="Zone" data-en="Productive">Zone</text>
+        <text class="s-t" x="275" y="132" text-anchor="middle" data-fr="productive" data-en="zone">productive</text>
+
+        <circle class="s-box2" cx="535" cy="120" r="60"/>
+        <text class="s-t" x="535" y="114" text-anchor="middle" data-fr="Zone non" data-en="Non-productive">Zone non</text>
+        <text class="s-t" x="535" y="132" text-anchor="middle" data-fr="productive" data-en="zone">productive</text>
+
+        <path class="s-l" d="M322,83 Q405,36 488,83" marker-end="url(#ag1)"/>
+        <text class="s-s" x="405" y="42" text-anchor="middle" data-fr="il quitte le poste" data-en="leaves the workstation">il quitte le poste</text>
+
+        <path class="s-l" d="M488,157 Q405,204 322,157" marker-end="url(#ag1)"/>
+        <text class="s-s" x="405" y="218" text-anchor="middle" data-fr="il revient au poste" data-en="returns to the workstation">il revient au poste</text>
+
+        <path class="s-l" d="M219,98 Q152,120 219,142" marker-end="url(#ag1)"/>
+        <text class="s-s" x="140" y="124" text-anchor="end" data-fr="il reste" data-en="stays">il reste</text>
+
+        <path class="s-l" d="M591,142 Q658,120 591,98" marker-end="url(#ag1)"/>
+        <text class="s-s" x="670" y="124" data-fr="il reste absent" data-en="stays away">il reste absent</text>
+      </svg>
+      <figcaption data-fr="Figure 1 — Les quatre probabilités de transition sont estimées à partir des déplacements observés, pas choisies a priori. Chaque opérateur a donc sa propre chaîne." data-en="Figure 1 — The four transition probabilities are estimated from observed movements, not chosen a priori. Each operator therefore has their own chain.">Figure 1 — Les quatre probabilités de transition sont estimées à partir des déplacements observés, pas choisies a priori. Chaque opérateur a donc sa propre chaîne.</figcaption>
+    </figure>
+
+    <p data-fr="Sur cette base, j'ai ajouté trois effets qui modifient la cadence dans le temps : la fatigue qui s'accumule au fil du poste, l'apprentissage qui fait gagner en vitesse à force de répéter une tâche, et l'oubli qui fait perdre une partie de ce gain après une interruption." data-en="On that basis I added three effects that change the pace over time: fatigue building up through the shift, learning that brings speed through repetition, and forgetting that takes part of that gain back after an interruption.">Sur cette base, j'ai ajouté trois effets qui modifient la cadence dans le temps : la fatigue qui s'accumule au fil du poste, l'apprentissage qui fait gagner en vitesse à force de répéter une tâche, et l'oubli qui fait perdre une partie de ce gain après une interruption.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 215" role="img" aria-labelledby="g2t">
+        <title id="g2t" data-fr="Apprentissage, fatigue et oubli" data-en="Learning, fatigue and forgetting">Apprentissage, fatigue et oubli</title>
+
+        <rect class="s-box2" x="10" y="24" width="230" height="130" rx="7"/>
+        <path class="s-g" d="M28,142 L222,142"/>
+        <path class="s-c" d="M28,138 C70,100 110,76 150,68 S200,62 222,60"/>
+        <text class="s-t" x="125" y="176" text-anchor="middle" data-fr="Apprentissage" data-en="Learning">Apprentissage</text>
+        <text class="s-s" x="125" y="194" text-anchor="middle" data-fr="la cadence monte, puis plafonne" data-en="the pace rises, then plateaus">la cadence monte, puis plafonne</text>
+
+        <rect class="s-box2" x="265" y="24" width="230" height="130" rx="7"/>
+        <path class="s-g" d="M283,142 L477,142"/>
+        <path class="s-c" d="M283,62 C330,66 380,84 430,110 S460,132 477,138"/>
+        <text class="s-t" x="380" y="176" text-anchor="middle" data-fr="Fatigue" data-en="Fatigue">Fatigue</text>
+        <text class="s-s" x="380" y="194" text-anchor="middle" data-fr="la cadence baisse au fil du poste" data-en="the pace drops through the shift">la cadence baisse au fil du poste</text>
+
+        <rect class="s-box2" x="520" y="24" width="230" height="130" rx="7"/>
+        <path class="s-g" d="M538,142 L732,142"/>
+        <path class="s-c" d="M538,66 L620,66"/>
+        <path class="s-dash" d="M640,46 L640,142"/>
+        <path class="s-c" d="M660,110 C690,98 710,86 732,78"/>
+        <text class="s-t" x="635" y="176" text-anchor="middle" data-fr="Oubli" data-en="Forgetting">Oubli</text>
+        <text class="s-s" x="635" y="194" text-anchor="middle" data-fr="après une interruption, il faut remonter" data-en="after an interruption, it has to climb again">après une interruption, il faut remonter</text>
+      </svg>
+      <figcaption data-fr="Figure 2 — Allures qualitatives des trois effets intégrés aux profils d'opérateurs. L'axe vertical est la cadence, l'axe horizontal le temps." data-en="Figure 2 — Qualitative shapes of the three effects built into the operator profiles. The vertical axis is the pace, the horizontal axis is time.">Figure 2 — Allures qualitatives des trois effets intégrés aux profils d'opérateurs. L'axe vertical est la cadence, l'axe horizontal le temps.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 data-fr="Simuler, puis optimiser, puis recommencer" data-en="Simulate, then optimise, then start again">Simuler, puis optimiser, puis recommencer</h2>
+    <p data-fr="Ces profils alimentent un simulateur multi-agents NetLogo d'un flow-shop à double contrainte de ressources — machines et opérateurs sont tous deux limitants. Un plan d'expérience compare 36 scénarios d'affectation de profils aux postes, pour mesurer l'effet du placement des personnes et pas seulement celui de l'ordre des tâches." data-en="These profiles feed a NetLogo agent-based simulator of a dual-resource-constrained flow shop — machines and operators are both limiting. A designed experiment compares 36 profile-to-workstation allocation scenarios, to measure the effect of where people are placed and not only of the task order.">Ces profils alimentent un simulateur multi-agents NetLogo d'un flow-shop à double contrainte de ressources — machines et opérateurs sont tous deux limitants. Un plan d'expérience compare 36 scénarios d'affectation de profils aux postes, pour mesurer l'effet du placement des personnes et pas seulement celui de l'ordre des tâches.</p>
+    <p data-fr="Côté décision, j'ai formulé un modèle non linéaire en nombres entiers (MINLP) qui affecte les opérateurs aux postes et ordonnance les tâches en maximisant le débit. Il est résolu avec Gurobi et SCIP sous Julia. La non-linéarité vient du comportement lui-même : la durée d'une tâche dépend de qui la fait, depuis combien de temps, et après quoi." data-en="On the decision side, I formulated a mixed-integer non-linear model (MINLP) that assigns operators to workstations and sequences tasks to maximise throughput. It is solved with Gurobi and SCIP under Julia. The non-linearity comes from the behaviour itself: a task duration depends on who performs it, for how long they have been working, and after what.">Côté décision, j'ai formulé un modèle non linéaire en nombres entiers (MINLP) qui affecte les opérateurs aux postes et ordonnance les tâches en maximisant le débit. Il est résolu avec Gurobi et SCIP sous Julia. La non-linéarité vient du comportement lui-même : la durée d'une tâche dépend de qui la fait, depuis combien de temps, et après quoi.</p>
+    <p data-fr="Les deux briques sont enfin mises en boucle : le planning calculé est joué dans le simulateur, l'écart entre planifié et réalisé est mesuré en continu, et au-delà d'un seuil une réoptimisation est déclenchée à partir de l'état courant de l'atelier." data-en="The two building blocks are finally put in a loop: the computed schedule is played in the simulator, the deviation between plan and execution is measured continuously, and beyond a threshold a re-optimisation is triggered from the current state of the shop floor.">Les deux briques sont enfin mises en boucle : le planning calculé est joué dans le simulateur, l'écart entre planifié et réalisé est mesuré en continu, et au-delà d'un seuil une réoptimisation est déclenchée à partir de l'état courant de l'atelier.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 245" role="img" aria-labelledby="g3t">
+        <title id="g3t" data-fr="Boucle simulation–optimisation" data-en="Simulation–optimisation loop">Boucle simulation–optimisation</title>
+        <defs><marker id="ag3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <rect class="s-box" x="40" y="22" width="290" height="60" rx="7"/>
+        <text class="s-t" x="185" y="46" text-anchor="middle" data-fr="Modèle d'optimisation (MINLP)" data-en="Optimisation model (MINLP)">Modèle d'optimisation (MINLP)</text>
+        <text class="s-s" x="185" y="64" text-anchor="middle" data-fr="Gurobi · SCIP sous Julia" data-en="Gurobi · SCIP under Julia">Gurobi · SCIP sous Julia</text>
+
+        <rect class="s-box2" x="430" y="22" width="290" height="60" rx="7"/>
+        <text class="s-t" x="575" y="46" text-anchor="middle" data-fr="Planning d'affectation" data-en="Allocation schedule">Planning d'affectation</text>
+        <text class="s-s" x="575" y="64" text-anchor="middle" data-fr="qui fait quoi, et quand" data-en="who does what, and when">qui fait quoi, et quand</text>
+
+        <rect class="s-box2" x="430" y="150" width="290" height="60" rx="7"/>
+        <text class="s-t" x="575" y="174" text-anchor="middle" data-fr="Simulation multi-agents" data-en="Agent-based simulation">Simulation multi-agents</text>
+        <text class="s-s" x="575" y="192" text-anchor="middle" data-fr="NetLogo · profils d'opérateurs" data-en="NetLogo · operator profiles">NetLogo · profils d'opérateurs</text>
+
+        <rect class="s-box2" x="40" y="150" width="290" height="60" rx="7"/>
+        <text class="s-t" x="185" y="174" text-anchor="middle" data-fr="Écart planifié / réalisé" data-en="Plan versus execution gap">Écart planifié / réalisé</text>
+        <text class="s-s" x="185" y="192" text-anchor="middle" data-fr="mesuré en continu" data-en="measured continuously">mesuré en continu</text>
+
+        <path class="s-l" d="M330,52 L426,52" marker-end="url(#ag3)"/>
+        <path class="s-l" d="M575,82 L575,146" marker-end="url(#ag3)"/>
+        <path class="s-l" d="M430,180 L334,180" marker-end="url(#ag3)"/>
+        <path class="s-l" d="M185,150 L185,86" marker-end="url(#ag3)"/>
+        <text class="s-s" x="176" y="118" text-anchor="end" data-fr="si l'écart dépasse le seuil" data-en="if the gap exceeds the threshold">si l'écart dépasse le seuil</text>
+      </svg>
+      <figcaption data-fr="Figure 3 — Le planning n'est pas calculé une fois pour toutes : il est confronté à une exécution simulée et recalculé quand la réalité s'en éloigne trop." data-en="Figure 3 — The schedule is not computed once and for all: it is confronted with a simulated execution and recomputed when reality drifts too far from it.">Figure 3 — Le planning n'est pas calculé une fois pour toutes : il est confronté à une exécution simulée et recalculé quand la réalité s'en éloigne trop.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 data-fr="Les autres apports de la thèse" data-en="The other contributions of the thesis">Les autres apports de la thèse</h2>
+    <ul>
+      <li data-fr="Une revue systématique de 41 articles sur les modèles de comportement humain en production, et un métamodèle pour les classer — de quoi situer un modèle existant avant d'en écrire un nouveau." data-en="A systematic review of 41 papers on human-behaviour models in production, and a meta-model to classify them — a way to place an existing model before writing a new one.">Une revue systématique de 41 articles sur les modèles de comportement humain en production, et un métamodèle pour les classer — de quoi situer un modèle existant avant d'en écrire un nouveau.</li>
+      <li data-fr="Le dispositif de collecte FrogsNBots, qui a fourni les transitions observées sur lesquelles les chaînes sont estimées." data-en="The FrogsNBots collection setup, which provided the observed transitions the chains are estimated from.">Le dispositif de collecte FrogsNBots, qui a fourni les transitions observées sur lesquelles les chaînes sont estimées.</li>
+      <li data-fr="La bibliothèque open source Netlogopy, née du besoin de piloter NetLogo depuis Python pour relier simulation et optimisation." data-en="The open-source library Netlogopy, born from the need to drive NetLogo from Python in order to connect simulation and optimisation.">La bibliothèque open source Netlogopy, née du besoin de piloter NetLogo depuis Python pour relier simulation et optimisation.</li>
+      <li data-fr="De l'enseignement en recherche opérationnelle et en théorie des graphes, et l'encadrement de projets étudiants." data-en="Teaching in operations research and graph theory, and supervision of student projects.">De l'enseignement en recherche opérationnelle et en théorie des graphes, et l'encadrement de projets étudiants.</li>
+    </ul>
+
+    <h3 data-fr="Publications issues de la thèse" data-en="Publications from the thesis">Publications issues de la thèse</h3>
+    <nav class="links">
+      <a href="https://doi.org/10.1016/j.ijpe.2024.109311">Int. Journal of Production Economics, 2024</a>
+      <a href="https://doi.org/10.36819/SW25.019">Simulation Workshop 2025</a>
+      <a href="https://doi.org/10.1016/j.ifacol.2022.09.649">IFAC-PapersOnLine, 2022</a>
+      <a href="https://hal.science/hal-04627782">SAGIP 2024</a>
+      <a href="https://scholar.google.fr/citations?user=P_OKvKwAAAAJ">Google Scholar</a>
+    </nav>
+    <p class="note" style="margin-top:14px" data-fr="S'y ajoute IEEE ICTMOD 2024 (Sharjah), sur les profils d'opérateurs fondés sur la ponctualité, la fatigue et l'expérience." data-en="To which IEEE ICTMOD 2024 (Sharjah) is added, on operator profiles based on punctuality, fatigue and experience.">S'y ajoute IEEE ICTMOD 2024 (Sharjah), sur les profils d'opérateurs fondés sur la ponctualité, la fatigue et l'expérience.</p>
+
+    <div class="callout">
+      <p data-fr="Les données d'observation portent sur des personnes filmées en atelier. Elles ne sont pas publiées ici : seuls les modèles, les méthodes et les résultats agrégés le sont." data-en="The observation data concerns people filmed in a workshop. It is not published here: only the models, the methods and the aggregated results are.">Les données d'observation portent sur des personnes filmées en atelier. Elles ne sont pas publiées ici : seuls les modèles, les méthodes et les résultats agrégés le sont.</p>
+    </div>
+
+    <div class="tags">
+      <span class="tag" data-fr="Chaînes de Markov" data-en="Markov chains">Chaînes de Markov</span>
+      <span class="tag" data-fr="Simulation multi-agents" data-en="Agent-based simulation">Simulation multi-agents</span>
+      <span class="tag">MINLP</span>
+      <span class="tag">Gurobi</span>
+      <span class="tag">SCIP</span>
+      <span class="tag">Julia</span>
+      <span class="tag">NetLogo</span>
+      <span class="tag" data-fr="Facteurs humains" data-en="Human factors">Facteurs humains</span>
+    </div>
+    <nav class="links">
+      <a href="frogsnbots.html" data-fr="Comment les données ont été collectées →" data-en="How the data was collected →">Comment les données ont été collectées →</a>
+      <a href="netlogopy.html" data-fr="La bibliothèque Netlogopy →" data-en="The Netlogopy library →">La bibliothèque Netlogopy →</a>
+      <a href="../index.html" data-fr="Tous les projets" data-en="All projects">Tous les projets</a>
+    </nav>
+  </section>
+
+  <footer>
+    <span data-fr="Nourddine Bouaziz — dernière mise à jour : novembre 2026." data-en="Nourddine Bouaziz — last updated: November 2026.">Nourddine Bouaziz — dernière mise à jour : novembre 2026.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var bFr = document.getElementById('btn-fr'),
+      bEn = document.getElementById('btn-en'),
+      bTh = document.getElementById('btn-theme'),
+      root = document.documentElement,
+      titleFr = document.title,
+      titleEn = root.getAttribute('data-title-en') || document.title;
+
+  function setLang(l){
+    var isFr = (l === 'fr');
+    bFr.setAttribute('aria-pressed', isFr);
+    bEn.setAttribute('aria-pressed', !isFr);
+    root.lang = l;
+    document.title = isFr ? titleFr : titleEn;
+    document.querySelectorAll('[data-fr]').forEach(function(el){
+      var v = el.getAttribute(isFr ? 'data-fr' : 'data-en');
+      if (v !== null) el.textContent = v;
+    });
+    try { localStorage.setItem('lang', l); } catch(e){}
+  }
+
+  bFr.addEventListener('click', function(){ setLang('fr'); });
+  bEn.addEventListener('click', function(){ setLang('en'); });
+
+  bTh.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    bTh.setAttribute('aria-pressed', String(!dark));
+    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
+  });
+
+  try {
+    var l = localStorage.getItem('lang');
+    if (l) setLang(l);
+    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
+    var t = localStorage.getItem('theme');
+    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

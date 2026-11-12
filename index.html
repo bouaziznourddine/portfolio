@@ -84,6 +84,8 @@
     background:var(--accent-soft); color:var(--accent); border:1px solid transparent;
   }
   .note{font-size:.87rem; color:var(--muted); font-style:italic}
+  .more{margin:11px 0 0; font-size:.93rem}
+  .more a{font-weight:600}
 
   /* ---------- publications ---------- */
   .pub{padding:13px 0; border-top:1px solid var(--border)}
@@ -155,6 +157,7 @@
         <p>Une cellule réunit deux centres d'usinage CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Une machine libre ne suffit pas à lancer une pièce : il faut aussi le bon montage, la bonne palette et, pour la première pièce de chaque phase, un opérateur présent.</p>
         <p>J'ai formalisé ces contraintes avec l'industriel, structuré les données de production, puis développé l'outil de planification du projet : import Excel validé, heuristique constructive sous contraintes de ressources, API JSON, diagrammes de Gantt machines, robot et opérateurs, et un connecteur Odoo 12 qui permet de lancer un calcul et de consulter les résultats depuis l'ERP.</p>
         <p class="note">Prototype de recherche. Une extension multiobjectif couplée à l'ERP fait l'objet d'un manuscrit en préparation.</p>
+        <p class="more"><a href="projets/optiman.html">Voir le détail du projet →</a></p>
         <div class="tags"><span class="tag">Ordonnancement</span><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Odoo 12</span><span class="tag">Gantt</span></div>
       </article>
 
@@ -168,6 +171,7 @@
         <p>Ces profils alimentent un simulateur multi-agents NetLogo d'un flow-shop à double contrainte de ressources, et un modèle d'optimisation non linéaire en nombres entiers qui affecte les opérateurs aux postes en maximisant le débit, résolu avec Gurobi et SCIP sous Julia. Une boucle de simulation–optimisation déclenche un réordonnancement lorsque l'écart au planning dépasse un seuil.</p>
         <p>La thèse comprend aussi une revue systématique de 41 articles et un métamodèle de classification des modèles de comportement humain.</p>
         <p class="note">Soutenue le 25 juin 2025, grade décerné à l'unanimité du jury.</p>
+        <p class="more"><a href="projets/doctorat.html">Voir le détail du projet →</a></p>
         <div class="tags"><span class="tag">Chaînes de Markov</span><span class="tag">Simulation multi-agents</span><span class="tag">MINLP</span><span class="tag">Gurobi</span><span class="tag">SCIP</span><span class="tag">Julia</span><span class="tag">NetLogo</span></div>
       </article>
 
@@ -178,12 +182,13 @@
         </div>
         <p class="p-org">Bibliothèque open source, licence MIT · auteur principal</p>
         <p>NetLogo est excellent pour la simulation multi-agents, mais isolé de l'écosystème Python : pas d'optimisation, pas d'analyse de données, pas d'apprentissage automatique. Les passerelles existantes lancent une simulation et récupèrent des résultats, sans permettre de créer ni de manipuler les agents eux-mêmes.</p>
-        <p>Netlogopy comble ce manque : création et contrôle direct des agents depuis Python, modification de leurs propriétés en cours d'exécution, réutilisation des modèles NetLogo existants. Sur un cas de simulation à six machines et six opérateurs, le développement a demandé environ seize heures contre vingt-cinq en NetLogo seul, et l'ajout de scénarios une heure contre six.</p>
+        <p>Netlogopy comble ce manque : création et contrôle direct des agents depuis Python, modification de leurs propriétés en cours d'exécution, réutilisation des modèles NetLogo existants. La bibliothèque est publiée sous licence MIT et distribuée sur PyPI.</p>
         <p>
           <a href="https://pypi.org/project/netlogopy/">PyPI</a> ·
           <a href="https://github.com/Bouaziz19/netlogopy">Code source</a> ·
           <a href="https://doi.org/10.36819/SW25.019">Article SW25</a>
         </p>
+        <p class="more"><a href="projets/netlogopy.html">Voir le détail du projet →</a></p>
         <div class="tags"><span class="tag">Python</span><span class="tag">NetLogo</span><span class="tag">Open source</span><span class="tag">MIT</span></div>
       </article>
 
@@ -196,6 +201,7 @@
         <p>Modéliser le comportement des opérateurs suppose de l'observer. J'ai contribué au dispositif de collecte : un module Odoo de suivi des opérations avec scans QR à chaque étape, des caméras fixes et motorisées synchronisées, et des métadonnées JSON reliant chaque opération à son opérateur, à son horodatage et à ses séquences vidéo.</p>
         <p>Deux cas d'étude : la maintenance de robots éducatifs et le pliage d'origami, choisis pour produire des gestes répétitifs mesurables. Plus de quinze heures de vidéo annotée, six opérateurs.</p>
         <p class="note">Manuscrit de description du jeu de données en cours.</p>
+        <p class="more"><a href="projets/frogsnbots.html">Voir le détail du projet →</a></p>
         <div class="tags"><span class="tag">Odoo</span><span class="tag">QR</span><span class="tag">Vidéo multicaméra</span><span class="tag">JSON</span></div>
       </article>
 
@@ -321,6 +327,7 @@
         <p>The cell combines two CNC machining centres, a shared handling robot, rotary magazines, pallets, fixtures and operators. A free machine is not enough to start a part: the right fixture and pallet must be available too, and the first part of each phase requires an operator on site.</p>
         <p>I formalised these constraints with the industrial partner, structured the production data, then developed the project's planning tool: validated Excel import, constructive heuristic under resource constraints, JSON API, machine, robot and operator Gantt charts, and an Odoo 12 connector that runs a computation and shows the results from inside the ERP.</p>
         <p class="note">Research prototype. A multi-objective extension coupled with the ERP is the subject of a manuscript in preparation.</p>
+        <p class="more"><a href="projets/optiman.html">See the full project →</a></p>
         <div class="tags"><span class="tag">Scheduling</span><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Odoo 12</span><span class="tag">Gantt</span></div>
       </article>
 
@@ -334,6 +341,7 @@
         <p>These profiles feed a NetLogo agent-based simulator of a dual-resource-constrained flow shop, and a mixed-integer non-linear optimisation model that assigns operators to workstations to maximise throughput, solved with Gurobi and SCIP under Julia. A simulation–optimisation loop triggers rescheduling when the deviation from the plan exceeds a threshold.</p>
         <p>The thesis also includes a systematic review of 41 papers and a meta-model for classifying human-behaviour models.</p>
         <p class="note">Defended on 25 June 2025, degree awarded unanimously by the jury.</p>
+        <p class="more"><a href="projets/doctorat.html">See the full project →</a></p>
         <div class="tags"><span class="tag">Markov chains</span><span class="tag">Agent-based simulation</span><span class="tag">MINLP</span><span class="tag">Gurobi</span><span class="tag">SCIP</span><span class="tag">Julia</span><span class="tag">NetLogo</span></div>
       </article>
 
@@ -344,12 +352,13 @@
         </div>
         <p class="p-org">Open-source library, MIT licence · main author</p>
         <p>NetLogo is excellent for agent-based simulation but cut off from the Python ecosystem: no optimisation, no data analysis, no machine learning. Existing bridges run a simulation and collect results, without letting you create or manipulate the agents themselves.</p>
-        <p>Netlogopy fills that gap: direct creation and control of agents from Python, property updates at runtime, reuse of existing NetLogo models. On a six-machine, six-operator simulation case, development took about sixteen hours against twenty-five in NetLogo alone, and adding scenarios one hour against six.</p>
+        <p>Netlogopy fills that gap: direct creation and control of agents from Python, property updates at runtime, reuse of existing NetLogo models. The library is released under the MIT licence and distributed on PyPI.</p>
         <p>
           <a href="https://pypi.org/project/netlogopy/">PyPI</a> ·
           <a href="https://github.com/Bouaziz19/netlogopy">Source code</a> ·
           <a href="https://doi.org/10.36819/SW25.019">SW25 paper</a>
         </p>
+        <p class="more"><a href="projets/netlogopy.html">See the full project →</a></p>
         <div class="tags"><span class="tag">Python</span><span class="tag">NetLogo</span><span class="tag">Open source</span><span class="tag">MIT</span></div>
       </article>
 
@@ -362,6 +371,7 @@
         <p>Modelling operator behaviour requires observing it. I contributed to the collection setup: an Odoo operation-tracking module with a QR scan at each step, synchronised fixed and motorised cameras, and JSON metadata linking every operation to its operator, timestamps and video sequences.</p>
         <p>Two case studies: educational-robot maintenance and origami folding, chosen to produce measurable repetitive gestures. More than fifteen hours of annotated video, six operators.</p>
         <p class="note">A dataset paper is in preparation.</p>
+        <p class="more"><a href="projets/frogsnbots.html">See the full project →</a></p>
         <div class="tags"><span class="tag">Odoo</span><span class="tag">QR</span><span class="tag">Multi-camera video</span><span class="tag">JSON</span></div>
       </article>
 
