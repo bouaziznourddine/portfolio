@@ -4,96 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OPTIMAN — ordonnancement d'une cellule d'usinage robotisée · Nourddine Bouaziz</title>
-<meta name="description" content="OPTIMAN : ordonnancement d'une cellule d'usinage robotisée. Heuristique constructive sous contraintes de ressources, API JSON, Gantt et connecteur Odoo 12.">
+<meta name="description" content="OPTIMAN : ordonnancement d'une cellule d'usinage robotisée. Heuristique constructive sous contraintes de ressources, module Odoo 12, Gantt, et couplage avec un jumeau numérique.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
-<style>
-  :root{
-    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
-    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff; --shadow:0 1px 3px rgba(16,32,48,.06);
-    --maxw:860px;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-      --accent-soft:#17222d; --border:#242f3a; --card:#151d25; --shadow:none;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-    --accent-soft:#17222d; --border:#242f3a; --card:#151d25; --shadow:none;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--fg);
-    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    padding:0 16px;
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto}
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
-  .toolbar button{
-    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
-    background:var(--card); color:var(--muted);
-    border:1px solid var(--border); border-radius:999px;
-  }
-  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
-
-  .back{display:inline-block; margin-top:16px; font-size:.9rem; color:var(--muted)}
-  .back:hover{color:var(--accent)}
-
-  header{padding:12px 0 24px; border-bottom:1px solid var(--border)}
-  h1{font-family:Georgia,"Times New Roman",serif; font-size:2rem; line-height:1.2; margin:10px 0 10px}
-  .meta{color:var(--muted); font-size:.93rem; margin:0 0 3px}
-
-  section{padding:30px 0; border-bottom:1px solid var(--border)}
-  section:last-of-type{border-bottom:none}
-  h2{font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; color:var(--accent); margin:0 0 16px; font-weight:700}
-  h3{font-size:1rem; margin:24px 0 8px}
-  p{margin:0 0 12px}
-  ul{margin:0 0 12px; padding-left:20px}
-  li{margin-bottom:6px}
-
-  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
-  .tag{font-size:.76rem; padding:2px 9px; border-radius:4px; background:var(--accent-soft); color:var(--accent)}
-  .note{font-size:.87rem; color:var(--muted); font-style:italic}
-  .callout{
-    border-left:3px solid var(--accent); background:var(--accent-soft);
-    padding:12px 14px; border-radius:0 8px 8px 0; margin:18px 0; font-size:.94rem;
-  }
-  .callout p:last-child{margin-bottom:0}
-  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px}
-  .links a{
-    display:inline-block; padding:5px 11px; border:1px solid var(--border);
-    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
-  }
-  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
-
-  /* ---------- figures ---------- */
-  .fig{margin:22px 0; padding:16px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); overflow-x:auto}
-  .fig svg{display:block; width:100%; min-width:600px; height:auto}
-  .fig figcaption{font-size:.85rem; color:var(--muted); margin-top:10px; text-align:center}
-  .s-box{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.2}
-  .s-box2{fill:var(--bg); stroke:var(--border); stroke-width:1.2}
-  .s-t{fill:var(--fg); font:600 12.5px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-s{fill:var(--muted); font:11px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-l{stroke:var(--muted); stroke-width:1.4; fill:none}
-  .s-g{stroke:var(--border); stroke-width:1; fill:none}
-  .s-ar{fill:var(--muted)}
-  .s-bar{fill:var(--accent); opacity:.85}
-  .s-bar2{fill:var(--muted); opacity:.5}
-  .s-bt{fill:var(--bg); font:600 10px system-ui,sans-serif}
-
-  footer{padding:26px 0 50px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--border)}
-  [hidden]{display:none !important}
-
-  @media (max-width:600px){
-    h1{font-size:1.6rem}
-    section{padding:24px 0}
-  }
-</style>
+<link rel="canonical" href="https://bouaziznourddine.github.io/portfolio/projets/optiman.html">
+<link rel="stylesheet" href="../assets/projet.css">
 </head>
 <body>
 <div class="wrap">
@@ -110,11 +24,14 @@
     <h1 data-fr="OPTIMAN — ordonnancement d'une cellule d'usinage robotisée" data-en="OPTIMAN — scheduling a robotic machining cell">OPTIMAN — ordonnancement d'une cellule d'usinage robotisée</h1>
     <p class="meta" data-fr="Septembre 2025 – aujourd'hui · Chercheur postdoctoral" data-en="September 2025 – present · Postdoctoral researcher">Septembre 2025 – aujourd'hui · Chercheur postdoctoral</p>
     <p class="meta" data-fr="CESI LINEACT et Maugars Industrie · soutien Région Normandie et FEDER" data-en="CESI LINEACT and Maugars Industrie · supported by the Normandy Region and the ERDF">CESI LINEACT et Maugars Industrie · soutien Région Normandie et FEDER</p>
+    <nav class="links">
+      <a class="primary" href="../demo/optiman/index.html" data-fr="Ouvrir la démonstration interactive →" data-en="Open the interactive demo →">Ouvrir la démonstration interactive →</a>
+    </nav>
   </header>
 
   <section>
     <h2 data-fr="Le problème" data-en="The problem">Le problème</h2>
-    <p data-fr="Une cellule d'usinage réunit deux centres CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Dans un modèle d'ordonnancement classique, une machine libre suffit à lancer une pièce. Ici, non.">Une cellule d'usinage réunit deux centres CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Dans un modèle d'ordonnancement classique, une machine libre suffit à lancer une pièce. Ici, non.</p>
+    <p data-fr="Une cellule d'usinage réunit deux centres CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Dans un modèle d'ordonnancement classique, une machine libre suffit à lancer une pièce. Ici, non." data-en="A machining cell brings together two CNC centres, a shared handling robot, rotary magazines, pallets, fixtures and operators. In a classic scheduling model, a free machine is enough to start a part. Not here.">Une cellule d'usinage réunit deux centres CNC, un robot de manutention partagé, des magasins rotatifs, des palettes, des montages et des opérateurs. Dans un modèle d'ordonnancement classique, une machine libre suffit à lancer une pièce. Ici, non.</p>
     <p data-fr="Il faut que quatre conditions soient réunies en même temps : un centre d'usinage disponible, le montage compatible avec la phase à réaliser, une palette libre, et — pour la première pièce de chaque phase — un opérateur présent pour le réglage. Le robot, lui, est une ressource partagée : il ne peut pas charger deux machines à la fois, et ses déplacements s'intercalent entre les opérations." data-en="Four conditions must hold at the same time: an available machining centre, the fixture matching the phase to be run, a free pallet, and — for the first part of each phase — an operator on site for the setup. The robot is a shared resource: it cannot load two machines at once, and its moves have to be interleaved between operations.">Il faut que quatre conditions soient réunies en même temps : un centre d'usinage disponible, le montage compatible avec la phase à réaliser, une palette libre, et — pour la première pièce de chaque phase — un opérateur présent pour le réglage. Le robot, lui, est une ressource partagée : il ne peut pas charger deux machines à la fois, et ses déplacements s'intercalent entre les opérations.</p>
 
     <figure class="fig">
@@ -164,8 +81,8 @@
       <li data-fr="Import Excel contrôlé : les fichiers de l'atelier sont lus, vérifiés ligne à ligne et refusés avec un message précis quand une donnée manque ou se contredit." data-en="Controlled Excel import: shop-floor files are read, checked row by row and rejected with a precise message when data is missing or inconsistent.">Import Excel contrôlé : les fichiers de l'atelier sont lus, vérifiés ligne à ligne et refusés avec un message précis quand une donnée manque ou se contredit.</li>
       <li data-fr="Moteur de planification en Python : une heuristique constructive place les opérations une à une en respectant les disponibilités de toutes les ressources ; le planning obtenu est ensuite noté par un score pondéré sur les indicateurs retenus." data-en="Planning engine in Python: a constructive heuristic places operations one by one while respecting the availability of every resource; the resulting schedule is then rated by a weighted score over the chosen indicators.">Moteur de planification en Python : une heuristique constructive place les opérations une à une en respectant les disponibilités de toutes les ressources ; le planning obtenu est ensuite noté par un score pondéré sur les indicateurs retenus.</li>
       <li data-fr="Indicateurs de planning : retard par rapport aux dates dues, durée totale (makespan), temps morts des machines et du robot." data-en="Planning indicators: tardiness against due dates, total duration (makespan), machine and robot idle time.">Indicateurs de planning : retard par rapport aux dates dues, durée totale (makespan), temps morts des machines et du robot.</li>
-      <li data-fr="Backend Flask et API JSON : le calcul est un service, appelable aussi bien par l'interface web que par l'ERP." data-en="Flask backend and JSON API: the computation is a service, callable from the web interface as well as from the ERP.">Backend Flask et API JSON : le calcul est un service, appelable aussi bien par l'interface web que par l'ERP.</li>
-      <li data-fr="Restitution : diagrammes de Gantt séparés pour les machines, le robot et les opérateurs, plus les exports de résultats." data-en="Presentation: separate Gantt charts for machines, robot and operators, plus result exports.">Restitution : diagrammes de Gantt séparés pour les machines, le robot et les opérateurs, plus les exports de résultats.</li>
+      <li data-fr="Restitution : diagrammes de Gantt de la production, des emplacements, des palettes et des montages, fiche détaillée de chaque opération." data-en="Presentation: Gantt charts for production, slots, pallets and fixtures, and a detailed sheet for each operation.">Restitution : diagrammes de Gantt de la production, des emplacements, des palettes et des montages, fiche détaillée de chaque opération.</li>
+      <li data-fr="Échange avec le jumeau numérique : export des opérations du robot, des opérateurs et des CNC, que le jumeau rejoue pour tester le planning." data-en="Exchange with the digital twin: export of robot, operator and CNC operations, which the twin replays to test the schedule.">Échange avec le jumeau numérique : export des opérations du robot, des opérateurs et des CNC, que le jumeau rejoue pour tester le planning.</li>
     </ul>
 
     <figure class="fig">
@@ -183,13 +100,13 @@
         <rect class="s-box" x="265" y="24" width="230" height="66" rx="7"/>
         <text class="s-t" x="380" y="46" text-anchor="middle" data-fr="Moteur de planification" data-en="Planning engine">Moteur de planification</text>
         <text class="s-s" x="380" y="63" text-anchor="middle" data-fr="heuristique constructive" data-en="constructive heuristic">heuristique constructive</text>
-        <text class="s-s" x="380" y="78" text-anchor="middle">Python · Flask</text>
+        <text class="s-s" x="380" y="78" text-anchor="middle">Python</text>
 
         <path class="s-l" d="M495,57 L518,57" marker-end="url(#ar2)"/>
 
         <rect class="s-box2" x="520" y="24" width="230" height="66" rx="7"/>
-        <text class="s-t" x="635" y="51" text-anchor="middle">API JSON</text>
-        <text class="s-s" x="635" y="69" text-anchor="middle" data-fr="scénarios · calculs · exports" data-en="scenarios · runs · exports">scénarios · calculs · exports</text>
+        <text class="s-t" x="635" y="51" text-anchor="middle" data-fr="Module Odoo 12" data-en="Odoo 12 module">Module Odoo 12</text>
+        <text class="s-s" x="635" y="69" text-anchor="middle" data-fr="scénarios · calcul · résultats" data-en="scenarios · run · results">scénarios · calcul · résultats</text>
 
         <path class="s-l" d="M635,90 L635,112"/>
         <path class="s-l" d="M375,112 L635,112"/>
@@ -198,17 +115,119 @@
 
         <rect class="s-box2" x="250" y="140" width="250" height="62" rx="7"/>
         <text class="s-t" x="375" y="164" text-anchor="middle" data-fr="Diagrammes de Gantt" data-en="Gantt charts">Diagrammes de Gantt</text>
-        <text class="s-s" x="375" y="182" text-anchor="middle" data-fr="machines · robot · opérateurs" data-en="machines · robot · operators">machines · robot · opérateurs</text>
+        <text class="s-s" x="375" y="182" text-anchor="middle" data-fr="production · palettes · montages" data-en="production · pallets · fixtures">production · palettes · montages</text>
 
         <rect class="s-box2" x="510" y="140" width="250" height="62" rx="7"/>
-        <text class="s-t" x="635" y="164" text-anchor="middle" data-fr="Connecteur Odoo 12" data-en="Odoo 12 connector">Connecteur Odoo 12</text>
-        <text class="s-s" x="635" y="182" text-anchor="middle" data-fr="calcul et résultats dans l'ERP" data-en="run and results inside the ERP">calcul et résultats dans l'ERP</text>
+        <text class="s-t" x="635" y="164" text-anchor="middle" data-fr="Exports" data-en="Exports">Exports</text>
+        <text class="s-s" x="635" y="182" text-anchor="middle" data-fr="robot · opérateurs · CNC" data-en="robot · operators · CNC">robot · opérateurs · CNC</text>
       </svg>
-      <figcaption data-fr="Figure 2 — Le calcul est exposé comme un service : la même API sert l'interface web et l'ERP." data-en="Figure 2 — The computation is exposed as a service: the same API serves the web interface and the ERP.">Figure 2 — Le calcul est exposé comme un service : la même API sert l'interface web et l'ERP.</figcaption>
+      <figcaption data-fr="Figure 2 — Des données de l'atelier au planning : le calcul est lancé et consulté depuis l'ERP, et ses résultats sont exportés pour le jumeau numérique." data-en="Figure 2 — From shop-floor data to the schedule: the computation is launched and reviewed from the ERP, and its results are exported for the digital twin.">Figure 2 — Des données de l'atelier au planning : le calcul est lancé et consulté depuis l'ERP, et ses résultats sont exportés pour le jumeau numérique.</figcaption>
     </figure>
 
-    <h3 data-fr="Le connecteur Odoo" data-en="The Odoo connector">Le connecteur Odoo</h3>
+    <h3 data-fr="Le module Odoo" data-en="The Odoo module">Le module Odoo</h3>
     <p data-fr="L'atelier travaille déjà dans son ERP. Plutôt que d'ajouter un outil de plus à ouvrir, j'ai développé un module Odoo 12 qui porte les scénarios d'ordonnancement comme des objets de l'ERP : import des ordres de fabrication, paramétrage, lancement du calcul et consultation des résultats sans quitter Odoo. Les diagrammes de Gantt sont intégrés aux vues, sans dépendance aux modules Enterprise. Le module porte ses règles d'accès par société et ses tests de services et d'ORM." data-en="The workshop already works inside its ERP. Rather than adding one more tool to open, I developed an Odoo 12 module that carries scheduling scenarios as ERP records: import of manufacturing orders, parameter setting, computation launch and result review without leaving Odoo. The Gantt charts are embedded in the views, with no dependency on Enterprise modules. The module ships its own per-company access rules and its service and ORM tests.">L'atelier travaille déjà dans son ERP. Plutôt que d'ajouter un outil de plus à ouvrir, j'ai développé un module Odoo 12 qui porte les scénarios d'ordonnancement comme des objets de l'ERP : import des ordres de fabrication, paramétrage, lancement du calcul et consultation des résultats sans quitter Odoo. Les diagrammes de Gantt sont intégrés aux vues, sans dépendance aux modules Enterprise. Le module porte ses règles d'accès par société et ses tests de services et d'ORM.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Du planning au jumeau numérique" data-en="From the schedule to the digital twin">Du planning au jumeau numérique</h2>
+    <p data-fr="Un planning calculé reste une hypothèse tant qu'il n'a pas été confronté à la cellule. Le projet relie donc le planificateur à un jumeau numérique : avant d'être envoyé à l'atelier, le planning est rejoué en simulation pour vérifier qu'il est réalisable ; pendant l'exécution, l'écart entre le prévu et le réel est suivi, et un réordonnancement est déclenché quand il dépasse un seuil." data-en="A computed schedule remains a hypothesis until it has been confronted with the cell. The project therefore connects the planner to a digital twin: before being sent to the workshop, the schedule is replayed in simulation to check that it is feasible; during execution, the gap between plan and reality is tracked, and rescheduling is triggered when it exceeds a threshold.">Un planning calculé reste une hypothèse tant qu'il n'a pas été confronté à la cellule. Le projet relie donc le planificateur à un jumeau numérique : avant d'être envoyé à l'atelier, le planning est rejoué en simulation pour vérifier qu'il est réalisable ; pendant l'exécution, l'écart entre le prévu et le réel est suivi, et un réordonnancement est déclenché quand il dépasse un seuil.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 330" role="img" aria-labelledby="f4t">
+        <title id="f4t" data-fr="Boucle entre le planificateur, le jumeau numérique et le terrain" data-en="Loop between the planner, the digital twin and the shop floor">Boucle entre le planificateur, le jumeau numérique et le terrain</title>
+        <defs><marker id="ar4" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto-start-reverse"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <text class="s-h" x="130" y="18" text-anchor="middle">ODOO</text>
+        <text class="s-h" x="400" y="18" text-anchor="middle" data-fr="JUMEAU NUMÉRIQUE" data-en="DIGITAL TWIN">JUMEAU NUMÉRIQUE</text>
+        <text class="s-h" x="650" y="18" text-anchor="middle" data-fr="TERRAIN" data-en="SHOP FLOOR">TERRAIN</text>
+
+        <rect class="s-box" x="20" y="44" width="220" height="64" rx="7"/>
+        <text class="s-t" x="130" y="71" text-anchor="middle" data-fr="Planificateur" data-en="Planner">Planificateur</text>
+        <text class="s-s" x="130" y="89" text-anchor="middle" data-fr="planning prévisionnel" data-en="forward schedule">planning prévisionnel</text>
+
+        <rect class="s-box2" x="290" y="44" width="220" height="64" rx="7"/>
+        <text class="s-t" x="400" y="71" text-anchor="middle" data-fr="Jumeau de simulation" data-en="Simulation twin">Jumeau de simulation</text>
+        <text class="s-s" x="400" y="89" text-anchor="middle" data-fr="test de faisabilité" data-en="feasibility test">test de faisabilité</text>
+
+        <rect class="s-box2" x="560" y="132" width="180" height="64" rx="7"/>
+        <text class="s-t" x="650" y="159" text-anchor="middle" data-fr="Cellule réelle" data-en="Real cell">Cellule réelle</text>
+        <text class="s-s" x="650" y="177" text-anchor="middle" data-fr="maquette ou atelier" data-en="testbed or workshop">maquette ou atelier</text>
+
+        <rect class="s-box2" x="290" y="222" width="220" height="64" rx="7"/>
+        <text class="s-t" x="400" y="249" text-anchor="middle" data-fr="Jumeau synchronisé" data-en="Synchronised twin">Jumeau synchronisé</text>
+        <text class="s-s" x="400" y="267" text-anchor="middle" data-fr="miroir de la maquette" data-en="mirror of the testbed">miroir de la maquette</text>
+
+        <rect class="s-box" x="20" y="222" width="220" height="64" rx="7"/>
+        <text class="s-t" x="130" y="249" text-anchor="middle" data-fr="Suivi de production" data-en="Production monitoring">Suivi de production</text>
+        <text class="s-s" x="130" y="267" text-anchor="middle" data-fr="écart réel / prévu" data-en="actual versus planned gap">écart réel / prévu</text>
+
+        <path class="s-l" d="M240,66 L286,66" marker-end="url(#ar4)"/>
+        <text class="s-s" x="265" y="58" text-anchor="middle">1</text>
+        <path class="s-l" d="M290,88 L244,88" marker-end="url(#ar4)"/>
+        <text class="s-s" x="265" y="103" text-anchor="middle">2</text>
+
+        <path class="s-l" d="M510,76 L650,76 L650,128" marker-end="url(#ar4)"/>
+        <text class="s-s" x="580" y="68" text-anchor="middle">3</text>
+
+        <path class="s-l" d="M620,196 L620,254 L514,254" marker-start="url(#ar4)" marker-end="url(#ar4)"/>
+        <text class="s-s" x="568" y="246" text-anchor="middle">4</text>
+
+        <path class="s-l" d="M690,196 L690,312 L130,312 L130,290" marker-end="url(#ar4)"/>
+        <text class="s-s" x="410" y="306" text-anchor="middle">5</text>
+
+        <path class="s-l" d="M290,254 L244,254" marker-end="url(#ar4)"/>
+        <text class="s-s" x="265" y="246" text-anchor="middle">6</text>
+
+        <path class="s-l" d="M130,222 L130,112" marker-end="url(#ar4)"/>
+        <text class="s-s" x="140" y="162">7</text>
+        <text class="s-s" x="154" y="162" data-fr="réordonnancement" data-en="rescheduling">réordonnancement</text>
+        <text class="s-s" x="154" y="177" data-fr="si l'écart dépasse le seuil" data-en="if the gap exceeds the threshold">si l'écart dépasse le seuil</text>
+      </svg>
+      <figcaption data-fr="Figure 3 — 1 : planning à tester · 2 : faisabilité ou correction · 3 : planning validé · 4 : synchronisation · 5 : données réelles et aléas · 6 : état prévu · 7 : réordonnancement." data-en="Figure 3 — 1: schedule to test · 2: feasibility or correction · 3: validated schedule · 4: synchronisation · 5: real data and disruptions · 6: planned state · 7: rescheduling.">Figure 3 — 1 : planning à tester · 2 : faisabilité ou correction · 3 : planning validé · 4 : synchronisation · 5 : données réelles et aléas · 6 : état prévu · 7 : réordonnancement.</figcaption>
+    </figure>
+
+    <p data-fr="Cette boucle est complète sur la maquette du laboratoire, où un jumeau synchronisé suit la cellule en temps réel. Chez l'industriel, ce miroir en temps réel n'existe pas : les données de l'atelier remontent par relevés périodiques, et le jumeau sert à tester la faisabilité des plannings et à rejouer des scénarios pour le diagnostic." data-en="The loop is complete on the laboratory testbed, where a synchronised twin follows the cell in real time. At the industrial partner, that real-time mirror does not exist: workshop data comes back through periodic readings, and the twin is used to test schedule feasibility and to replay scenarios for diagnosis.">Cette boucle est complète sur la maquette du laboratoire, où un jumeau synchronisé suit la cellule en temps réel. Chez l'industriel, ce miroir en temps réel n'existe pas : les données de l'atelier remontent par relevés périodiques, et le jumeau sert à tester la faisabilité des plannings et à rejouer des scénarios pour le diagnostic.</p>
+
+    <div class="callout">
+      <p data-fr="OPTIMAN est un projet d'équipe. Le jumeau numérique, l'optimisation de l'implantation de la cellule et la maquette sont développés par l'équipe du projet à CESI LINEACT. Ma part est le planificateur, le module Odoo et l'échange de données avec le jumeau." data-en="OPTIMAN is a team project. The digital twin, the cell-layout optimisation and the testbed are developed by the project team at CESI LINEACT. My part is the planner, the Odoo module and the data exchange with the twin.">OPTIMAN est un projet d'équipe. Le jumeau numérique, l'optimisation de l'implantation de la cellule et la maquette sont développés par l'équipe du projet à CESI LINEACT. Ma part est le planificateur, le module Odoo et l'échange de données avec le jumeau.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-fr="Le projet en images" data-en="The project in pictures">Le projet en images</h2>
+
+    <div class="media-grid">
+      <figure class="media">
+        <video controls preload="none" playsinline muted loop poster="../media/optiman-jumeau.jpg">
+          <source src="../media/optiman-jumeau.mp4" type="video/mp4">
+        </video>
+        <figcaption data-fr="Le jumeau numérique rejoue un planning : chaque transfert et chaque montage est vérifié dans la cellule virtuelle (42 s)." data-en="The digital twin replays a schedule: every transfer and every setup is checked in the virtual cell (42 s).">Le jumeau numérique rejoue un planning : chaque transfert et chaque montage est vérifié dans la cellule virtuelle (42 s).</figcaption>
+      </figure>
+      <figure class="media">
+        <video controls preload="none" playsinline muted loop poster="../media/optiman-implantation.jpg">
+          <source src="../media/optiman-implantation.mp4" type="video/mp4">
+        </video>
+        <figcaption data-fr="Recherche d'une implantation de la cellule : les équipements sont déplacés et chaque configuration est évaluée (48 s)." data-en="Searching for a cell layout: equipment is moved around and each configuration is evaluated (48 s).">Recherche d'une implantation de la cellule : les équipements sont déplacés et chaque configuration est évaluée (48 s).</figcaption>
+      </figure>
+      <figure class="media">
+        <video controls preload="none" playsinline muted loop poster="../media/optiman-maquette.jpg">
+          <source src="../media/optiman-maquette.mp4" type="video/mp4">
+        </video>
+        <figcaption data-fr="La maquette du laboratoire : un bras robot collaboratif exécute les transferts planifiés (26 s)." data-en="The laboratory testbed: a collaborative robot arm carries out the planned transfers (26 s).">La maquette du laboratoire : un bras robot collaboratif exécute les transferts planifiés (26 s).</figcaption>
+      </figure>
+    </div>
+
+    <div class="media-grid">
+      <figure class="media">
+        <img src="../media/img/optiman-maquette.jpg" width="1300" height="877" loading="lazy" alt="Vue de dessus de la maquette : bras robot, stocks de pièces et zone CNC">
+        <figcaption data-fr="La maquette : poste opérateur, petit et grand stocks, zone CNC." data-en="The testbed: operator station, small and large stocks, CNC zone.">La maquette : poste opérateur, petit et grand stocks, zone CNC.</figcaption>
+      </figure>
+      <figure class="media">
+        <img src="../media/img/optiman-maquette-jumeau.jpg" width="622" height="358" loading="lazy" alt="Le jumeau numérique de la maquette, vu de dessus">
+        <figcaption data-fr="Son jumeau numérique, vu de dessus." data-en="Its digital twin, seen from above.">Son jumeau numérique, vu de dessus.</figcaption>
+      </figure>
+    </div>
+    <p class="credit" data-fr="Vidéos et images : projet OPTIMAN, CESI LINEACT." data-en="Videos and images: OPTIMAN project, CESI LINEACT.">Vidéos et images : projet OPTIMAN, CESI LINEACT.</p>
   </section>
 
   <section>
@@ -260,24 +279,30 @@
         <text class="s-s" x="580" y="194" text-anchor="middle">6 h</text>
         <text class="s-s" x="740" y="194" text-anchor="middle">8 h</text>
       </svg>
-      <figcaption data-fr="Figure 3 — Schéma illustratif, données fictives. Les barres pleines sont des phases d'usinage, les barres grises les transferts du robot et les réglages opérateur." data-en="Figure 3 — Illustrative diagram, fictitious data. Solid bars are machining phases, grey bars are robot transfers and operator setups.">Figure 3 — Schéma illustratif, données fictives. Les barres pleines sont des phases d'usinage, les barres grises les transferts du robot et les réglages opérateur.</figcaption>
+      <figcaption data-fr="Figure 4 — Schéma illustratif, données fictives. Les barres pleines sont des phases d'usinage, les barres grises les transferts du robot et les réglages opérateur." data-en="Figure 4 — Illustrative diagram, fictitious data. Solid bars are machining phases, grey bars are robot transfers and operator setups.">Figure 4 — Schéma illustratif, données fictives. Les barres pleines sont des phases d'usinage, les barres grises les transferts du robot et les réglages opérateur.</figcaption>
     </figure>
 
+    <h3 data-fr="Le manipuler soi-même" data-en="Try it yourself">Le manipuler soi-même</h3>
+    <p data-fr="La démonstration interactive ouvre le visualiseur du module Odoo tel qu'il est utilisé dans le projet : Gantt des machines, du robot et des opérateurs, occupation des emplacements, des palettes et des montages, fiche de chaque opération, exports. Le planning affiché est un résultat enregistré : aucun calcul n'est exécuté en ligne." data-en="The interactive demo opens the Odoo module's viewer as it is used in the project: Gantt charts for machines, robot and operators, occupancy of slots, pallets and fixtures, a sheet for each operation, exports. The schedule shown is a recorded result: no computation runs online. The interface is in French.">La démonstration interactive ouvre le visualiseur du module Odoo tel qu'il est utilisé dans le projet : Gantt des machines, du robot et des opérateurs, occupation des emplacements, des palettes et des montages, fiche de chaque opération, exports. Le planning affiché est un résultat enregistré : aucun calcul n'est exécuté en ligne.</p>
+    <nav class="links">
+      <a class="primary" href="../demo/optiman/index.html" data-fr="Ouvrir la démonstration interactive →" data-en="Open the interactive demo →">Ouvrir la démonstration interactive →</a>
+    </nav>
+
     <div class="callout">
-      <p data-fr="Aucune donnée réelle de l'atelier partenaire n'est publiée sur ce site. Les illustrations sont des schémas que j'ai dessinés à partir de valeurs fictives." data-en="No real data from the partner workshop is published on this site. The illustrations are diagrams I drew from fictitious values.">Aucune donnée réelle de l'atelier partenaire n'est publiée sur ce site. Les illustrations sont des schémas que j'ai dessinés à partir de valeurs fictives.</p>
+      <p data-fr="Les schémas de cette page sont dessinés à partir de valeurs fictives. La démonstration interactive rejoue un planning calculé sur un jeu de données anonymisé : les références d'affaires, d'articles et de montages y sont remplacées par des codes génériques." data-en="The diagrams on this page are drawn from fictitious values. The interactive demo replays a schedule computed on an anonymised dataset: order, part and fixture references are replaced by generic codes.">Les schémas de cette page sont dessinés à partir de valeurs fictives. La démonstration interactive rejoue un planning calculé sur un jeu de données anonymisé : les références d'affaires, d'articles et de montages y sont remplacées par des codes génériques.</p>
     </div>
   </section>
 
   <section>
     <h2 data-fr="État du projet" data-en="Project status">État du projet</h2>
-    <p data-fr="Prototype de recherche, en cours. Une extension multiobjectif couplée à l'ERP fait l'objet d'un manuscrit en préparation." data-en="Research prototype, ongoing. A multi-objective extension coupled with the ERP is the subject of a manuscript in preparation.">Prototype de recherche, en cours. Une extension multiobjectif couplée à l'ERP fait l'objet d'un manuscrit en préparation.</p>
+    <p data-fr="Prototype de recherche, en cours. Le projet avance sur trois axes : la conception de la cellule à l'aide du jumeau numérique, l'ordonnancement et son intégration à l'ERP, et le diagnostic par simulation. Sur le deuxième axe, qui est le mien, un manuscrit est en préparation sur l'optimisation de l'ordonnancement par algorithme génétique et son intégration à Odoo." data-en="Research prototype, ongoing. The project advances along three lines: designing the cell with the digital twin, scheduling and its integration with the ERP, and diagnosis through simulation. On the second line, which is mine, a manuscript is in preparation on scheduling optimisation with a genetic algorithm and its integration with Odoo.">Prototype de recherche, en cours. Le projet avance sur trois axes : la conception de la cellule à l'aide du jumeau numérique, l'ordonnancement et son intégration à l'ERP, et le diagnostic par simulation. Sur le deuxième axe, qui est le mien, un manuscrit est en préparation sur l'optimisation de l'ordonnancement par algorithme génétique et son intégration à Odoo.</p>
     <div class="tags">
       <span class="tag" data-fr="Ordonnancement" data-en="Scheduling">Ordonnancement</span>
       <span class="tag">Python</span>
-      <span class="tag">Flask</span>
       <span class="tag" data-fr="Heuristique constructive" data-en="Constructive heuristic">Heuristique constructive</span>
       <span class="tag">Odoo 12</span>
       <span class="tag">Gantt</span>
+      <span class="tag" data-fr="Jumeau numérique" data-en="Digital twin">Jumeau numérique</span>
       <span class="tag" data-fr="Données de production" data-en="Production data">Données de production</span>
     </div>
     <nav class="links">
@@ -292,46 +317,7 @@
 
 </div>
 
-<script>
-(function(){
-  var bFr = document.getElementById('btn-fr'),
-      bEn = document.getElementById('btn-en'),
-      bTh = document.getElementById('btn-theme'),
-      root = document.documentElement,
-      titleFr = document.title,
-      titleEn = root.getAttribute('data-title-en') || document.title;
-
-  function setLang(l){
-    var isFr = (l === 'fr');
-    bFr.setAttribute('aria-pressed', isFr);
-    bEn.setAttribute('aria-pressed', !isFr);
-    root.lang = l;
-    document.title = isFr ? titleFr : titleEn;
-    document.querySelectorAll('[data-fr]').forEach(function(el){
-      var v = el.getAttribute(isFr ? 'data-fr' : 'data-en');
-      if (v !== null) el.textContent = v;
-    });
-    try { localStorage.setItem('lang', l); } catch(e){}
-  }
-
-  bFr.addEventListener('click', function(){ setLang('fr'); });
-  bEn.addEventListener('click', function(){ setLang('en'); });
-
-  bTh.addEventListener('click', function(){
-    var dark = root.getAttribute('data-theme') === 'dark';
-    root.setAttribute('data-theme', dark ? 'light' : 'dark');
-    bTh.setAttribute('aria-pressed', String(!dark));
-    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
-  });
-
-  try {
-    var l = localStorage.getItem('lang');
-    if (l) setLang(l);
-    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
-    var t = localStorage.getItem('theme');
-    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
-  } catch(e){}
-})();
-</script>
+<script src="../assets/projet.js"></script>
+<script data-goatcounter="https://bouaziznourddine.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

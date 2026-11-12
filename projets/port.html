@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="fr" data-title-en="Port of Ghazaouet — information system and berth allocation · Nourddine Bouaziz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Port de Ghazaouet — système d'information et allocation des postes à quai · Nourddine Bouaziz</title>
+<meta name="description" content="Port de Ghazaouet : modules Odoo de GMAO, facturation, exploitation et commercial, et étude d'allocation des postes à quai (modèle mathématique, OpenSolver, LINGO, simulation Arena).">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<link rel="canonical" href="https://bouaziznourddine.github.io/portfolio/projets/port.html">
+<link rel="stylesheet" href="../assets/projet.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="toolbar">
+    <button id="btn-fr" aria-pressed="true">Français</button>
+    <button id="btn-en" aria-pressed="false">English</button>
+    <button id="btn-theme" aria-pressed="false" title="Thème clair / sombre">◐</button>
+  </div>
+
+  <a class="back" href="../index.html" data-fr="← Nourddine Bouaziz — tous les projets" data-en="← Nourddine Bouaziz — all projects">← Nourddine Bouaziz — tous les projets</a>
+
+  <header>
+    <h1 data-fr="Port de Ghazaouet — système d'information et allocation des postes à quai" data-en="Port of Ghazaouet — information system and berth allocation">Port de Ghazaouet — système d'information et allocation des postes à quai</h1>
+    <p class="meta" data-fr="2017 – 2018 · Entreprise Portuaire de Ghazaouet, Algérie" data-en="2017 – 2018 · Port Authority of Ghazaouet, Algeria">2017 – 2018 · Entreprise Portuaire de Ghazaouet, Algérie</p>
+    <p class="meta" data-fr="Développement Odoo et projet de fin de master en génie industriel, Université de Tlemcen" data-en="Odoo development and final-year master's project in industrial engineering, University of Tlemcen">Développement Odoo et projet de fin de master en génie industriel, Université de Tlemcen</p>
+  </header>
+
+  <section>
+    <h2 data-fr="Un système d'information pour le port" data-en="An information system for the port">Un système d'information pour le port</h2>
+    <p data-fr="Le travail a commencé par le terrain : analyser les procédures existantes du port, puis les modéliser avec MERISE et UML avant d'écrire une ligne de code. Sur cette base, j'ai développé et intégré quatre modules Odoo : la gestion de la maintenance (GMAO), la facturation, l'exploitation et le commercial." data-en="The work started in the field: analysing the port's existing procedures, then modelling them with MERISE and UML before writing a line of code. On that basis I developed and integrated four Odoo modules: maintenance management (CMMS), invoicing, operations and sales.">Le travail a commencé par le terrain : analyser les procédures existantes du port, puis les modéliser avec MERISE et UML avant d'écrire une ligne de code. Sur cette base, j'ai développé et intégré quatre modules Odoo : la gestion de la maintenance (GMAO), la facturation, l'exploitation et le commercial.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 196" role="img" aria-labelledby="p1t">
+        <title id="p1t" data-fr="Les quatre modules Odoo et le déroulé de la maintenance" data-en="The four Odoo modules and the maintenance flow">Les quatre modules Odoo et le déroulé de la maintenance</title>
+        <defs><marker id="ap1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <rect class="s-box" x="10" y="14" width="176" height="46" rx="7"/>
+        <text class="s-t" x="98" y="42" text-anchor="middle" data-fr="GMAO" data-en="CMMS">GMAO</text>
+        <rect class="s-box2" x="198" y="14" width="176" height="46" rx="7"/>
+        <text class="s-t" x="286" y="42" text-anchor="middle" data-fr="Facturation" data-en="Invoicing">Facturation</text>
+        <rect class="s-box2" x="386" y="14" width="176" height="46" rx="7"/>
+        <text class="s-t" x="474" y="42" text-anchor="middle" data-fr="Exploitation" data-en="Operations">Exploitation</text>
+        <rect class="s-box2" x="574" y="14" width="176" height="46" rx="7"/>
+        <text class="s-t" x="662" y="42" text-anchor="middle" data-fr="Commercial" data-en="Sales">Commercial</text>
+
+        <path class="s-l" d="M98,60 L98,96"/>
+        <path class="s-dash" d="M10,96 L750,96"/>
+        <text class="s-s" x="20" y="116" data-fr="Dans le module de maintenance :" data-en="Inside the maintenance module:">Dans le module de maintenance :</text>
+
+        <rect class="s-box2" x="10" y="130" width="132" height="52" rx="7"/>
+        <text class="s-t" x="76" y="152" text-anchor="middle" data-fr="Équipements" data-en="Equipment">Équipements</text>
+        <text class="s-s" x="76" y="169" text-anchor="middle" data-fr="engins du port" data-en="port machinery">engins du port</text>
+        <path class="s-l" d="M142,156 L158,156" marker-end="url(#ap1)"/>
+
+        <rect class="s-box2" x="162" y="130" width="132" height="52" rx="7"/>
+        <text class="s-t" x="228" y="152" text-anchor="middle" data-fr="Maintenance" data-en="Maintenance">Maintenance</text>
+        <text class="s-s" x="228" y="169" text-anchor="middle" data-fr="préventive · corrective" data-en="preventive · corrective">préventive · corrective</text>
+        <path class="s-l" d="M294,156 L310,156" marker-end="url(#ap1)"/>
+
+        <rect class="s-box2" x="314" y="130" width="132" height="52" rx="7"/>
+        <text class="s-t" x="380" y="152" text-anchor="middle" data-fr="Interventions" data-en="Interventions">Interventions</text>
+        <text class="s-s" x="380" y="169" text-anchor="middle" data-fr="planification" data-en="planning">planification</text>
+        <path class="s-l" d="M446,156 L462,156" marker-end="url(#ap1)"/>
+
+        <rect class="s-box2" x="466" y="130" width="132" height="52" rx="7"/>
+        <text class="s-t" x="532" y="152" text-anchor="middle" data-fr="Pièces de rechange" data-en="Spare parts">Pièces de rechange</text>
+        <text class="s-s" x="532" y="169" text-anchor="middle" data-fr="consommation" data-en="consumption">consommation</text>
+        <path class="s-l" d="M598,156 L614,156" marker-end="url(#ap1)"/>
+
+        <rect class="s-box2" x="618" y="130" width="132" height="52" rx="7"/>
+        <text class="s-t" x="684" y="152" text-anchor="middle" data-fr="Comptes rendus" data-en="Reports">Comptes rendus</text>
+        <text class="s-s" x="684" y="169" text-anchor="middle" data-fr="d'intervention" data-en="of interventions">d'intervention</text>
+      </svg>
+      <figcaption data-fr="Figure 1 — Quatre modules sur une base commune. La GMAO suit un équipement de sa fiche jusqu'au compte rendu de chaque intervention." data-en="Figure 1 — Four modules on a shared database. The CMMS follows a piece of equipment from its record through to the report of each intervention.">Figure 1 — Quatre modules sur une base commune. La GMAO suit un équipement de sa fiche jusqu'au compte rendu de chaque intervention.</figcaption>
+    </figure>
+
+    <p data-fr="La GMAO couvre les équipements, la maintenance préventive et corrective, les pièces de rechange, la planification des interventions et leurs comptes rendus. Le projet s'est achevé par la formation des utilisateurs à la prise en main." data-en="The CMMS covers equipment, preventive and corrective maintenance, spare parts, intervention planning and reports. The project ended with user training on handover.">La GMAO couvre les équipements, la maintenance préventive et corrective, les pièces de rechange, la planification des interventions et leurs comptes rendus. Le projet s'est achevé par la formation des utilisateurs à la prise en main.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Quel navire à quel quai" data-en="Which ship at which berth">Quel navire à quel quai</h2>
+    <p data-fr="Les navires qui se présentent diffèrent par leur longueur et leur tirant d'eau : tous ne peuvent pas accoster partout. Mal répartis, ils attendent au large pendant qu'un quai reste sous-employé. L'étude cherche l'affectation des navires aux postes à quai, et leur ordre de passage, qui réduit cette attente." data-en="Arriving ships differ in length and draught: not all of them can berth anywhere. Badly distributed, they wait offshore while a quay stays underused. The study looks for the assignment of ships to berths, and their order of service, that reduces that waiting.">Les navires qui se présentent diffèrent par leur longueur et leur tirant d'eau : tous ne peuvent pas accoster partout. Mal répartis, ils attendent au large pendant qu'un quai reste sous-employé. L'étude cherche l'affectation des navires aux postes à quai, et leur ordre de passage, qui réduit cette attente.</p>
+
+    <figure class="media narrow">
+      <img src="../media/img/port-postes-a-quai.png" width="768" height="528" loading="lazy" alt="Trois dispositions de navires de tailles différentes le long des postes à quai">
+      <figcaption data-fr="Figure 2 — Le même linéaire de quai accueille trois ou quatre navires selon leurs tailles." data-en="Figure 2 — The same length of quay takes three or four ships depending on their sizes.">Figure 2 — Le même linéaire de quai accueille trois ou quatre navires selon leurs tailles.</figcaption>
+    </figure>
+
+    <p data-fr="J'ai formulé le problème comme un modèle mathématique à variables binaires — tel navire, à tel poste, à tel rang — dont l'objectif tient compte du temps de traitement, de l'attente depuis l'arrivée et de la distance entre le poste et les zones de stockage des conteneurs. Le modèle a été résolu avec OpenSolver sous Excel, vérifié sous LINGO, puis éprouvé par une simulation Arena alimentée par les statistiques réelles du terminal, d'août 2013 à mai 2016." data-en="I formulated the problem as a mathematical model with binary variables — this ship, at this berth, in this position — whose objective accounts for handling time, waiting since arrival and the distance between the berth and the container storage zones. The model was solved with OpenSolver in Excel, verified in LINGO, then tested with an Arena simulation fed by the terminal's real statistics, from August 2013 to May 2016.">J'ai formulé le problème comme un modèle mathématique à variables binaires — tel navire, à tel poste, à tel rang — dont l'objectif tient compte du temps de traitement, de l'attente depuis l'arrivée et de la distance entre le poste et les zones de stockage des conteneurs. Le modèle a été résolu avec OpenSolver sous Excel, vérifié sous LINGO, puis éprouvé par une simulation Arena alimentée par les statistiques réelles du terminal, d'août 2013 à mai 2016.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 232" role="img" aria-labelledby="p2t">
+        <title id="p2t" data-fr="Solution de l'instance d'étude : deux quais, cinq navires" data-en="Solution of the study instance: two berths, five ships">Solution de l'instance d'étude : deux quais, cinq navires</title>
+
+        <path class="s-g" d="M150,18 L150,186 M410,18 L410,186 M540,18 L540,186 M670,18 L670,186"/>
+        <path class="s-l" d="M280,14 L280,190"/>
+
+        <text class="s-h" x="14" y="52" data-fr="QUAI 1" data-en="BERTH 1">QUAI 1</text>
+        <text class="s-s" x="140" y="42" text-anchor="end" data-fr="Navire 1" data-en="Ship 1">Navire 1</text>
+        <rect class="s-bar3" x="215" y="28" width="65" height="18" rx="3"/>
+        <rect class="s-bar" x="280" y="28" width="325" height="18" rx="3"/>
+        <text class="s-s" x="140" y="70" text-anchor="end" data-fr="Navire 3" data-en="Ship 3">Navire 3</text>
+        <rect class="s-bar3" x="254" y="56" width="351" height="18" rx="3"/>
+        <rect class="s-bar" x="605" y="56" width="117" height="18" rx="3"/>
+
+        <path class="s-dash" d="M10,88 L750,88"/>
+
+        <text class="s-h" x="14" y="136" data-fr="QUAI 2" data-en="BERTH 2">QUAI 2</text>
+        <text class="s-s" x="140" y="114" text-anchor="end" data-fr="Navire 4" data-en="Ship 4">Navire 4</text>
+        <rect class="s-bar3" x="163" y="100" width="130" height="18" rx="3"/>
+        <rect class="s-bar" x="293" y="100" width="104" height="18" rx="3"/>
+        <text class="s-s" x="140" y="142" text-anchor="end" data-fr="Navire 2" data-en="Ship 2">Navire 2</text>
+        <rect class="s-bar3" x="189" y="128" width="208" height="18" rx="3"/>
+        <rect class="s-bar" x="397" y="128" width="52" height="18" rx="3"/>
+        <text class="s-s" x="140" y="170" text-anchor="end" data-fr="Navire 5" data-en="Ship 5">Navire 5</text>
+        <rect class="s-bar3" x="241" y="156" width="208" height="18" rx="3"/>
+        <rect class="s-bar" x="449" y="156" width="130" height="18" rx="3"/>
+
+        <text class="s-s" x="150" y="204" text-anchor="middle">−10</text>
+        <text class="s-s" x="280" y="204" text-anchor="middle">0</text>
+        <text class="s-s" x="410" y="204" text-anchor="middle">10</text>
+        <text class="s-s" x="540" y="204" text-anchor="middle">20</text>
+        <text class="s-s" x="670" y="204" text-anchor="middle">30</text>
+
+        <rect class="s-bar3" x="300" y="216" width="26" height="10" rx="2"/>
+        <text class="s-s" x="332" y="225" data-fr="attente depuis l'arrivée" data-en="waiting since arrival">attente depuis l'arrivée</text>
+        <rect class="s-bar" x="490" y="216" width="26" height="10" rx="2"/>
+        <text class="s-s" x="522" y="225" data-fr="traitement à quai" data-en="handling at berth">traitement à quai</text>
+      </svg>
+      <figcaption data-fr="Figure 3 — La solution obtenue pour l'instance d'étude : deux quais, cinq navires, trois zones de stockage. Le quai 1 reçoit les navires 1 puis 3 ; le quai 2, les navires 4, 2 puis 5. Le temps est compté en unités de l'instance, à partir du début de la planification." data-en="Figure 3 — The solution obtained for the study instance: two berths, five ships, three storage zones. Berth 1 takes ships 1 then 3; berth 2 takes ships 4, 2 then 5. Time is counted in the instance's units, from the start of planning.">Figure 3 — La solution obtenue pour l'instance d'étude : deux quais, cinq navires, trois zones de stockage. Le quai 1 reçoit les navires 1 puis 3 ; le quai 2, les navires 4, 2 puis 5. Le temps est compté en unités de l'instance, à partir du début de la planification.</figcaption>
+    </figure>
+
+    <figure class="media">
+      <img src="../media/img/port-modele-arena.png" width="1097" height="371" loading="lazy" alt="Modèle de simulation Arena du terminal : arrivée des conteneurs, grue, zones de stockage">
+      <figcaption data-fr="Figure 4 — Le modèle de simulation Arena du terminal : arrivée des conteneurs, grue, et répartition entre les zones de stockage." data-en="Figure 4 — The Arena simulation model of the terminal: container arrival, crane, and distribution between storage zones.">Figure 4 — Le modèle de simulation Arena du terminal : arrivée des conteneurs, grue, et répartition entre les zones de stockage.</figcaption>
+    </figure>
+
+    <p data-fr="La solution d'allocation a été mise en œuvre par l'entreprise portuaire." data-en="The berth-allocation solution was implemented by the port authority.">La solution d'allocation a été mise en œuvre par l'entreprise portuaire.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Où poser chaque conteneur" data-en="Where to put each container">Où poser chaque conteneur</h2>
+    <p data-fr="Une seconde étude porte sur le parc à conteneurs. L'espace y est compté, et un conteneur qui doit sortir ou passer à l'inspection ne doit pas se trouver enfoui sous les autres : chaque déplacement inutile coûte du temps de manutention. J'ai modélisé le choix des emplacements et programmé, avec un algorithme génétique, une application qui propose où stocker chaque conteneur et par quel chemin le déplacer." data-en="A second study concerns the container yard. Space there is scarce, and a container that must leave or go to inspection should not be buried under the others: every unnecessary move costs handling time. I modelled the choice of locations and programmed, with a genetic algorithm, an application that proposes where to store each container and along which path to move it.">Une seconde étude porte sur le parc à conteneurs. L'espace y est compté, et un conteneur qui doit sortir ou passer à l'inspection ne doit pas se trouver enfoui sous les autres : chaque déplacement inutile coûte du temps de manutention. J'ai modélisé le choix des emplacements et programmé, avec un algorithme génétique, une application qui propose où stocker chaque conteneur et par quel chemin le déplacer.</p>
+
+    <div class="tags">
+      <span class="tag">Odoo</span>
+      <span class="tag" data-fr="GMAO" data-en="CMMS">GMAO</span>
+      <span class="tag">MERISE / UML</span>
+      <span class="tag">OpenSolver</span>
+      <span class="tag">LINGO</span>
+      <span class="tag">Arena</span>
+      <span class="tag" data-fr="Algorithmes génétiques" data-en="Genetic algorithms">Algorithmes génétiques</span>
+    </div>
+    <nav class="links">
+      <a href="verre.html" data-fr="Projet suivant : l'usine de verre trempé →" data-en="Next project: the tempered-glass factory →">Projet suivant : l'usine de verre trempé →</a>
+      <a href="../index.html" data-fr="Tous les projets" data-en="All projects">Tous les projets</a>
+    </nav>
+  </section>
+
+  <footer>
+    <span data-fr="Nourddine Bouaziz — dernière mise à jour : novembre 2026." data-en="Nourddine Bouaziz — last updated: November 2026.">Nourddine Bouaziz — dernière mise à jour : novembre 2026.</span>
+  </footer>
+
+</div>
+
+<script src="../assets/projet.js"></script>
+<script data-goatcounter="https://bouaziznourddine.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

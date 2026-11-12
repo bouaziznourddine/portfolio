@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr" data-title-en="Logistics optimisation — study work · Nourddine Bouaziz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optimisation logistique — travaux d'étude · Nourddine Bouaziz</title>
+<meta name="description" content="Travaux d'optimisation logistique : tournées de véhicules, réseau de production–distribution, planification agrégée, chaîne agroalimentaire, ordonnancement d'ateliers et localisation. LINGO, CPLEX, algorithmes génétiques.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<link rel="canonical" href="https://bouaziznourddine.github.io/portfolio/projets/logistique.html">
+<link rel="stylesheet" href="../assets/projet.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="toolbar">
+    <button id="btn-fr" aria-pressed="true">Français</button>
+    <button id="btn-en" aria-pressed="false">English</button>
+    <button id="btn-theme" aria-pressed="false" title="Thème clair / sombre">◐</button>
+  </div>
+
+  <a class="back" href="../index.html" data-fr="← Nourddine Bouaziz — tous les projets" data-en="← Nourddine Bouaziz — all projects">← Nourddine Bouaziz — tous les projets</a>
+
+  <header>
+    <h1 data-fr="Optimisation logistique — travaux d'étude" data-en="Logistics optimisation — study work">Optimisation logistique — travaux d'étude</h1>
+    <p class="meta" data-fr="2015 – 2020 · Projets académiques et missions indépendantes" data-en="2015 – 2020 · Academic projects and freelance engagements">2015 – 2020 · Projets académiques et missions indépendantes</p>
+    <p class="meta" data-fr="Licence et master en génie industriel, Université de Tlemcen" data-en="Bachelor's and master's degrees in industrial engineering, University of Tlemcen">Licence et master en génie industriel, Université de Tlemcen</p>
+  </header>
+
+  <section>
+    <h2 data-fr="Une même démarche" data-en="One approach">Une même démarche</h2>
+    <p data-fr="Avant la thèse, j'ai traité une série de problèmes classiques de recherche opérationnelle. La démarche est chaque fois la même : écrire le modèle mathématique, le résoudre avec un solveur tant que la taille le permet, passer à une métaheuristique quand elle ne le permet plus, et finir par une interface qui rend le résultat utilisable par quelqu'un d'autre que moi." data-en="Before the thesis, I worked on a series of classic operations-research problems. The approach is the same each time: write the mathematical model, solve it with a solver as long as size allows, switch to a metaheuristic when it no longer does, and finish with an interface that makes the result usable by someone other than me.">Avant la thèse, j'ai traité une série de problèmes classiques de recherche opérationnelle. La démarche est chaque fois la même : écrire le modèle mathématique, le résoudre avec un solveur tant que la taille le permet, passer à une métaheuristique quand elle ne le permet plus, et finir par une interface qui rend le résultat utilisable par quelqu'un d'autre que moi.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Tournées de livraison" data-en="Delivery routes">Tournées de livraison</h2>
+    <p data-fr="Le cas d'étude est la distribution de gaz butane autour de Tlemcen : un centre d'enfûtage, des points de livraison répartis sur la région, et une flotte limitée de camions de capacités différentes. Il faut décider quel camion sert quel client, avec quelle quantité, et dans quel ordre, pour réduire le coût de transport." data-en="The case study is butane-gas distribution around Tlemcen: one bottling centre, delivery points spread across the region, and a limited fleet of trucks with different capacities. The decision is which truck serves which customer, with what quantity and in what order, so as to reduce transport cost.">Le cas d'étude est la distribution de gaz butane autour de Tlemcen : un centre d'enfûtage, des points de livraison répartis sur la région, et une flotte limitée de camions de capacités différentes. Il faut décider quel camion sert quel client, avec quelle quantité, et dans quel ordre, pour réduire le coût de transport.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 250" role="img" aria-labelledby="l1t">
+        <title id="l1t" data-fr="Trois tournées au départ d'un dépôt" data-en="Three routes from one depot">Trois tournées au départ d'un dépôt</title>
+
+        <path class="s-c" d="M380,130 L262,78 L168,52 L132,120 L236,150 Z"/>
+        <path class="s-l" d="M380,130 L300,196 L210,222 L150,190 L250,170 Z" stroke-dasharray="7 4"/>
+        <path class="s-l" d="M380,130 L498,64 L600,80 L644,150 L560,204 L468,186 Z" stroke-dasharray="2 4"/>
+
+        <circle class="s-dot" cx="262" cy="78" r="5"/><circle class="s-dot" cx="168" cy="52" r="5"/>
+        <circle class="s-dot" cx="132" cy="120" r="5"/><circle class="s-dot" cx="236" cy="150" r="5"/>
+        <circle class="s-dot" cx="300" cy="196" r="5"/><circle class="s-dot" cx="210" cy="222" r="5"/>
+        <circle class="s-dot" cx="150" cy="190" r="5"/><circle class="s-dot" cx="250" cy="170" r="5"/>
+        <circle class="s-dot" cx="498" cy="64" r="5"/><circle class="s-dot" cx="600" cy="80" r="5"/>
+        <circle class="s-dot" cx="644" cy="150" r="5"/><circle class="s-dot" cx="560" cy="204" r="5"/>
+        <circle class="s-dot" cx="468" cy="186" r="5"/>
+
+        <rect class="s-box" x="360" y="114" width="40" height="32" rx="5"/>
+        <text class="s-t" x="380" y="104" text-anchor="middle" data-fr="Dépôt" data-en="Depot">Dépôt</text>
+
+        <text class="s-s" x="176" y="100" text-anchor="middle" data-fr="camion 1" data-en="truck 1">camion 1</text>
+        <text class="s-s" x="222" y="204" text-anchor="middle" data-fr="camion 2" data-en="truck 2">camion 2</text>
+        <text class="s-s" x="560" y="140" text-anchor="middle" data-fr="camion 3" data-en="truck 3">camion 3</text>
+      </svg>
+      <figcaption data-fr="Figure 1 — Schéma de principe : chaque client est servi une fois, chaque tournée part du dépôt et y revient, et la charge d'un camion ne dépasse jamais sa capacité." data-en="Figure 1 — Principle diagram: each customer is served once, each route starts from and returns to the depot, and a truck's load never exceeds its capacity.">Figure 1 — Schéma de principe : chaque client est servi une fois, chaque tournée part du dépôt et y revient, et la charge d'un camion ne dépasse jamais sa capacité.</figcaption>
+    </figure>
+
+    <p data-fr="Le problème a été modélisé et résolu sous LINGO, puis traité par un algorithme génétique programmé en Java, avec une interface de planification et une représentation des tournées sur la carte." data-en="The problem was modelled and solved in LINGO, then handled with a genetic algorithm programmed in Java, with a planning interface and a display of the routes on the map.">Le problème a été modélisé et résolu sous LINGO, puis traité par un algorithme génétique programmé en Java, avec une interface de planification et une représentation des tournées sur la carte.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Réseau de production et de distribution" data-en="Production and distribution network">Réseau de production et de distribution</h2>
+    <p data-fr="Une unité de production alimente plusieurs centres de distribution, qui alimentent à leur tour des magasins. La question est double : combien produire, et combien envoyer de chaque centre vers chaque point de vente à chaque date, pour répondre à la demande au moindre coût de transport. Le modèle, multi-étapes et non linéaire, a été écrit sous LINGO et sous CPLEX." data-en="One production unit supplies several distribution centres, which in turn supply stores. The question is twofold: how much to produce, and how much to ship from each centre to each point of sale on each date, to meet demand at the lowest transport cost. The model, multi-stage and non-linear, was written in LINGO and in CPLEX.">Une unité de production alimente plusieurs centres de distribution, qui alimentent à leur tour des magasins. La question est double : combien produire, et combien envoyer de chaque centre vers chaque point de vente à chaque date, pour répondre à la demande au moindre coût de transport. Le modèle, multi-étapes et non linéaire, a été écrit sous LINGO et sous CPLEX.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 220" role="img" aria-labelledby="l2t">
+        <title id="l2t" data-fr="Réseau à trois niveaux : usine, centres de distribution, magasins" data-en="Three-level network: plant, distribution centres, stores">Réseau à trois niveaux : usine, centres de distribution, magasins</title>
+        <defs><marker id="al2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <rect class="s-box" x="30" y="82" width="150" height="56" rx="7"/>
+        <text class="s-t" x="105" y="106" text-anchor="middle" data-fr="Unité de production" data-en="Production unit">Unité de production</text>
+        <text class="s-s" x="105" y="124" text-anchor="middle" data-fr="combien produire ?" data-en="how much to produce?">combien produire ?</text>
+
+        <path class="s-l" d="M180,100 L296,46" marker-end="url(#al2)"/>
+        <path class="s-l" d="M180,110 L296,110" marker-end="url(#al2)"/>
+        <path class="s-l" d="M180,120 L296,174" marker-end="url(#al2)"/>
+
+        <rect class="s-box2" x="300" y="24" width="150" height="44" rx="7"/>
+        <text class="s-t" x="375" y="51" text-anchor="middle" data-fr="Centre 1" data-en="Centre 1">Centre 1</text>
+        <rect class="s-box2" x="300" y="88" width="150" height="44" rx="7"/>
+        <text class="s-t" x="375" y="115" text-anchor="middle" data-fr="Centre 2" data-en="Centre 2">Centre 2</text>
+        <rect class="s-box2" x="300" y="152" width="150" height="44" rx="7"/>
+        <text class="s-t" x="375" y="179" text-anchor="middle" data-fr="Centre 3" data-en="Centre 3">Centre 3</text>
+
+        <path class="s-l" d="M450,40 L586,26" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,46 L586,46" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,52 L586,66" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,104 L586,90" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,110 L586,110" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,116 L586,130" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,168 L586,154" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,174 L586,174" marker-end="url(#al2)"/>
+        <path class="s-l" d="M450,180 L586,194" marker-end="url(#al2)"/>
+
+        <rect class="s-box2" x="590" y="17" width="30" height="18" rx="3"/><rect class="s-box2" x="590" y="37" width="30" height="18" rx="3"/><rect class="s-box2" x="590" y="57" width="30" height="18" rx="3"/>
+        <rect class="s-box2" x="590" y="81" width="30" height="18" rx="3"/><rect class="s-box2" x="590" y="101" width="30" height="18" rx="3"/><rect class="s-box2" x="590" y="121" width="30" height="18" rx="3"/>
+        <rect class="s-box2" x="590" y="145" width="30" height="18" rx="3"/><rect class="s-box2" x="590" y="165" width="30" height="18" rx="3"/><rect class="s-box2" x="590" y="185" width="30" height="18" rx="3"/>
+        <text class="s-t" x="634" y="106" data-fr="Magasins" data-en="Stores">Magasins</text>
+        <text class="s-s" x="634" y="124" data-fr="demande datée" data-en="dated demand">demande datée</text>
+      </svg>
+      <figcaption data-fr="Figure 2 — Le réseau étudié : les quantités circulent de l'usine vers les centres, puis vers les points de vente." data-en="Figure 2 — The network studied: quantities flow from the plant to the centres, then to the points of sale.">Figure 2 — Le réseau étudié : les quantités circulent de l'usine vers les centres, puis vers les points de vente.</figcaption>
+    </figure>
+
+    <h3 data-fr="Planification agrégée" data-en="Aggregate planning">Planification agrégée</h3>
+    <p data-fr="Sur plusieurs périodes, quand la demande dépasse la capacité, faut-il stocker à l'avance, ajouter de la main-d'œuvre ou faire des heures supplémentaires ? Le modèle arbitre entre ces coûts." data-en="Over several periods, when demand exceeds capacity, should one build stock ahead, add labour or work overtime? The model arbitrates between those costs.">Sur plusieurs périodes, quand la demande dépasse la capacité, faut-il stocker à l'avance, ajouter de la main-d'œuvre ou faire des heures supplémentaires ? Le modèle arbitre entre ces coûts.</p>
+<pre class="code">min   Σ(i,t) ( v[i,t]·X[i,t] + c[i,t]·I[i,t] )  +  Σ(t) ( r[t]·W[t] + o[t]·O[t] )
+
+      X[i,t] + I[i,t-1] - I[i,t] = d[i,t]        ∀ i, t
+      Σ(i) k[i]·X[i,t]  ≤  W[t] + O[t]           ∀ t
+      0 ≤ W[t] ≤ rm[t]       0 ≤ O[t] ≤ om[t]    ∀ t</pre>
+    <p class="credit" data-fr="X : production · I : stock · W : heures normales · O : heures supplémentaires · d : demande, pour le produit i à la période t." data-en="X: production · I: stock · W: regular hours · O: overtime · d: demand, for product i in period t.">X : production · I : stock · W : heures normales · O : heures supplémentaires · d : demande, pour le produit i à la période t.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Une chaîne agroalimentaire saisonnière" data-en="A seasonal food supply chain">Une chaîne agroalimentaire saisonnière</h2>
+    <p data-fr="Le cas est celui d'un producteur de café qui fabrique deux produits distincts par leur durée de conservation : un emballage classique et un emballage qui la prolonge. La demande varie avec les saisons. Que produire à chaque saison, et à quelle saison le vendre ? Le modèle a été écrit sous LINGO, puis résolu par un algorithme génétique en Java, seul ou combiné à une recherche locale, dans un programme de simulation." data-en="The case is a coffee producer making two products that differ in shelf life: a classic packaging and one that extends it. Demand varies with the seasons. What should be produced in each season, and in which season should it be sold? The model was written in LINGO, then solved with a genetic algorithm in Java, alone or combined with local search, inside a simulation program.">Le cas est celui d'un producteur de café qui fabrique deux produits distincts par leur durée de conservation : un emballage classique et un emballage qui la prolonge. La demande varie avec les saisons. Que produire à chaque saison, et à quelle saison le vendre ? Le modèle a été écrit sous LINGO, puis résolu par un algorithme génétique en Java, seul ou combiné à une recherche locale, dans un programme de simulation.</p>
+
+    <figure class="media">
+      <img src="../media/img/africafe-simulation.png" width="1363" height="372" loading="lazy" alt="Interface du programme de simulation : capacités saisonnières, prévisions de demande, coûts et quantités calculées">
+      <figcaption data-fr="Figure 3 — Le programme de simulation : capacités saisonnières, prévisions de demande et coûts en entrée ; quantités à produire et à vendre par période en sortie." data-en="Figure 3 — The simulation program: seasonal capacities, demand forecasts and costs as input; quantities to produce and sell per period as output.">Figure 3 — Le programme de simulation : capacités saisonnières, prévisions de demande et coûts en entrée ; quantités à produire et à vendre par période en sortie.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 data-fr="Ordonnancement d'ateliers" data-en="Workshop scheduling">Ordonnancement d'ateliers</h2>
+    <p data-fr="Trois configurations classiques — machine unique, machines parallèles, flow-shop — avec ce qui complique un atelier réel : des ressources limitées, des pannes, des périodes d'indisponibilité. Un même outil, écrit en Java, résout le problème par algorithme génétique selon le critère choisi : somme des dates de fin, retard maximal, retards pondérés, durée totale ou nombre de travaux en retard." data-en="Three classic configurations — single machine, parallel machines, flow shop — with what complicates a real workshop: limited resources, breakdowns, unavailability periods. One tool, written in Java, solves the problem with a genetic algorithm according to the chosen criterion: sum of completion times, maximum tardiness, weighted tardiness, makespan or number of late jobs.">Trois configurations classiques — machine unique, machines parallèles, flow-shop — avec ce qui complique un atelier réel : des ressources limitées, des pannes, des périodes d'indisponibilité. Un même outil, écrit en Java, résout le problème par algorithme génétique selon le critère choisi : somme des dates de fin, retard maximal, retards pondérés, durée totale ou nombre de travaux en retard.</p>
+
+    <figure class="media">
+      <img src="../media/img/atelier-interface.png" width="1147" height="467" loading="lazy" alt="Interface Java de l'outil d'ordonnancement : temps opératoires, dates dues, importance des tâches, nombre de machines, pannes">
+      <figcaption data-fr="Figure 4 — L'outil d'ordonnancement : durées, dates dues et importance des tâches ; choix du nombre de machines, de la prise en compte des pannes et du critère." data-en="Figure 4 — The scheduling tool: durations, due dates and task importance; choice of the number of machines, of whether breakdowns are considered, and of the criterion.">Figure 4 — L'outil d'ordonnancement : durées, dates dues et importance des tâches ; choix du nombre de machines, de la prise en compte des pannes et du critère.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 data-fr="Localisation et flux de retour" data-en="Location and return flows">Localisation et flux de retour</h2>
+    <ul>
+      <li data-fr="Localisation d'installations : choisir où implanter un site par le modèle du p-médian, résolu sous LINGO et OpenSolver, et par une pondération de critères qui ajoute à la distance les quantités commandées et d'autres caractéristiques des sites." data-en="Facility location: choosing where to set up a site with the p-median model, solved in LINGO and OpenSolver, and with a weighting of criteria that adds ordered quantities and other site characteristics to distance.">Localisation d'installations : choisir où implanter un site par le modèle du p-médian, résolu sous LINGO et OpenSolver, et par une pondération de critères qui ajoute à la distance les quantités commandées et d'autres caractéristiques des sites.</li>
+      <li data-fr="Classification de clients par logique floue." data-en="Customer classification with fuzzy logic.">Classification de clients par logique floue.</li>
+      <li data-fr="Chaîne logistique en boucle fermée : un modèle où les produits retournés par le marché sont collectés, triés, puis remis en fabrication, confiés à un sous-traitant ou éliminés." data-en="Closed-loop supply chain: a model in which products returned by the market are collected, sorted, then remanufactured, handed to a subcontractor or disposed of.">Chaîne logistique en boucle fermée : un modèle où les produits retournés par le marché sont collectés, triés, puis remis en fabrication, confiés à un sous-traitant ou éliminés.</li>
+    </ul>
+
+    <div class="callout">
+      <p data-fr="Ce sont des travaux d'étude : ils établissent des modèles et des outils, pas des gains mesurés en exploitation." data-en="These are study projects: they establish models and tools, not gains measured in operation.">Ce sont des travaux d'étude : ils établissent des modèles et des outils, pas des gains mesurés en exploitation.</p>
+    </div>
+
+    <div class="tags">
+      <span class="tag">VRP / CVRP</span>
+      <span class="tag">LINGO</span>
+      <span class="tag">CPLEX</span>
+      <span class="tag">OpenSolver</span>
+      <span class="tag" data-fr="Algorithmes génétiques" data-en="Genetic algorithms">Algorithmes génétiques</span>
+      <span class="tag">Java</span>
+      <span class="tag" data-fr="Ordonnancement" data-en="Scheduling">Ordonnancement</span>
+    </div>
+    <nav class="links">
+      <a href="port.html" data-fr="Le port de Ghazaouet →" data-en="The port of Ghazaouet →">Le port de Ghazaouet →</a>
+      <a href="verre.html" data-fr="L'usine de verre trempé →" data-en="The tempered-glass factory →">L'usine de verre trempé →</a>
+      <a href="../index.html" data-fr="Tous les projets" data-en="All projects">Tous les projets</a>
+    </nav>
+  </section>
+
+  <footer>
+    <span data-fr="Nourddine Bouaziz — dernière mise à jour : novembre 2026." data-en="Nourddine Bouaziz — last updated: November 2026.">Nourddine Bouaziz — dernière mise à jour : novembre 2026.</span>
+  </footer>
+
+</div>
+
+<script src="../assets/projet.js"></script>
+<script data-goatcounter="https://bouaziznourddine.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -6,92 +6,8 @@
 <title>Doctorat — l'incertitude du comportement humain dans l'ordonnancement · Nourddine Bouaziz</title>
 <meta name="description" content="Doctorat : modéliser la ponctualité, la fatigue, l'apprentissage et l'oubli des opérateurs par chaînes de Markov, les simuler en multi-agents et les intégrer à un modèle MINLP d'ordonnancement.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
-<style>
-  :root{
-    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
-    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff;
-    --maxw:860px;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-      --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-    --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--fg);
-    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    padding:0 16px;
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto}
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
-  .toolbar button{
-    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
-    background:var(--card); color:var(--muted);
-    border:1px solid var(--border); border-radius:999px;
-  }
-  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
-
-  .back{display:inline-block; margin-top:16px; font-size:.9rem; color:var(--muted)}
-  .back:hover{color:var(--accent)}
-
-  header{padding:12px 0 24px; border-bottom:1px solid var(--border)}
-  h1{font-family:Georgia,"Times New Roman",serif; font-size:2rem; line-height:1.2; margin:10px 0 10px}
-  .meta{color:var(--muted); font-size:.93rem; margin:0 0 3px}
-
-  section{padding:30px 0; border-bottom:1px solid var(--border)}
-  section:last-of-type{border-bottom:none}
-  h2{font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; color:var(--accent); margin:0 0 16px; font-weight:700}
-  h3{font-size:1rem; margin:24px 0 8px}
-  p{margin:0 0 12px}
-  ul{margin:0 0 12px; padding-left:20px}
-  li{margin-bottom:6px}
-
-  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
-  .tag{font-size:.76rem; padding:2px 9px; border-radius:4px; background:var(--accent-soft); color:var(--accent)}
-  .note{font-size:.87rem; color:var(--muted); font-style:italic}
-  .callout{
-    border-left:3px solid var(--accent); background:var(--accent-soft);
-    padding:12px 14px; border-radius:0 8px 8px 0; margin:18px 0; font-size:.94rem;
-  }
-  .callout p:last-child{margin-bottom:0}
-  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px}
-  .links a{
-    display:inline-block; padding:5px 11px; border:1px solid var(--border);
-    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
-  }
-  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
-
-  .fig{margin:22px 0; padding:16px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); overflow-x:auto}
-  .fig svg{display:block; width:100%; min-width:600px; height:auto}
-  .fig figcaption{font-size:.85rem; color:var(--muted); margin-top:10px; text-align:center}
-  .s-box{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.2}
-  .s-box2{fill:var(--bg); stroke:var(--border); stroke-width:1.2}
-  .s-t{fill:var(--fg); font:600 12.5px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-s{fill:var(--muted); font:11px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-l{stroke:var(--muted); stroke-width:1.4; fill:none}
-  .s-g{stroke:var(--border); stroke-width:1; fill:none}
-  .s-c{stroke:var(--accent); stroke-width:2; fill:none}
-  .s-dash{stroke:var(--muted); stroke-width:1.2; fill:none; stroke-dasharray:4 4}
-  .s-ar{fill:var(--muted)}
-
-  footer{padding:26px 0 50px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--border)}
-  [hidden]{display:none !important}
-
-  @media (max-width:600px){
-    h1{font-size:1.6rem}
-    section{padding:24px 0}
-  }
-</style>
+<link rel="canonical" href="https://bouaziznourddine.github.io/portfolio/projets/doctorat.html">
+<link rel="stylesheet" href="../assets/projet.css">
 </head>
 <body>
 <div class="wrap">
@@ -108,47 +24,165 @@
     <h1 data-fr="Doctorat — l'incertitude du comportement humain dans l'ordonnancement" data-en="PhD — human-behaviour uncertainty in production scheduling">Doctorat — l'incertitude du comportement humain dans l'ordonnancement</h1>
     <p class="meta" data-fr="Avril 2022 – avril 2025 · Soutenue le 25 juin 2025, grade décerné à l'unanimité du jury" data-en="April 2022 – April 2025 · Defended on 25 June 2025, degree awarded unanimously by the jury">Avril 2022 – avril 2025 · Soutenue le 25 juin 2025, grade décerné à l'unanimité du jury</p>
     <p class="meta" data-fr="CESI LINEACT et Arts et Métiers (HESAM Université) · projet AntiHpert, RIN Tremplin 2019" data-en="CESI LINEACT and Arts et Métiers (HESAM Université) · AntiHpert project, RIN Tremplin 2019">CESI LINEACT et Arts et Métiers (HESAM Université) · projet AntiHpert, RIN Tremplin 2019</p>
+    <p class="meta" data-fr="Thèse : « Ordonnancement dynamique prédictif d'atelier de production flexible sous incertitude du comportement humain » · dirigée par M'hammed Sahnoun et Adnan Yassine, co-encadrée par Belgacem Bettayeb" data-en="Thesis: “Ordonnancement dynamique prédictif d'atelier de production flexible sous incertitude du comportement humain” (predictive dynamic scheduling of a flexible workshop under human-behaviour uncertainty) · supervised by M'hammed Sahnoun and Adnan Yassine, co-supervised by Belgacem Bettayeb">Thèse : « Ordonnancement dynamique prédictif d'atelier de production flexible sous incertitude du comportement humain » · dirigée par M'hammed Sahnoun et Adnan Yassine, co-encadrée par Belgacem Bettayeb</p>
   </header>
 
   <section>
     <h2 data-fr="Le point de départ" data-en="The starting point">Le point de départ</h2>
     <p data-fr="La plupart des modèles d'ordonnancement traitent les opérateurs comme des machines : toujours présents, toujours à la même vitesse. Un atelier réel ne fonctionne pas ainsi. Les gens arrivent, s'absentent, se déplacent, fatiguent en fin de poste, vont plus vite sur une tâche qu'ils répètent, et plus lentement sur une tâche qu'ils n'ont pas faite depuis des semaines." data-en="Most scheduling models treat operators like machines: always present, always at the same pace. A real shop floor does not work that way. People arrive, step away, move around, tire towards the end of the shift, go faster on a task they repeat, and slower on one they have not done for weeks.">La plupart des modèles d'ordonnancement traitent les opérateurs comme des machines : toujours présents, toujours à la même vitesse. Un atelier réel ne fonctionne pas ainsi. Les gens arrivent, s'absentent, se déplacent, fatiguent en fin de poste, vont plus vite sur une tâche qu'ils répètent, et plus lentement sur une tâche qu'ils n'ont pas faite depuis des semaines.</p>
-    <p data-fr="Un planning calculé sans cette variabilité est optimal sur le papier et faux dès la première heure. La thèse part de là : représenter ce comportement de façon mesurable, puis s'en servir pour décider." data-en="A schedule computed without that variability is optimal on paper and wrong within the first hour. The thesis starts there: represent that behaviour in a measurable way, then use it to decide.">Un planning calculé sans cette variabilité est optimal sur le papier et faux dès la première heure. La thèse part de là : représenter ce comportement de façon mesurable, puis s'en servir pour décider.</p>
+    <p data-fr="Un planning calculé sans cette variabilité est optimal sur le papier et faux dès la première heure. La thèse pose donc une question : comment intégrer formellement la variabilité et l'incertitude du comportement humain dans l'ordonnancement et la simulation des systèmes de production flexibles ?" data-en="A schedule computed without that variability is optimal on paper and wrong within the first hour. The thesis therefore asks one question: how can the variability and uncertainty of human behaviour be formally integrated into the scheduling and simulation of flexible production systems?">Un planning calculé sans cette variabilité est optimal sur le papier et faux dès la première heure. La thèse pose donc une question : comment intégrer formellement la variabilité et l'incertitude du comportement humain dans l'ordonnancement et la simulation des systèmes de production flexibles ?</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Ce que dit la littérature" data-en="What the literature says">Ce que dit la littérature</h2>
+    <p data-fr="Avant de proposer un modèle de plus, j'ai mené une revue systématique des modèles mathématiques du comportement humain en gestion de production." data-en="Before proposing one more model, I carried out a systematic review of mathematical models of human behaviour in production management.">Avant de proposer un modèle de plus, j'ai mené une revue systématique des modèles mathématiques du comportement humain en gestion de production.</p>
+
+    <div class="facts">
+      <div class="fact"><b>994</b><span data-fr="références examinées : 980 par requête, 14 par boule de neige" data-en="references screened: 980 from the query, 14 by snowballing">références examinées : 980 par requête, 14 par boule de neige</span></div>
+      <div class="fact"><b>148</b><span data-fr="retenues après le filtre « humain » et « industrie »" data-en="kept after the “human” and “industry” filter">retenues après le filtre « humain » et « industrie »</span></div>
+      <div class="fact"><b>41</b><span data-fr="analysées en détail : celles qui proposent un modèle mathématique" data-en="analysed in depth: those proposing a mathematical model">analysées en détail : celles qui proposent un modèle mathématique</span></div>
+    </div>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 222" role="img" aria-labelledby="g0t">
+        <title id="g0t" data-fr="Facteurs humains modélisés dans les 41 articles" data-en="Human factors modelled in the 41 papers">Facteurs humains modélisés dans les 41 articles</title>
+        <text class="s-s" x="250" y="34" text-anchor="end" data-fr="Compétences et capacités" data-en="Skills and capabilities">Compétences et capacités</text>
+        <rect class="s-bar" x="262" y="20" width="390" height="20" rx="3"/><text class="s-t" x="660" y="35">39 %</text>
+        <text class="s-s" x="250" y="66" text-anchor="end" data-fr="Expérience, apprentissage, oubli" data-en="Experience, learning, forgetting">Expérience, apprentissage, oubli</text>
+        <rect class="s-bar" x="262" y="52" width="270" height="20" rx="3"/><text class="s-t" x="540" y="67">27 %</text>
+        <text class="s-s" x="250" y="98" text-anchor="end" data-fr="Effort physique, risques ergonomiques" data-en="Physical effort, ergonomic risks">Effort physique, risques ergonomiques</text>
+        <rect class="s-bar" x="262" y="84" width="200" height="20" rx="3"/><text class="s-t" x="470" y="99">20 %</text>
+        <text class="s-s" x="250" y="130" text-anchor="end" data-fr="Fatigue et récupération" data-en="Fatigue and recovery">Fatigue et récupération</text>
+        <rect class="s-bar" x="262" y="116" width="150" height="20" rx="3"/><text class="s-t" x="420" y="131">15 %</text>
+        <text class="s-s" x="250" y="162" text-anchor="end" data-fr="Ponctualité" data-en="Punctuality">Ponctualité</text>
+        <rect class="s-bar" x="262" y="148" width="120" height="20" rx="3"/><text class="s-t" x="390" y="163">12 %</text>
+        <text class="s-s" x="250" y="194" text-anchor="end" data-fr="Préférences" data-en="Preferences">Préférences</text>
+        <rect class="s-bar" x="262" y="180" width="100" height="20" rx="3"/><text class="s-t" x="370" y="195">10 %</text>
+      </svg>
+      <figcaption data-fr="Figure 1 — Part des 41 articles qui modélisent chaque facteur ; un article peut en traiter plusieurs. La ponctualité, point de départ de la thèse, est parmi les moins étudiées." data-en="Figure 1 — Share of the 41 papers modelling each factor; a paper may cover several. Punctuality, the starting point of the thesis, is among the least studied.">Figure 1 — Part des 41 articles qui modélisent chaque facteur ; un article peut en traiter plusieurs. La ponctualité, point de départ de la thèse, est parmi les moins étudiées.</figcaption>
+    </figure>
+
+    <p data-fr="Le constat est net : près des deux tiers des modèles visent la productivité, un quart le bien-être des opérateurs. Ils sont le plus souvent déterministes, traitent les facteurs un par un, optimisent un seul objectif et sont rarement validés sur des données de terrain. Chaque article utilise en outre ses propres notations, ce qui rend les comparaisons difficiles." data-en="The finding is clear: nearly two thirds of the models target productivity, a quarter operator well-being. They are mostly deterministic, treat factors one at a time, optimise a single objective and are rarely validated on field data. Each paper also uses its own notation, which makes comparison difficult.">Le constat est net : près des deux tiers des modèles visent la productivité, un quart le bien-être des opérateurs. Ils sont le plus souvent déterministes, traitent les facteurs un par un, optimisent un seul objectif et sont rarement validés sur des données de terrain. Chaque article utilise en outre ses propres notations, ce qui rend les comparaisons difficiles.</p>
+
+    <h3 data-fr="Un métamodèle pour s'y retrouver" data-en="A meta-model to find one's way">Un métamodèle pour s'y retrouver</h3>
+    <p data-fr="Pour classer et comparer ces travaux, j'ai proposé un métamodèle, HBM, qui décrit tout modèle de comportement humain par quatre dimensions." data-en="To classify and compare these works, I proposed a meta-model, HBM, which describes any human-behaviour model along four dimensions.">Pour classer et comparer ces travaux, j'ai proposé un métamodèle, HBM, qui décrit tout modèle de comportement humain par quatre dimensions.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 178" role="img" aria-labelledby="g0bt">
+        <title id="g0bt" data-fr="Les quatre dimensions du métamodèle HBM" data-en="The four dimensions of the HBM meta-model">Les quatre dimensions du métamodèle HBM</title>
+        <rect class="s-box2" x="10" y="14" width="176" height="96" rx="7"/>
+        <text class="s-n" x="98" y="44" text-anchor="middle">C</text>
+        <text class="s-t" x="98" y="66" text-anchor="middle" data-fr="Contexte" data-en="Context">Contexte</text>
+        <text class="s-s" x="98" y="84" text-anchor="middle" data-fr="industrie, santé," data-en="industry, health,">industrie, santé,</text>
+        <text class="s-s" x="98" y="99" text-anchor="middle" data-fr="véhicules autonomes…" data-en="autonomous vehicles…">véhicules autonomes…</text>
+
+        <rect class="s-box2" x="198" y="14" width="176" height="96" rx="7"/>
+        <text class="s-n" x="286" y="44" text-anchor="middle">F</text>
+        <text class="s-t" x="286" y="66" text-anchor="middle" data-fr="Facteurs humains" data-en="Human factors">Facteurs humains</text>
+        <text class="s-s" x="286" y="84" text-anchor="middle" data-fr="expérience, ponctualité," data-en="experience, punctuality,">expérience, ponctualité,</text>
+        <text class="s-s" x="286" y="99" text-anchor="middle" data-fr="fatigue, compétences…" data-en="fatigue, skills…">fatigue, compétences…</text>
+
+        <rect class="s-box2" x="386" y="14" width="176" height="96" rx="7"/>
+        <text class="s-n" x="474" y="44" text-anchor="middle">M</text>
+        <text class="s-t" x="474" y="66" text-anchor="middle" data-fr="Méthode" data-en="Method">Méthode</text>
+        <text class="s-s" x="474" y="84" text-anchor="middle" data-fr="valeur fixe, fonction," data-en="fixed value, function,">valeur fixe, fonction,</text>
+        <text class="s-s" x="474" y="99" text-anchor="middle" data-fr="probabilités, Markov…" data-en="probabilities, Markov…">probabilités, Markov…</text>
+
+        <rect class="s-box2" x="574" y="14" width="176" height="96" rx="7"/>
+        <text class="s-n" x="662" y="44" text-anchor="middle">O</text>
+        <text class="s-t" x="662" y="66" text-anchor="middle" data-fr="Résultats visés" data-en="Targeted outcomes">Résultats visés</text>
+        <text class="s-s" x="662" y="84" text-anchor="middle" data-fr="productivité, bien-être," data-en="productivity, well-being,">productivité, bien-être,</text>
+        <text class="s-s" x="662" y="99" text-anchor="middle" data-fr="coûts, qualité…" data-en="costs, quality…">coûts, qualité…</text>
+
+        <rect class="s-box" x="10" y="126" width="740" height="40" rx="7"/>
+        <text class="s-t" x="380" y="151" text-anchor="middle" data-fr="Mon article de 2024 se code : C(industrie) · F(ponctualité) · M(valeur fixe, chaîne de Markov) · O(débit)" data-en="My 2024 paper is coded: C(industry) · F(punctuality) · M(fixed value, Markov chain) · O(throughput)">Mon article de 2024 se code : C(industrie) · F(ponctualité) · M(valeur fixe, chaîne de Markov) · O(débit)</text>
+      </svg>
+      <figcaption data-fr="Figure 2 — Le métamodèle HBM : quatre dimensions suffisent à situer un modèle parmi les autres." data-en="Figure 2 — The HBM meta-model: four dimensions are enough to place a model among the others.">Figure 2 — Le métamodèle HBM : quatre dimensions suffisent à situer un modèle parmi les autres.</figcaption>
+    </figure>
   </section>
 
   <section>
     <h2 data-fr="Modéliser la présence au poste" data-en="Modelling presence at the workstation">Modéliser la présence au poste</h2>
-    <p data-fr="La ponctualité d'un opérateur n'est pas une constante, c'est un processus. Je l'ai représentée par une chaîne de Markov dont les états sont des zones de l'atelier — productives ou non productives — et dont les probabilités de transition sont estimées sur des transitions réellement observées, et non postulées." data-en="An operator's punctuality is not a constant, it is a process. I represented it with a Markov chain whose states are zones of the workshop — productive or non-productive — and whose transition probabilities are estimated from actually observed transitions rather than assumed.">La ponctualité d'un opérateur n'est pas une constante, c'est un processus. Je l'ai représentée par une chaîne de Markov dont les états sont des zones de l'atelier — productives ou non productives — et dont les probabilités de transition sont estimées sur des transitions réellement observées, et non postulées.</p>
+    <p data-fr="La ponctualité d'un opérateur n'est pas une constante, c'est un processus. Je l'ai représentée par une chaîne de Markov à quatre états : le poste de travail et trois zones non productives, comme la pause ou le repas. Chaque profil d'opérateur est une matrice de seize probabilités de passage d'un état à l'autre." data-en="An operator's punctuality is not a constant, it is a process. I represented it with a four-state Markov chain: the workstation and three non-productive zones, such as the break or the meal. Each operator profile is a matrix of sixteen probabilities of moving from one state to another.">La ponctualité d'un opérateur n'est pas une constante, c'est un processus. Je l'ai représentée par une chaîne de Markov à quatre états : le poste de travail et trois zones non productives, comme la pause ou le repas. Chaque profil d'opérateur est une matrice de seize probabilités de passage d'un état à l'autre.</p>
 
     <figure class="fig">
-      <svg viewBox="0 0 760 240" role="img" aria-labelledby="g1t">
-        <title id="g1t" data-fr="Chaîne de Markov de la présence au poste" data-en="Markov chain of presence at the workstation">Chaîne de Markov de la présence au poste</title>
-        <defs><marker id="ag1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+      <svg viewBox="0 0 760 320" role="img" aria-labelledby="g1t">
+        <title id="g1t" data-fr="Chaîne de Markov à quatre états de la présence au poste" data-en="Four-state Markov chain of presence at the workstation">Chaîne de Markov à quatre états de la présence au poste</title>
+        <defs><marker id="ag1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto-start-reverse"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
 
-        <circle class="s-box" cx="275" cy="120" r="60"/>
-        <text class="s-t" x="275" y="114" text-anchor="middle" data-fr="Zone" data-en="Productive">Zone</text>
-        <text class="s-t" x="275" y="132" text-anchor="middle" data-fr="productive" data-en="zone">productive</text>
+        <path class="s-l" d="M278,92 L482,92" marker-start="url(#ag1)" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M530,140 L530,180" marker-start="url(#ag1)" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M482,228 L278,228" marker-start="url(#ag1)" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M230,180 L230,140" marker-start="url(#ag1)" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M273,112 L487,208" marker-start="url(#ag1)" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M487,112 L273,208" marker-start="url(#ag1)" marker-end="url(#ag1)"/>
 
-        <circle class="s-box2" cx="535" cy="120" r="60"/>
-        <text class="s-t" x="535" y="114" text-anchor="middle" data-fr="Zone non" data-en="Non-productive">Zone non</text>
-        <text class="s-t" x="535" y="132" text-anchor="middle" data-fr="productive" data-en="zone">productive</text>
+        <path class="s-l" d="M197,59 C150,18 128,96 186,104" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M563,59 C610,18 632,96 574,104" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M574,216 C632,224 610,302 563,261" marker-end="url(#ag1)"/>
+        <path class="s-l" d="M186,216 C128,224 150,302 197,261" marker-end="url(#ag1)"/>
 
-        <path class="s-l" d="M322,83 Q405,36 488,83" marker-end="url(#ag1)"/>
-        <text class="s-s" x="405" y="42" text-anchor="middle" data-fr="il quitte le poste" data-en="leaves the workstation">il quitte le poste</text>
+        <circle class="s-box" cx="230" cy="92" r="46"/>
+        <text class="s-t" x="230" y="88" text-anchor="middle" data-fr="Poste de" data-en="Work-">Poste de</text>
+        <text class="s-t" x="230" y="105" text-anchor="middle" data-fr="travail" data-en="station">travail</text>
 
-        <path class="s-l" d="M488,157 Q405,204 322,157" marker-end="url(#ag1)"/>
-        <text class="s-s" x="405" y="218" text-anchor="middle" data-fr="il revient au poste" data-en="returns to the workstation">il revient au poste</text>
+        <circle class="s-box2" cx="530" cy="92" r="46"/>
+        <text class="s-t" x="530" y="88" text-anchor="middle" data-fr="Zone non" data-en="Non-prod.">Zone non</text>
+        <text class="s-t" x="530" y="105" text-anchor="middle" data-fr="productive 1" data-en="zone 1">productive 1</text>
 
-        <path class="s-l" d="M219,98 Q152,120 219,142" marker-end="url(#ag1)"/>
-        <text class="s-s" x="140" y="124" text-anchor="end" data-fr="il reste" data-en="stays">il reste</text>
+        <circle class="s-box2" cx="530" cy="228" r="46"/>
+        <text class="s-t" x="530" y="224" text-anchor="middle" data-fr="Zone non" data-en="Non-prod.">Zone non</text>
+        <text class="s-t" x="530" y="241" text-anchor="middle" data-fr="productive 2" data-en="zone 2">productive 2</text>
 
-        <path class="s-l" d="M591,142 Q658,120 591,98" marker-end="url(#ag1)"/>
-        <text class="s-s" x="670" y="124" data-fr="il reste absent" data-en="stays away">il reste absent</text>
+        <circle class="s-box2" cx="230" cy="228" r="46"/>
+        <text class="s-t" x="230" y="224" text-anchor="middle" data-fr="Zone non" data-en="Non-prod.">Zone non</text>
+        <text class="s-t" x="230" y="241" text-anchor="middle" data-fr="productive 3" data-en="zone 3">productive 3</text>
+
+        <text class="s-s" x="118" y="64" text-anchor="end" data-fr="rester" data-en="stay">rester</text>
+        <text class="s-s" x="380" y="82" text-anchor="middle" data-fr="quitter le poste · y revenir" data-en="leave the workstation · return">quitter le poste · y revenir</text>
       </svg>
-      <figcaption data-fr="Figure 1 — Les quatre probabilités de transition sont estimées à partir des déplacements observés, pas choisies a priori. Chaque opérateur a donc sa propre chaîne." data-en="Figure 1 — The four transition probabilities are estimated from observed movements, not chosen a priori. Each operator therefore has their own chain.">Figure 1 — Les quatre probabilités de transition sont estimées à partir des déplacements observés, pas choisies a priori. Chaque opérateur a donc sa propre chaîne.</figcaption>
+      <figcaption data-fr="Figure 3 — Chaque flèche porte une probabilité, estimée à partir des déplacements observés : le rapport entre le nombre de passages d'un état à un autre et le nombre total de départs de cet état." data-en="Figure 3 — Each arrow carries a probability, estimated from observed movements: the ratio between the number of moves from one state to another and the total number of departures from that state.">Figure 3 — Chaque flèche porte une probabilité, estimée à partir des déplacements observés : le rapport entre le nombre de passages d'un état à un autre et le nombre total de départs de cet état.</figcaption>
     </figure>
 
-    <p data-fr="Sur cette base, j'ai ajouté trois effets qui modifient la cadence dans le temps : la fatigue qui s'accumule au fil du poste, l'apprentissage qui fait gagner en vitesse à force de répéter une tâche, et l'oubli qui fait perdre une partie de ce gain après une interruption." data-en="On that basis I added three effects that change the pace over time: fatigue building up through the shift, learning that brings speed through repetition, and forgetting that takes part of that gain back after an interruption.">Sur cette base, j'ai ajouté trois effets qui modifient la cadence dans le temps : la fatigue qui s'accumule au fil du poste, l'apprentissage qui fait gagner en vitesse à force de répéter une tâche, et l'oubli qui fait perdre une partie de ce gain après une interruption.</p>
+    <p data-fr="Ces matrices ne sont pas postulées : elles sont extraites des enregistrements du dispositif de collecte, qui horodate chaque passage d'un opérateur d'une zone à l'autre." data-en="These matrices are not assumed: they are extracted from the recordings of the collection setup, which timestamps every move of an operator from one zone to another.">Ces matrices ne sont pas postulées : elles sont extraites des enregistrements du dispositif de collecte, qui horodate chaque passage d'un opérateur d'une zone à l'autre.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Mesurer l'effet en simulation" data-en="Measuring the effect in simulation">Mesurer l'effet en simulation</h2>
+    <p data-fr="Pour mesurer ce que la ponctualité coûte à la production, j'ai développé sous NetLogo un simulateur multi-agents d'un flow-shop à six postes et trois zones non productives. Les agents sont les opérateurs, les pièces, les postes et les zones ; chaque opérateur se déplace selon la matrice de son profil." data-en="To measure what punctuality costs production, I developed in NetLogo an agent-based simulator of a flow shop with six workstations and three non-productive zones. The agents are the operators, the parts, the workstations and the zones; each operator moves according to the matrix of their profile.">Pour mesurer ce que la ponctualité coûte à la production, j'ai développé sous NetLogo un simulateur multi-agents d'un flow-shop à six postes et trois zones non productives. Les agents sont les opérateurs, les pièces, les postes et les zones ; chaque opérateur se déplace selon la matrice de son profil.</p>
+
+    <figure class="media">
+      <img src="../media/img/these-simulateur-netlogo.jpg" width="1200" height="691" loading="lazy" alt="Le simulateur NetLogo : six postes de travail en ligne et trois zones non productives">
+      <figcaption data-fr="Figure 4 — Le simulateur : six postes (WS1 à WS6) en ligne, trois zones non productives (NPZ1 à NPZ3) au-dessus." data-en="Figure 4 — The simulator: six workstations (WS1 to WS6) in line, three non-productive zones (NPZ1 to NPZ3) above.">Figure 4 — Le simulateur : six postes (WS1 à WS6) en ligne, trois zones non productives (NPZ1 à NPZ3) au-dessus.</figcaption>
+    </figure>
+
+    <div class="facts">
+      <div class="fact"><b>36</b><span data-fr="scénarios d'affectation de profils aux postes" data-en="scenarios assigning profiles to workstations">scénarios d'affectation de profils aux postes</span></div>
+      <div class="fact"><b>6</b><span data-fr="profils d'opérateurs, dont un profil idéal toujours au poste" data-en="operator profiles, including an ideal one always at the workstation">profils d'opérateurs, dont un profil idéal toujours au poste</span></div>
+      <div class="fact"><b>5 × 8 h</b><span data-fr="horizon simulé : une semaine de cinq jours" data-en="simulated horizon: a five-day week">horizon simulé : une semaine de cinq jours</span></div>
+    </div>
+
+    <figure class="media">
+      <img src="../media/img/these-baisse-productivite.png" width="1100" height="756" loading="lazy" alt="Baisse de productivité selon le profil d'opérateur">
+      <figcaption data-fr="Figure 5 — Baisse de productivité selon le profil. « Global » : le profil est donné à tous les postes ; « Mixed » : à un seul. La baisse atteint environ 13 %." data-en="Figure 5 — Productivity decrease by profile. “Global”: the profile is given to every workstation; “Mixed”: to a single one. The decrease reaches about 13%.">Figure 5 — Baisse de productivité selon le profil. « Global » : le profil est donné à tous les postes ; « Mixed » : à un seul. La baisse atteint environ 13 %.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 data-fr="Décider : qui placer à quel poste" data-en="Deciding: who goes to which workstation">Décider : qui placer à quel poste</h2>
+    <p data-fr="Si le comportement des opérateurs change le débit, alors leur placement est un levier. J'ai formulé un modèle non linéaire en nombres entiers (MINLP) qui affecte les profils aux postes et ordonnance les produits en maximisant le débit. Il est résolu avec Gurobi et SCIP sous Julia. La non-linéarité vient du comportement lui-même : le temps réellement passé sur une pièce dépend des périodes de présence et d'absence de celui qui la fait." data-en="If operator behaviour changes throughput, then where operators are placed is a lever. I formulated a mixed-integer non-linear model (MINLP) that assigns profiles to workstations and sequences products to maximise throughput. It is solved with Gurobi and SCIP under Julia. The non-linearity comes from the behaviour itself: the time actually spent on a part depends on the presence and absence periods of whoever is doing it.">Si le comportement des opérateurs change le débit, alors leur placement est un levier. J'ai formulé un modèle non linéaire en nombres entiers (MINLP) qui affecte les profils aux postes et ordonnance les produits en maximisant le débit. Il est résolu avec Gurobi et SCIP sous Julia. La non-linéarité vient du comportement lui-même : le temps réellement passé sur une pièce dépend des périodes de présence et d'absence de celui qui la fait.</p>
+
+    <figure class="media">
+      <img src="../media/img/these-debit-affectations.png" width="1100" height="565" loading="lazy" alt="Débit obtenu selon le poste où est placé l'opérateur le moins ponctuel">
+      <figcaption data-fr="Figure 6 — Le même opérateur moins ponctuel, placé tour à tour à chacun des six postes (M11 à M16). À quatre postes, le débit reste à 597 ; aux deux postes les plus lents, il tombe à 571 et 567. En bleu : la meilleure et la pire affectation trouvées par l'optimisation." data-en="Figure 6 — The same less punctual operator, placed in turn at each of the six workstations (M11 to M16). At four workstations, throughput stays at 597; at the two slowest ones, it drops to 571 and 567. In blue: the best and worst assignments found by the optimisation.">Figure 6 — Le même opérateur moins ponctuel, placé tour à tour à chacun des six postes (M11 à M16). À quatre postes, le débit reste à 597 ; aux deux postes les plus lents, il tombe à 571 et 567. En bleu : la meilleure et la pire affectation trouvées par l'optimisation.</figcaption>
+    </figure>
+
+    <p data-fr="Autrement dit, la même personne ne coûte rien à la production à un endroit et plusieurs points de débit à un autre. Sur l'ensemble des compositions d'équipe testées, l'écart entre la meilleure et la pire affectation va de 0 à 11,4 %." data-en="In other words, the same person costs production nothing in one place and several points of throughput in another. Across the team compositions tested, the gap between the best and worst assignment ranges from 0 to 11.4%.">Autrement dit, la même personne ne coûte rien à la production à un endroit et plusieurs points de débit à un autre. Sur l'ensemble des compositions d'équipe testées, l'écart entre la meilleure et la pire affectation va de 0 à 11,4 %.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Au-delà de la ponctualité" data-en="Beyond punctuality">Au-delà de la ponctualité</h2>
+    <p data-fr="La ponctualité n'explique pas tout : un opérateur présent peut être lent, un débutant n'est pas un expert, une cadence décline au fil du poste. J'ai donc enrichi les profils par trois effets qui modifient la vitesse dans le temps." data-en="Punctuality does not explain everything: an operator who is present can be slow, a beginner is not an expert, a pace declines through the shift. I therefore enriched the profiles with three effects that change speed over time.">La ponctualité n'explique pas tout : un opérateur présent peut être lent, un débutant n'est pas un expert, une cadence décline au fil du poste. J'ai donc enrichi les profils par trois effets qui modifient la vitesse dans le temps.</p>
 
     <figure class="fig">
       <svg viewBox="0 0 760 215" role="img" aria-labelledby="g2t">
@@ -156,15 +190,16 @@
 
         <rect class="s-box2" x="10" y="24" width="230" height="130" rx="7"/>
         <path class="s-g" d="M28,142 L222,142"/>
-        <path class="s-c" d="M28,138 C70,100 110,76 150,68 S200,62 222,60"/>
+        <path class="s-c" d="M28,138 C70,134 96,110 125,90 S190,62 222,60"/>
         <text class="s-t" x="125" y="176" text-anchor="middle" data-fr="Apprentissage" data-en="Learning">Apprentissage</text>
-        <text class="s-s" x="125" y="194" text-anchor="middle" data-fr="la cadence monte, puis plafonne" data-en="the pace rises, then plateaus">la cadence monte, puis plafonne</text>
+        <text class="s-s" x="125" y="194" text-anchor="middle" data-fr="l'expérience monte en S, puis plafonne" data-en="experience rises in an S, then plateaus">l'expérience monte en S, puis plafonne</text>
 
         <rect class="s-box2" x="265" y="24" width="230" height="130" rx="7"/>
         <path class="s-g" d="M283,142 L477,142"/>
-        <path class="s-c" d="M283,62 C330,66 380,84 430,110 S460,132 477,138"/>
+        <path class="s-c" d="M283,134 C310,96 340,78 372,70 L384,112 C410,84 440,70 458,64 L470,104"/>
+        <path class="s-dash" d="M283,58 L477,58"/>
         <text class="s-t" x="380" y="176" text-anchor="middle" data-fr="Fatigue" data-en="Fatigue">Fatigue</text>
-        <text class="s-s" x="380" y="194" text-anchor="middle" data-fr="la cadence baisse au fil du poste" data-en="the pace drops through the shift">la cadence baisse au fil du poste</text>
+        <text class="s-s" x="380" y="194" text-anchor="middle" data-fr="elle s'accumule, puis retombe à la pause" data-en="it builds up, then drops at the break">elle s'accumule, puis retombe à la pause</text>
 
         <rect class="s-box2" x="520" y="24" width="230" height="130" rx="7"/>
         <path class="s-g" d="M538,142 L732,142"/>
@@ -174,15 +209,15 @@
         <text class="s-t" x="635" y="176" text-anchor="middle" data-fr="Oubli" data-en="Forgetting">Oubli</text>
         <text class="s-s" x="635" y="194" text-anchor="middle" data-fr="après une interruption, il faut remonter" data-en="after an interruption, it has to climb again">après une interruption, il faut remonter</text>
       </svg>
-      <figcaption data-fr="Figure 2 — Allures qualitatives des trois effets intégrés aux profils d'opérateurs. L'axe vertical est la cadence, l'axe horizontal le temps." data-en="Figure 2 — Qualitative shapes of the three effects built into the operator profiles. The vertical axis is the pace, the horizontal axis is time.">Figure 2 — Allures qualitatives des trois effets intégrés aux profils d'opérateurs. L'axe vertical est la cadence, l'axe horizontal le temps.</figcaption>
+      <figcaption data-fr="Figure 7 — Allures qualitatives des trois effets. La fatigue suit une croissance exponentielle avec récupération en pause (d'après Jaber, 2013) ; l'expérience suit une courbe logistique, diminuée par l'oubli pendant l'inactivité (d'après Plaza, 2010)." data-en="Figure 7 — Qualitative shapes of the three effects. Fatigue follows exponential growth with recovery during breaks (after Jaber, 2013); experience follows a logistic curve, reduced by forgetting during inactivity (after Plaza, 2010).">Figure 7 — Allures qualitatives des trois effets. La fatigue suit une croissance exponentielle avec récupération en pause (d'après Jaber, 2013) ; l'expérience suit une courbe logistique, diminuée par l'oubli pendant l'inactivité (d'après Plaza, 2010).</figcaption>
     </figure>
+
+    <p data-fr="Les trois effets ne sont pas indépendants : la fatigue dégrade la ponctualité, l'expérience en atténue l'effet, et la vitesse de production résulte des deux. Les faire vivre ensemble dans une simulation, tout en laissant un solveur intervenir, demandait de piloter NetLogo depuis Python : c'est ce qui a donné naissance à la bibliothèque Netlogopy." data-en="The three effects are not independent: fatigue degrades punctuality, experience mitigates it, and production speed results from both. Making them live together in a simulation, while letting a solver step in, required driving NetLogo from Python: that is what gave birth to the Netlogopy library.">Les trois effets ne sont pas indépendants : la fatigue dégrade la ponctualité, l'expérience en atténue l'effet, et la vitesse de production résulte des deux. Les faire vivre ensemble dans une simulation, tout en laissant un solveur intervenir, demandait de piloter NetLogo depuis Python : c'est ce qui a donné naissance à la bibliothèque Netlogopy.</p>
   </section>
 
   <section>
-    <h2 data-fr="Simuler, puis optimiser, puis recommencer" data-en="Simulate, then optimise, then start again">Simuler, puis optimiser, puis recommencer</h2>
-    <p data-fr="Ces profils alimentent un simulateur multi-agents NetLogo d'un flow-shop à double contrainte de ressources — machines et opérateurs sont tous deux limitants. Un plan d'expérience compare 36 scénarios d'affectation de profils aux postes, pour mesurer l'effet du placement des personnes et pas seulement celui de l'ordre des tâches." data-en="These profiles feed a NetLogo agent-based simulator of a dual-resource-constrained flow shop — machines and operators are both limiting. A designed experiment compares 36 profile-to-workstation allocation scenarios, to measure the effect of where people are placed and not only of the task order.">Ces profils alimentent un simulateur multi-agents NetLogo d'un flow-shop à double contrainte de ressources — machines et opérateurs sont tous deux limitants. Un plan d'expérience compare 36 scénarios d'affectation de profils aux postes, pour mesurer l'effet du placement des personnes et pas seulement celui de l'ordre des tâches.</p>
-    <p data-fr="Côté décision, j'ai formulé un modèle non linéaire en nombres entiers (MINLP) qui affecte les opérateurs aux postes et ordonnance les tâches en maximisant le débit. Il est résolu avec Gurobi et SCIP sous Julia. La non-linéarité vient du comportement lui-même : la durée d'une tâche dépend de qui la fait, depuis combien de temps, et après quoi." data-en="On the decision side, I formulated a mixed-integer non-linear model (MINLP) that assigns operators to workstations and sequences tasks to maximise throughput. It is solved with Gurobi and SCIP under Julia. The non-linearity comes from the behaviour itself: a task duration depends on who performs it, for how long they have been working, and after what.">Côté décision, j'ai formulé un modèle non linéaire en nombres entiers (MINLP) qui affecte les opérateurs aux postes et ordonnance les tâches en maximisant le débit. Il est résolu avec Gurobi et SCIP sous Julia. La non-linéarité vient du comportement lui-même : la durée d'une tâche dépend de qui la fait, depuis combien de temps, et après quoi.</p>
-    <p data-fr="Les deux briques sont enfin mises en boucle : le planning calculé est joué dans le simulateur, l'écart entre planifié et réalisé est mesuré en continu, et au-delà d'un seuil une réoptimisation est déclenchée à partir de l'état courant de l'atelier." data-en="The two building blocks are finally put in a loop: the computed schedule is played in the simulator, the deviation between plan and execution is measured continuously, and beyond a threshold a re-optimisation is triggered from the current state of the shop floor.">Les deux briques sont enfin mises en boucle : le planning calculé est joué dans le simulateur, l'écart entre planifié et réalisé est mesuré en continu, et au-delà d'un seuil une réoptimisation est déclenchée à partir de l'état courant de l'atelier.</p>
+    <h2 data-fr="Simuler, optimiser, recommencer" data-en="Simulate, optimise, start again">Simuler, optimiser, recommencer</h2>
+    <p data-fr="Les deux briques sont enfin mises en boucle. Le planning optimal est joué dans le simulateur ; à chaque instant, un indicateur de divergence additionne les retards des fins de tâches réelles sur les fins planifiées. Quand il dépasse un seuil, une réoptimisation repart de l'état courant de l'atelier, avec les vitesses mises à jour des opérateurs et les produits restant à faire." data-en="The two building blocks are finally put in a loop. The optimal schedule is played in the simulator; at every instant, a divergence indicator adds up how late the actual task completions are against the planned ones. When it exceeds a threshold, a re-optimisation restarts from the current state of the shop floor, with the operators' updated speeds and the products still to be made.">Les deux briques sont enfin mises en boucle. Le planning optimal est joué dans le simulateur ; à chaque instant, un indicateur de divergence additionne les retards des fins de tâches réelles sur les fins planifiées. Quand il dépasse un seuil, une réoptimisation repart de l'état courant de l'atelier, avec les vitesses mises à jour des opérateurs et les produits restant à faire.</p>
 
     <figure class="fig">
       <svg viewBox="0 0 760 245" role="img" aria-labelledby="g3t">
@@ -191,7 +226,7 @@
 
         <rect class="s-box" x="40" y="22" width="290" height="60" rx="7"/>
         <text class="s-t" x="185" y="46" text-anchor="middle" data-fr="Modèle d'optimisation (MINLP)" data-en="Optimisation model (MINLP)">Modèle d'optimisation (MINLP)</text>
-        <text class="s-s" x="185" y="64" text-anchor="middle" data-fr="Gurobi · SCIP sous Julia" data-en="Gurobi · SCIP under Julia">Gurobi · SCIP sous Julia</text>
+        <text class="s-s" x="185" y="64" text-anchor="middle">Gurobi</text>
 
         <rect class="s-box2" x="430" y="22" width="290" height="60" rx="7"/>
         <text class="s-t" x="575" y="46" text-anchor="middle" data-fr="Planning d'affectation" data-en="Allocation schedule">Planning d'affectation</text>
@@ -199,28 +234,41 @@
 
         <rect class="s-box2" x="430" y="150" width="290" height="60" rx="7"/>
         <text class="s-t" x="575" y="174" text-anchor="middle" data-fr="Simulation multi-agents" data-en="Agent-based simulation">Simulation multi-agents</text>
-        <text class="s-s" x="575" y="192" text-anchor="middle" data-fr="NetLogo · profils d'opérateurs" data-en="NetLogo · operator profiles">NetLogo · profils d'opérateurs</text>
+        <text class="s-s" x="575" y="192" text-anchor="middle" data-fr="NetLogo piloté par Netlogopy" data-en="NetLogo driven by Netlogopy">NetLogo piloté par Netlogopy</text>
 
         <rect class="s-box2" x="40" y="150" width="290" height="60" rx="7"/>
-        <text class="s-t" x="185" y="174" text-anchor="middle" data-fr="Écart planifié / réalisé" data-en="Plan versus execution gap">Écart planifié / réalisé</text>
-        <text class="s-s" x="185" y="192" text-anchor="middle" data-fr="mesuré en continu" data-en="measured continuously">mesuré en continu</text>
+        <text class="s-t" x="185" y="174" text-anchor="middle" data-fr="Divergence planifié / réalisé" data-en="Plan versus execution divergence">Divergence planifié / réalisé</text>
+        <text class="s-s" x="185" y="192" text-anchor="middle" data-fr="mesurée en continu" data-en="measured continuously">mesurée en continu</text>
 
         <path class="s-l" d="M330,52 L426,52" marker-end="url(#ag3)"/>
         <path class="s-l" d="M575,82 L575,146" marker-end="url(#ag3)"/>
         <path class="s-l" d="M430,180 L334,180" marker-end="url(#ag3)"/>
         <path class="s-l" d="M185,150 L185,86" marker-end="url(#ag3)"/>
-        <text class="s-s" x="176" y="118" text-anchor="end" data-fr="si l'écart dépasse le seuil" data-en="if the gap exceeds the threshold">si l'écart dépasse le seuil</text>
+        <text class="s-s" x="176" y="118" text-anchor="end" data-fr="si elle dépasse le seuil" data-en="if it exceeds the threshold">si elle dépasse le seuil</text>
       </svg>
-      <figcaption data-fr="Figure 3 — Le planning n'est pas calculé une fois pour toutes : il est confronté à une exécution simulée et recalculé quand la réalité s'en éloigne trop." data-en="Figure 3 — The schedule is not computed once and for all: it is confronted with a simulated execution and recomputed when reality drifts too far from it.">Figure 3 — Le planning n'est pas calculé une fois pour toutes : il est confronté à une exécution simulée et recalculé quand la réalité s'en éloigne trop.</figcaption>
+      <figcaption data-fr="Figure 8 — Le planning n'est pas calculé une fois pour toutes : il est confronté à une exécution simulée et recalculé quand la réalité s'en éloigne trop." data-en="Figure 8 — The schedule is not computed once and for all: it is confronted with a simulated execution and recomputed when reality drifts too far from it.">Figure 8 — Le planning n'est pas calculé une fois pour toutes : il est confronté à une exécution simulée et recalculé quand la réalité s'en éloigne trop.</figcaption>
     </figure>
+
+    <figure class="media">
+      <img src="../media/img/these-divergence.png" width="1100" height="527" loading="lazy" alt="Évolution de la divergence et des trois réordonnancements au cours d'une simulation">
+      <figcaption data-fr="Figure 9 — Une exécution simulée : la divergence (en bleu) monte jusqu'au seuil (en rouge), déclenche un réordonnancement, et repart de zéro. Trois réordonnancements suffisent ici." data-en="Figure 9 — One simulated run: the divergence (blue) climbs to the threshold (red), triggers a rescheduling, and starts again from zero. Three reschedulings are enough here.">Figure 9 — Une exécution simulée : la divergence (en bleu) monte jusqu'au seuil (en rouge), déclenche un réordonnancement, et repart de zéro. Trois réordonnancements suffisent ici.</figcaption>
+    </figure>
+
+    <figure class="media">
+      <img src="../media/img/these-seuil.png" width="1100" height="417" loading="lazy" alt="Effet du seuil de divergence sur le nombre de réoptimisations et la durée totale">
+      <figcaption data-fr="Figure 10 — Le réglage du seuil. À seuil nul, la moindre dérive déclenche un recalcul : une quarantaine au total. Dès 20 %, moins de dix suffisent. En bleu, la durée totale du planning obtenu." data-en="Figure 10 — Tuning the threshold. With a zero threshold, the slightest drift triggers a recomputation: around forty in total. From 20% on, fewer than ten are enough. In blue, the total duration of the resulting schedule.">Figure 10 — Le réglage du seuil. À seuil nul, la moindre dérive déclenche un recalcul : une quarantaine au total. Dès 20 %, moins de dix suffisent. En bleu, la durée totale du planning obtenu.</figcaption>
+    </figure>
+    <p class="credit" data-fr="Les figures 4, 5, 6, 9 et 10 sont tirées du support de soutenance." data-en="Figures 4, 5, 6, 9 and 10 are taken from the defence slides.">Les figures 4, 5, 6, 9 et 10 sont tirées du support de soutenance.</p>
   </section>
 
   <section>
-    <h2 data-fr="Les autres apports de la thèse" data-en="The other contributions of the thesis">Les autres apports de la thèse</h2>
+    <h2 data-fr="Ce que la thèse apporte" data-en="What the thesis contributes">Ce que la thèse apporte</h2>
     <ul>
-      <li data-fr="Une revue systématique de 41 articles sur les modèles de comportement humain en production, et un métamodèle pour les classer — de quoi situer un modèle existant avant d'en écrire un nouveau." data-en="A systematic review of 41 papers on human-behaviour models in production, and a meta-model to classify them — a way to place an existing model before writing a new one.">Une revue systématique de 41 articles sur les modèles de comportement humain en production, et un métamodèle pour les classer — de quoi situer un modèle existant avant d'en écrire un nouveau.</li>
-      <li data-fr="Le dispositif de collecte FrogsNBots, qui a fourni les transitions observées sur lesquelles les chaînes sont estimées." data-en="The FrogsNBots collection setup, which provided the observed transitions the chains are estimated from.">Le dispositif de collecte FrogsNBots, qui a fourni les transitions observées sur lesquelles les chaînes sont estimées.</li>
-      <li data-fr="La bibliothèque open source Netlogopy, née du besoin de piloter NetLogo depuis Python pour relier simulation et optimisation." data-en="The open-source library Netlogopy, born from the need to drive NetLogo from Python in order to connect simulation and optimisation.">La bibliothèque open source Netlogopy, née du besoin de piloter NetLogo depuis Python pour relier simulation et optimisation.</li>
+      <li data-fr="Le métamodèle HBM, un cadre unifié pour classer les modèles de comportement humain." data-en="The HBM meta-model, a unified framework for classifying human-behaviour models.">Le métamodèle HBM, un cadre unifié pour classer les modèles de comportement humain.</li>
+      <li data-fr="Une modélisation stochastique de la ponctualité par chaînes de Markov, estimées sur des observations." data-en="A stochastic model of punctuality with Markov chains, estimated from observations.">Une modélisation stochastique de la ponctualité par chaînes de Markov, estimées sur des observations.</li>
+      <li data-fr="Un modèle multi-facteurs qui réunit ponctualité, fatigue et expérience." data-en="A multi-factor model bringing together punctuality, fatigue and experience.">Un modèle multi-facteurs qui réunit ponctualité, fatigue et expérience.</li>
+      <li data-fr="Un ordonnancement dynamique qui s'adapte aux écarts entre le plan et son exécution." data-en="Dynamic scheduling that adapts to gaps between the plan and its execution.">Un ordonnancement dynamique qui s'adapte aux écarts entre le plan et son exécution.</li>
+      <li data-fr="Le dispositif de collecte et le jeu de données FrogsNBots, et la bibliothèque open source Netlogopy." data-en="The FrogsNBots collection setup and dataset, and the open-source Netlogopy library.">Le dispositif de collecte et le jeu de données FrogsNBots, et la bibliothèque open source Netlogopy.</li>
       <li data-fr="De l'enseignement en recherche opérationnelle et en théorie des graphes, et l'encadrement de projets étudiants." data-en="Teaching in operations research and graph theory, and supervision of student projects.">De l'enseignement en recherche opérationnelle et en théorie des graphes, et l'encadrement de projets étudiants.</li>
     </ul>
 
@@ -228,11 +276,11 @@
     <nav class="links">
       <a href="https://doi.org/10.1016/j.ijpe.2024.109311">Int. Journal of Production Economics, 2024</a>
       <a href="https://doi.org/10.36819/SW25.019">Simulation Workshop 2025</a>
+      <a href="https://doi.org/10.1109/ICTMOD63116.2024.10878184">IEEE ICTMOD 2024</a>
       <a href="https://doi.org/10.1016/j.ifacol.2022.09.649">IFAC-PapersOnLine, 2022</a>
       <a href="https://hal.science/hal-04627782">SAGIP 2024</a>
       <a href="https://scholar.google.fr/citations?user=P_OKvKwAAAAJ">Google Scholar</a>
     </nav>
-    <p class="note" style="margin-top:14px" data-fr="S'y ajoute IEEE ICTMOD 2024 (Sharjah), sur les profils d'opérateurs fondés sur la ponctualité, la fatigue et l'expérience." data-en="To which IEEE ICTMOD 2024 (Sharjah) is added, on operator profiles based on punctuality, fatigue and experience.">S'y ajoute IEEE ICTMOD 2024 (Sharjah), sur les profils d'opérateurs fondés sur la ponctualité, la fatigue et l'expérience.</p>
 
     <div class="callout">
       <p data-fr="Les données d'observation portent sur des personnes filmées en atelier. Elles ne sont pas publiées ici : seuls les modèles, les méthodes et les résultats agrégés le sont." data-en="The observation data concerns people filmed in a workshop. It is not published here: only the models, the methods and the aggregated results are.">Les données d'observation portent sur des personnes filmées en atelier. Elles ne sont pas publiées ici : seuls les modèles, les méthodes et les résultats agrégés le sont.</p>
@@ -261,46 +309,7 @@
 
 </div>
 
-<script>
-(function(){
-  var bFr = document.getElementById('btn-fr'),
-      bEn = document.getElementById('btn-en'),
-      bTh = document.getElementById('btn-theme'),
-      root = document.documentElement,
-      titleFr = document.title,
-      titleEn = root.getAttribute('data-title-en') || document.title;
-
-  function setLang(l){
-    var isFr = (l === 'fr');
-    bFr.setAttribute('aria-pressed', isFr);
-    bEn.setAttribute('aria-pressed', !isFr);
-    root.lang = l;
-    document.title = isFr ? titleFr : titleEn;
-    document.querySelectorAll('[data-fr]').forEach(function(el){
-      var v = el.getAttribute(isFr ? 'data-fr' : 'data-en');
-      if (v !== null) el.textContent = v;
-    });
-    try { localStorage.setItem('lang', l); } catch(e){}
-  }
-
-  bFr.addEventListener('click', function(){ setLang('fr'); });
-  bEn.addEventListener('click', function(){ setLang('en'); });
-
-  bTh.addEventListener('click', function(){
-    var dark = root.getAttribute('data-theme') === 'dark';
-    root.setAttribute('data-theme', dark ? 'light' : 'dark');
-    bTh.setAttribute('aria-pressed', String(!dark));
-    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
-  });
-
-  try {
-    var l = localStorage.getItem('lang');
-    if (l) setLang(l);
-    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
-    var t = localStorage.getItem('theme');
-    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
-  } catch(e){}
-})();
-</script>
+<script src="../assets/projet.js"></script>
+<script data-goatcounter="https://bouaziznourddine.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

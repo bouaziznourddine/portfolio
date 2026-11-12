@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>OPTIMAN — démonstration interactive · Nourddine Bouaziz</title>
+<meta name="description" content="Démonstration interactive du planning OPTIMAN : Gantt des machines, du robot et des opérateurs, occupation des palettes et des montages. Copie statique de l'interface du module Odoo 12, sur un jeu de données anonymisé.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<link rel="canonical" href="https://bouaziznourddine.github.io/portfolio/demo/optiman/">
+<link rel="stylesheet" href="css/demo.css">
+<link rel="stylesheet" href="css/optiman_gantt.css">
+</head>
+<body>
+
+<header class="demo_bar">
+  <div class="demo_brand">OPTIMAN<span>démonstration interactive</span></div>
+  <nav class="demo_nav" aria-label="Vues de la démonstration">
+    <a class="demo_nav_link" data-view="gantt" href="#gantt">Gantt</a>
+    <a class="demo_nav_link" data-view="scenario" href="#scenario">Scénario</a>
+  </nav>
+  <span class="demo_bar_note">Copie statique du module Odoo 12 · données anonymisées · aucun calcul en ligne</span>
+  <div class="demo_lang" role="group" aria-label="Langue / Language">
+    <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+  <a class="demo_back" href="../../projets/optiman.html">← Retour au projet</a>
+</header>
+
+<main id="demo-views">
+  <div id="view-gantt"><p id="demo-loading">Chargement de la démonstration…</p></div>
+  <div id="view-scenario" hidden></div>
+</main>
+
+<noscript><p style="padding:24px">Cette démonstration a besoin de JavaScript pour afficher le planning. / This demo needs JavaScript to display the schedule.</p></noscript>
+
+<!-- Aide de l'onglet « Paramètres de la cellule », reprise de la vue formulaire du module. -->
+<template id="tpl-params-help">
+  <div class="demo_help">
+    <h3>Explication des paramètres</h3>
+    <h4>Durées des opérations (minutes)</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Paramètre</th><th>Défaut</th><th>Sens</th></tr></thead>
+      <tbody>
+        <tr><td><code>T_MONTAGE</code></td><td><code>5</code></td><td>Montage du support sur la palette par l’opérateur, avant la 1re phase.</td></tr>
+        <tr><td><code>T_ROTATION</code></td><td><code>2</code></td><td>Rotation par position pour les phases suivantes : préparation = 5 + 2 × positions.</td></tr>
+        <tr><td><code>T_DEMONTAGE</code></td><td><code>5</code></td><td>Démontage par l’opérateur après chaque phase.</td></tr>
+        <tr><td><code>T_ROBOT</code></td><td><code>2</code></td><td>Un trajet robot ; 4 par montage : table → rotary → CNC, puis CNC → rotary → table.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Première pièce et nuit</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Paramètre</th><th>Défaut</th><th>Sens</th></tr></thead>
+      <tbody>
+        <tr><td><code>T_SUIVI_PREMIERE_PIECE</code></td><td><code>null</code></td><td>null : l’opérateur suit toute la 1re pièce de chaque phase. Un nombre (ex. 30) : il ne suit que ces premières minutes, puis la CNC continue seule.</td></tr>
+        <tr><td><code>SUIVI_PAUSE_AUTORISEE</code></td><td><code>false</code></td><td>Règle de l’atelier. false : le suivi se fait d’un seul bloc et finit le jour même ; s’il dépasse la journée, le calcul est refusé. true : pause à la fermeture, reprise le jour ouvré suivant.</td></tr>
+        <tr><td><code>USINAGE_AUTONOME_NUIT</code></td><td><code>true</code></td><td>true : plusieurs jeux d’outils dans le magasin (dans sa capacité) et premières pièces d’abord pour remplir les nuits. false : un seul OF à la fois par CNC, séries enchaînées.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Calendrier et ressources</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Paramètre</th><th>Défaut</th><th>Sens</th></tr></thead>
+      <tbody>
+        <tr><td><code>HEURE_DEBUT, HEURE_FIN</code></td><td><code>480, 1020</code></td><td>Plage de travail des opérateurs en minutes depuis minuit : 480 = 8 h, 1020 = 17 h (420 = 7 h). Les CNC et le robot tournent aussi la nuit.</td></tr>
+        <tr><td><code>JOURS_OUVRES</code></td><td><code>[0,1,2,3,4]</code></td><td>Jours travaillés : 0 = lundi … 6 = dimanche.</td></tr>
+        <tr><td><code>NB_OPERATEURS</code></td><td><code>2</code></td><td>Opérateurs disponibles en même temps (1 à 100).</td></tr>
+        <tr><td><code>NB_CNC</code></td><td><code>2</code></td><td>CNC actives : 1 ou 2.</td></tr>
+        <tr><td><code>CAP_OUTIL_CNC1, CAP_OUTIL_CNC2</code></td><td><code>60, 150</code></td><td>Capacité du magasin d’outils de chaque CNC ; les outils d’une phase restent chargés du 1er au dernier montage.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Palettes et supports</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Paramètre</th><th>Défaut</th><th>Sens</th></tr></thead>
+      <tbody>
+        <tr><td><code>CAP_PALETTE_S, CAP_PALETTE_B</code></td><td><code>120, 50</code></td><td>Emplacements réservables S-1…S-120 et B-1…B-50.</td></tr>
+        <tr><td><code>STOCK_PALETTE_S, STOCK_PALETTE_B</code></td><td><code>null</code></td><td>Palettes physiques ; null = autant que d’emplacements. Avec Planning + Détails, la valeur vient de « Qté palette maxi ».</td></tr>
+        <tr><td><code>MONTAGES_DISPONIBLES</code></td><td><code>{}</code></td><td>Facultatif, ex. {"MONT-002": 40}. Le stock vient normalement de « Qty montage maxi » des OF ; une valeur différente est refusée.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Enchaînement des phases</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Paramètre</th><th>Défaut</th><th>Sens</th></tr></thead>
+      <tbody>
+        <tr><td><code>PRECEDENCE</code></td><td><code>phase</code></td><td>phase : la phase suivante attend la fin de toute la phase précédente ; palettes libérées entre les deux. montage : chaque montage passe à la phase suivante dès que sa phase est finie et garde sa palette.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Score affiché après le calcul</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Paramètre</th><th>Défaut</th><th>Sens</th></tr></thead>
+      <tbody>
+        <tr><td><code>W_RETARD</code></td><td><code>0.5</code></td><td>Poids du retard pondéré (retard × rang).</td></tr>
+        <tr><td><code>W_MAKESPAN</code></td><td><code>0.2</code></td><td>Poids de la durée totale du planning.</td></tr>
+        <tr><td><code>W_TEMPS_MORT</code></td><td><code>0.1</code></td><td>Poids des temps morts des CNC.</td></tr>
+        <tr><td><code>W_PIECES</code></td><td><code>0.2</code></td><td>Poids du nombre de pièces (diminue le score).</td></tr>
+      </tbody>
+    </table></div>
+    <p>Les poids W_* ne changent pas le planning : ils calculent seulement le score F affiché. L’ordre de construction dépend de l’algorithme choisi : Cmax (rang), EDD (échéance) ou SPT (temps le plus court).</p>
+  </div>
+</template>
+
+<!-- Same help, in English (shown when the demonstration is in English). -->
+<template id="tpl-params-help-en">
+  <div class="demo_help">
+    <h3>What the parameters mean</h3>
+    <h4>Operation durations (minutes)</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>T_MONTAGE</code></td><td><code>5</code></td><td>Mounting of the fixture on the pallet by the operator, before the 1st phase.</td></tr>
+        <tr><td><code>T_ROTATION</code></td><td><code>2</code></td><td>Rotation per position for the following phases: preparation = 5 + 2 × positions.</td></tr>
+        <tr><td><code>T_DEMONTAGE</code></td><td><code>5</code></td><td>Dismounting by the operator after each phase.</td></tr>
+        <tr><td><code>T_ROBOT</code></td><td><code>2</code></td><td>One robot move; 4 per fixture: table → rotary → CNC, then CNC → rotary → table.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>First part and night</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>T_SUIVI_PREMIERE_PIECE</code></td><td><code>null</code></td><td>null: the operator monitors the whole 1st part of each phase. A number (e.g. 30): the operator monitors only those first minutes, then the CNC continues on its own.</td></tr>
+        <tr><td><code>SUIVI_PAUSE_AUTORISEE</code></td><td><code>false</code></td><td>Workshop rule. false: monitoring is done in one block and ends the same day; if it exceeds the day, the computation is refused. true: pause at closing time, resumption on the next working day.</td></tr>
+        <tr><td><code>USINAGE_AUTONOME_NUIT</code></td><td><code>true</code></td><td>true: several tool sets in the magazine (within its capacity) and first parts first, to fill the nights. false: one MO at a time per CNC, batches run one after another.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Calendar and resources</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>HEURE_DEBUT, HEURE_FIN</code></td><td><code>480, 1020</code></td><td>Operators’ working hours in minutes since midnight: 480 = 8 a.m., 1020 = 5 p.m. (420 = 7 a.m.). The CNCs and the robot also run at night.</td></tr>
+        <tr><td><code>JOURS_OUVRES</code></td><td><code>[0,1,2,3,4]</code></td><td>Working days: 0 = Monday … 6 = Sunday.</td></tr>
+        <tr><td><code>NB_OPERATEURS</code></td><td><code>2</code></td><td>Operators available at the same time (1 to 100).</td></tr>
+        <tr><td><code>NB_CNC</code></td><td><code>2</code></td><td>Active CNCs: 1 or 2.</td></tr>
+        <tr><td><code>CAP_OUTIL_CNC1, CAP_OUTIL_CNC2</code></td><td><code>60, 150</code></td><td>Capacity of each CNC’s tool magazine; the tools of a phase stay loaded from the 1st to the last fixture.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Pallets and fixtures</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>CAP_PALETTE_S, CAP_PALETTE_B</code></td><td><code>120, 50</code></td><td>Reservable slots S-1…S-120 and B-1…B-50.</td></tr>
+        <tr><td><code>STOCK_PALETTE_S, STOCK_PALETTE_B</code></td><td><code>null</code></td><td>Physical pallets; null = as many as slots. With Planning + Details, the value comes from “Qté palette maxi”.</td></tr>
+        <tr><td><code>MONTAGES_DISPONIBLES</code></td><td><code>{}</code></td><td>Optional, e.g. {"MONT-002": 40}. The stock normally comes from the “Qty montage maxi” of the MOs; a different value is refused.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Phase sequencing</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>PRECEDENCE</code></td><td><code>phase</code></td><td>phase: the next phase waits for the end of the whole previous phase; pallets are released in between. montage: each fixture moves on to the next phase as soon as its phase is finished and keeps its pallet.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Score displayed after the computation</h4>
+    <div class="demo_help_scroll"><table>
+      <thead><tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>W_RETARD</code></td><td><code>0.5</code></td><td>Weight of the weighted lateness (lateness × rank).</td></tr>
+        <tr><td><code>W_MAKESPAN</code></td><td><code>0.2</code></td><td>Weight of the total duration of the schedule.</td></tr>
+        <tr><td><code>W_TEMPS_MORT</code></td><td><code>0.1</code></td><td>Weight of the CNC idle times.</td></tr>
+        <tr><td><code>W_PIECES</code></td><td><code>0.2</code></td><td>Weight of the number of parts (lowers the score).</td></tr>
+      </tbody>
+    </table></div>
+    <p>The W_* weights do not change the schedule: they only compute the displayed score F. The construction order depends on the chosen algorithm: Cmax (rank), EDD (due date) or SPT (shortest time).</p>
+  </div>
+</template>
+
+<!-- Bibliothèque telle que livrée avec Odoo 12, puis données enregistrées, puis code du module. -->
+<script defer src="js/lib/jquery.js"></script>
+<script defer src="js/demo_i18n.js"></script>
+<script defer src="data/scenario.js"></script>
+<script defer src="js/optiman_templates.js"></script>
+<script defer src="js/odoo_shim.js"></script>
+<script defer src="js/optiman_gantt.js"></script>
+<script defer src="js/optiman_stock.js"></script>
+<script defer src="js/demo_app.js"></script>
+<script data-goatcounter="https://bouaziznourddine.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

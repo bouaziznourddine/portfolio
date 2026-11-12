@@ -1,0 +1,200 @@
+/*
+ * OPTIMAN — démonstration statique : habillage de la page.
+ * optiman_gantt.css (copie du module) met en forme le Gantt. Cette feuille fournit
+ * ce qui l'entoure : les réglages de base que le client Odoo 12 applique
+ * (typographie, marges), la barre de la démonstration, la fiche du scénario
+ * et les fenêtres de détail.
+ */
+
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+    display: flex;
+    flex-direction: column;
+    font: 13px/1.5 "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    color: #4c4c4c;
+    background: #f4f6f8;
+}
+
+/* Base rules the Odoo 12 web client applies around the module's stylesheet. */
+h1, h2, h3, h4 { margin: 0 0 6px; font-weight: bold; line-height: 1.2; }
+h2 { font-size: 19.5px; }
+h3 { font-size: 17px; }
+h4 { font-size: 15.5px; }
+p { margin: 0 0 12px; }
+label { display: inline-block; margin-bottom: 6px; }
+button, select, input { font-family: inherit; font-size: inherit; line-height: inherit; margin: 0; }
+dl { margin: 0 0 12px; }
+dd { margin: 0 0 6px; }
+.btn { display: inline-block; font-weight: 400; text-align: center; vertical-align: middle; line-height: 1.5; user-select: none; }
+.alert { position: relative; border: 1px solid transparent; }
+.alert-info { border-color: #cfe6e3; }
+.alert-warning { border-color: #f3e2b3; }
+
+/* ---------------------------------------------------------------- top bar */
+.demo_bar {
+    flex: 0 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 18px;
+    min-height: 46px;
+    padding: 6px 16px;
+    background: #163249;
+    color: #fff;
+}
+.demo_brand { font-weight: 600; letter-spacing: .03em; white-space: nowrap; }
+.demo_brand span { font-weight: 400; opacity: .75; margin-left: 8px; letter-spacing: 0; }
+.demo_nav { display: flex; gap: 4px; }
+.demo_nav_link { color: #fff; text-decoration: none; padding: 5px 11px; border-radius: 6px; opacity: .8; }
+.demo_nav_link:hover { background: rgba(255, 255, 255, .12); opacity: 1; }
+.demo_nav_link.is-active { background: rgba(255, 255, 255, .18); opacity: 1; font-weight: 600; }
+.demo_bar_note { margin-left: auto; font-size: 12px; opacity: .8; }
+.demo_back {
+    color: #fff; text-decoration: none; font-size: 12px; white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, .35); padding: 4px 10px; border-radius: 6px;
+}
+.demo_back:hover { background: rgba(255, 255, 255, .12); }
+.demo_lang { display: flex; gap: 3px; }
+.demo_lang button {
+    background: transparent; color: #fff; font: inherit; font-size: 12px; line-height: 1.4; cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, .35); padding: 3px 8px; border-radius: 6px; opacity: .8;
+}
+.demo_lang button:hover { background: rgba(255, 255, 255, .12); opacity: 1; }
+.demo_lang button.is-active { background: rgba(255, 255, 255, .2); opacity: 1; font-weight: 600; }
+.demo_lang button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.demo_nav_link:focus-visible, .demo_back:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+#demo-views { flex: 1 1 auto; min-height: 0; position: relative; }
+#view-gantt, #view-scenario { height: 100%; }
+#view-gantt { overflow: hidden; }
+#view-scenario { overflow: auto; padding-bottom: 40px; color: #163249; }
+#demo-loading { margin: 0; padding: 40px 22px; color: #566d82; }
+
+/* ---------------------------------------------------------- scenario sheet */
+.demo_breadcrumb { padding: 16px 22px 0; color: #566d82; font-size: 14px; }
+.demo_breadcrumb strong { color: #163249; font-weight: 600; }
+.demo_breadcrumb_sep { margin: 0 8px; }
+
+.demo_statusbar {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px;
+    margin: 12px 22px 0; padding: 10px 14px;
+    background: #fff; border: 1px solid #dce4eb; border-radius: 12px 12px 0 0;
+}
+.demo_statusbar_buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.demo_btn {
+    min-height: 34px; padding: 6px 11px; font-size: 13px; cursor: pointer;
+    border: 1px solid #dce4eb; border-radius: 7px; background: #fff; color: #163249;
+}
+.demo_btn:hover { background: #eff6f5; border-color: #91bdbb; }
+.demo_btn:disabled { opacity: .45; cursor: default; background: #fff; border-color: #dce4eb; }
+.demo_btn_primary { background: #087d79; border-color: #087d79; color: #fff; }
+.demo_btn_primary:hover { background: #06645f; border-color: #06645f; }
+.demo_btn:focus-visible, .demo_tab:focus-visible, .demo_modal_close:focus-visible,
+.demo_table tr.is-clickable:focus-visible { outline: 2px solid #087d79; outline-offset: 2px; }
+
+.demo_steps { display: flex; }
+.demo_step { padding: 6px 14px; font-size: 12px; color: #566d82; background: #f4f6f8; border: 1px solid #dce4eb; }
+.demo_step:first-child { border-radius: 7px 0 0 7px; }
+.demo_step:last-child { border-radius: 0 7px 7px 0; }
+.demo_step + .demo_step { border-left: 0; }
+.demo_step.is-current { background: #eaf6f3; color: #087d79; font-weight: 600; }
+
+.demo_sheet {
+    margin: 0 22px; padding: 22px;
+    background: #fff; border: 1px solid #dce4eb; border-top: 0; border-radius: 0 0 12px 12px;
+}
+.demo_title { font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 16px; overflow-wrap: anywhere; }
+
+.demo_groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 32px; margin-bottom: 14px; }
+.demo_group { min-width: 0; margin-bottom: 8px; }
+.demo_group_title {
+    min-height: 26px; padding-bottom: 5px; margin-bottom: 6px;
+    font-size: 14px; font-weight: 600; border-bottom: 1px solid #dce4eb;
+}
+.demo_group table { width: 100%; border-collapse: collapse; }
+.demo_group td { padding: 4px 0; vertical-align: top; line-height: 1.5; }
+.demo_group td.demo_label { width: 46%; padding-right: 14px; color: #566d82; }
+.demo_group td.demo_label:empty { display: none; }
+.demo_value { overflow-wrap: anywhere; }
+
+.demo_tabs { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 8px; border-bottom: 1px solid #dce4eb; }
+.demo_tab {
+    margin-bottom: -1px; padding: 8px 14px; cursor: pointer;
+    border: 1px solid transparent; border-bottom: 0; border-radius: 7px 7px 0 0;
+    background: none; color: #566d82;
+}
+.demo_tab:hover { color: #087d79; }
+.demo_tab.is-active { color: #163249; font-weight: 600; background: #fff; border-color: #dce4eb; }
+.demo_tab_panel { padding-top: 16px; }
+
+.demo_table_wrap { overflow-x: auto; }
+.demo_table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.demo_table th {
+    padding: 7px 8px; text-align: left; white-space: nowrap; font-weight: 600;
+    border-bottom: 2px solid #dce4eb;
+}
+.demo_table td { padding: 6px 8px; white-space: nowrap; border-bottom: 1px solid #edf1f4; }
+.demo_table .is-numeric { text-align: right; }
+.demo_table tbody tr:hover { background: #f4f8f8; }
+.demo_table tr.is-clickable { cursor: pointer; }
+.demo_table tr.is-muted td { color: #8a97a3; }
+.demo_table input[type="checkbox"] { vertical-align: middle; }
+
+.demo_pager { display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-bottom: 8px; color: #566d82; }
+.demo_pager .demo_btn { min-height: 28px; padding: 2px 10px; font-size: 16px; line-height: 1; }
+
+.demo_alert {
+    max-height: 220px; overflow: auto; margin: 12px 0; padding: 10px 12px;
+    border-radius: 7px; font-size: 12px; line-height: 1.6; white-space: pre-wrap;
+    background: #fff4da; color: #755914;
+}
+.demo_json {
+    margin: 0 0 18px; padding: 12px; overflow-x: auto;
+    font-family: Consolas, monospace; font-size: 12.5px; white-space: pre-wrap;
+    background: #f4f6f8; border: 1px solid #dce4eb; border-radius: 7px;
+}
+.demo_help h3 { font-size: 16px; font-weight: 600; margin: 0 0 12px; }
+.demo_help h4 { font-size: 13.5px; font-weight: 600; margin: 16px 0 8px; }
+.demo_help table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.demo_help th, .demo_help td { padding: 5px 8px; text-align: left; vertical-align: top; border: 1px solid #dce4eb; }
+.demo_help th { font-weight: 600; background: #f4f6f8; }
+.demo_help code { font-family: Consolas, monospace; font-size: 12px; padding: 1px 4px; border-radius: 3px; color: #0b5f5c; background: #eef5f4; }
+.demo_help p { margin: 14px 0 0; color: #566d82; }
+.demo_help_scroll { overflow-x: auto; }
+
+/* ------------------------------------------------------------------ modal */
+.demo_modal {
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 2000;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 5vh 12px; overflow: auto; background: rgba(22, 50, 73, .45);
+}
+.demo_modal_dialog {
+    width: 100%; max-width: 880px; color: #163249;
+    background: #fff; border-radius: 12px; box-shadow: 0 12px 40px rgba(22, 50, 73, .25);
+}
+.demo_modal_header {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 18px; border-bottom: 1px solid #dce4eb;
+}
+.demo_modal_header h4 { margin: 0; font-size: 16px; font-weight: 600; }
+.demo_modal_close { padding: 0 6px; border: 0; border-radius: 6px; background: none; color: #566d82; font-size: 24px; line-height: 1; cursor: pointer; }
+.demo_modal_close:hover { color: #163249; }
+.demo_modal_body { padding: 18px; }
+.demo_modal_footer { padding: 12px 18px; border-top: 1px solid #dce4eb; }
+.demo_muted { margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: #566d82; }
+
+/* Below this width the note would push the back link onto a second line. */
+@media (max-width: 1080px) {
+    .demo_bar_note { display: none; }
+    .demo_back { margin-left: auto; }
+}
+@media (max-width: 760px) {
+    .demo_breadcrumb { padding: 12px 12px 0; }
+    .demo_statusbar { margin: 10px 12px 0; }
+    .demo_sheet { margin: 0 12px; padding: 14px; }
+    .demo_groups { grid-template-columns: minmax(0, 1fr); }
+    .demo_modal { padding: 12px 8px; }
+    .demo_modal_body { padding: 14px; }
+}

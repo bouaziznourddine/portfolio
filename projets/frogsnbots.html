@@ -4,95 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FrogsNBots — instrumenter un atelier pour observer le travail réel · Nourddine Bouaziz</title>
-<meta name="description" content="FrogsNBots : dispositif de collecte en atelier — module Odoo de suivi des opérations, scans QR, caméras fixes et PTZ synchronisées, métadonnées JSON.">
+<meta name="description" content="FrogsNBots : dispositif de collecte en atelier — module Odoo de suivi des opérations, scans QR, caméras synchronisées, casque de réalité augmentée, métadonnées JSON.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
-<style>
-  :root{
-    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
-    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff;
-    --maxw:860px;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-      --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-    --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--fg);
-    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    padding:0 16px;
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto}
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
-  .toolbar button{
-    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
-    background:var(--card); color:var(--muted);
-    border:1px solid var(--border); border-radius:999px;
-  }
-  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
-
-  .back{display:inline-block; margin-top:16px; font-size:.9rem; color:var(--muted)}
-  .back:hover{color:var(--accent)}
-
-  header{padding:12px 0 24px; border-bottom:1px solid var(--border)}
-  h1{font-family:Georgia,"Times New Roman",serif; font-size:2rem; line-height:1.2; margin:10px 0 10px}
-  .meta{color:var(--muted); font-size:.93rem; margin:0 0 3px}
-
-  section{padding:30px 0; border-bottom:1px solid var(--border)}
-  section:last-of-type{border-bottom:none}
-  h2{font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; color:var(--accent); margin:0 0 16px; font-weight:700}
-  h3{font-size:1rem; margin:24px 0 8px}
-  p{margin:0 0 12px}
-  ul{margin:0 0 12px; padding-left:20px}
-  li{margin-bottom:6px}
-
-  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
-  .tag{font-size:.76rem; padding:2px 9px; border-radius:4px; background:var(--accent-soft); color:var(--accent)}
-  .note{font-size:.87rem; color:var(--muted); font-style:italic}
-  .callout{
-    border-left:3px solid var(--accent); background:var(--accent-soft);
-    padding:12px 14px; border-radius:0 8px 8px 0; margin:18px 0; font-size:.94rem;
-  }
-  .callout p:last-child{margin-bottom:0}
-  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px}
-  .links a{
-    display:inline-block; padding:5px 11px; border:1px solid var(--border);
-    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
-  }
-  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
-
-  .fig{margin:22px 0; padding:16px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); overflow-x:auto}
-  .fig svg{display:block; width:100%; min-width:600px; height:auto}
-  .fig figcaption{font-size:.85rem; color:var(--muted); margin-top:10px; text-align:center}
-  .s-box{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.2}
-  .s-box2{fill:var(--bg); stroke:var(--border); stroke-width:1.2}
-  .s-t{fill:var(--fg); font:600 12.5px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-s{fill:var(--muted); font:11px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-l{stroke:var(--muted); stroke-width:1.4; fill:none}
-  .s-dash{stroke:var(--muted); stroke-width:1.2; fill:none; stroke-dasharray:4 4}
-  .s-ar{fill:var(--muted)}
-  .s-bar{fill:var(--accent); opacity:.85}
-  .s-bar2{fill:var(--muted); opacity:.35}
-  .s-bt{fill:var(--bg); font:600 11px system-ui,sans-serif}
-
-  footer{padding:26px 0 50px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--border)}
-  [hidden]{display:none !important}
-
-  @media (max-width:600px){
-    h1{font-size:1.6rem}
-    section{padding:24px 0}
-  }
-</style>
+<link rel="canonical" href="https://bouaziznourddine.github.io/portfolio/projets/frogsnbots.html">
+<link rel="stylesheet" href="../assets/projet.css">
 </head>
 <body>
 <div class="wrap">
@@ -114,12 +29,19 @@
   <section>
     <h2 data-fr="Pourquoi instrumenter" data-en="Why instrument">Pourquoi instrumenter</h2>
     <p data-fr="On ne peut pas modéliser un comportement qu'on n'a pas mesuré. Pour estimer les chaînes de Markov de ma thèse, il me fallait des transitions réellement observées : à quel moment une personne quitte son poste, combien de temps elle s'absente, quand elle revient, combien de temps une opération lui prend la dixième fois comparée à la première." data-en="You cannot model a behaviour you have not measured. To estimate the Markov chains in my thesis I needed actually observed transitions: when someone leaves the workstation, how long they are away, when they come back, how long an operation takes them the tenth time compared with the first.">On ne peut pas modéliser un comportement qu'on n'a pas mesuré. Pour estimer les chaînes de Markov de ma thèse, il me fallait des transitions réellement observées : à quel moment une personne quitte son poste, combien de temps elle s'absente, quand elle revient, combien de temps une opération lui prend la dixième fois comparée à la première.</p>
-    <p data-fr="Un relevé manuel ne tient pas : il est trop grossier, il change le comportement qu'il observe et il ne se synchronise avec rien. Il fallait un dispositif qui enregistre tout seul, et surtout qui relie ce qui est filmé à ce qui est déclaré dans le système de production." data-en="Manual recording does not hold up: it is too coarse, it changes the very behaviour it observes, and it synchronises with nothing. The setup had to record on its own, and above all tie what is filmed to what is declared in the production system.">Un relevé manuel ne tient pas : il est trop grossier, il change le comportement qu'il observe et il ne se synchronise avec rien. Il fallait un dispositif qui enregistre tout seul, et surtout qui relie ce qui est filmé à ce qui est déclaré dans le système de production.</p>
+    <p data-fr="Les jeux de données existants ne le permettaient pas. Ils se limitent souvent à une modalité, sont enregistrés en environnement contrôlé avec un seul opérateur, ne portent pas d'indicateurs de production horodatés, et ne sont pas reliés aux logiciels qui pilotent la production." data-en="Existing datasets did not allow it. They are often limited to one modality, are recorded in a controlled environment with a single operator, carry no timestamped production indicators, and are not connected to the software that runs production.">Les jeux de données existants ne le permettaient pas. Ils se limitent souvent à une modalité, sont enregistrés en environnement contrôlé avec un seul opérateur, ne portent pas d'indicateurs de production horodatés, et ne sont pas reliés aux logiciels qui pilotent la production.</p>
   </section>
 
   <section>
     <h2 data-fr="Le dispositif" data-en="The setup">Le dispositif</h2>
-    <p data-fr="J'ai contribué à un dispositif à deux canaux qui partagent la même horloge. D'un côté la vidéo : des caméras fixes et des caméras motorisées (PTZ) synchronisées couvrent le poste. De l'autre la déclaration : un module Odoo de suivi des opérations, où chaque étape est ouverte et fermée par un scan QR, avec son opérateur et son horodatage." data-en="I contributed to a two-channel setup sharing one clock. On one side, video: synchronised fixed and motorised (PTZ) cameras cover the workstation. On the other, declaration: an Odoo operation-tracking module where each step is opened and closed by a QR scan, with its operator and its timestamp.">J'ai contribué à un dispositif à deux canaux qui partagent la même horloge. D'un côté la vidéo : des caméras fixes et des caméras motorisées (PTZ) synchronisées couvrent le poste. De l'autre la déclaration : un module Odoo de suivi des opérations, où chaque étape est ouverte et fermée par un scan QR, avec son opérateur et son horodatage.</p>
+    <p data-fr="J'ai contribué à un dispositif à deux canaux qui partagent la même horloge. D'un côté l'image : des caméras fixes et motorisées couvrent chaque poste de dessus et de côté, et un casque de réalité augmentée filme ce que voit l'opérateur. De l'autre la déclaration : un module Odoo de suivi des opérations, où chaque étape est ouverte et fermée par un scan QR, avec son opérateur, son poste et son horodatage à moins d'une seconde près." data-en="I contributed to a two-channel setup sharing one clock. On one side, images: fixed and motorised cameras cover each workstation from above and from the side, and an augmented-reality headset films what the operator sees. On the other, declaration: an Odoo operation-tracking module where each step is opened and closed by a QR scan, with its operator, workstation and timestamp to within a second.">J'ai contribué à un dispositif à deux canaux qui partagent la même horloge. D'un côté l'image : des caméras fixes et motorisées couvrent chaque poste de dessus et de côté, et un casque de réalité augmentée filme ce que voit l'opérateur. De l'autre la déclaration : un module Odoo de suivi des opérations, où chaque étape est ouverte et fermée par un scan QR, avec son opérateur, son poste et son horodatage à moins d'une seconde près.</p>
+
+    <div class="facts">
+      <div class="fact"><b>10</b><span data-fr="caméras fixes, vue de dessus et vue de côté par poste" data-en="fixed cameras, top view and side view per workstation">caméras fixes, vue de dessus et vue de côté par poste</span></div>
+      <div class="fact"><b>4</b><span data-fr="caméras motorisées (PTZ)" data-en="motorised (PTZ) cameras">caméras motorisées (PTZ)</span></div>
+      <div class="fact"><b>1</b><span data-fr="casque de réalité augmentée, pour la vue de l'opérateur" data-en="augmented-reality headset, for the operator's view">casque de réalité augmentée, pour la vue de l'opérateur</span></div>
+      <div class="fact"><b>7</b><span data-fr="sessions d'acquisition, à l'ESIGELEC et à CESI" data-en="recording sessions, at ESIGELEC and CESI">sessions d'acquisition, à l'ESIGELEC et à CESI</span></div>
+    </div>
 
     <figure class="fig">
       <svg viewBox="0 0 760 266" role="img" aria-labelledby="b1t">
@@ -127,8 +49,8 @@
         <defs><marker id="ab1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
 
         <rect class="s-box2" x="10" y="24" width="200" height="54" rx="7"/>
-        <text class="s-t" x="110" y="47" text-anchor="middle" data-fr="Caméras fixe et PTZ" data-en="Fixed and PTZ cameras">Caméras fixe et PTZ</text>
-        <text class="s-s" x="110" y="65" text-anchor="middle" data-fr="synchronisées" data-en="synchronised">synchronisées</text>
+        <text class="s-t" x="110" y="47" text-anchor="middle" data-fr="Caméras et casque" data-en="Cameras and headset">Caméras et casque</text>
+        <text class="s-s" x="110" y="65" text-anchor="middle" data-fr="synchronisés" data-en="synchronised">synchronisés</text>
 
         <path class="s-l" d="M210,51 L486,51" marker-end="url(#ab1)"/>
 
@@ -144,7 +66,7 @@
 
         <rect class="s-box" x="250" y="110" width="200" height="54" rx="7"/>
         <text class="s-t" x="350" y="133" text-anchor="middle" data-fr="Module Odoo de suivi" data-en="Odoo tracking module">Module Odoo de suivi</text>
-        <text class="s-s" x="350" y="151" text-anchor="middle" data-fr="workflow d'états · opérateur" data-en="state workflow · operator">workflow d'états · opérateur</text>
+        <text class="s-s" x="350" y="151" text-anchor="middle" data-fr="opérateur · poste · état" data-en="operator · workstation · state">opérateur · poste · état</text>
 
         <path class="s-l" d="M450,137 L486,137" marker-end="url(#ab1)"/>
 
@@ -162,7 +84,40 @@
       <figcaption data-fr="Figure 1 — Ce qui fait la valeur du jeu de données n'est pas la vidéo seule ni les déclarations seules, mais le fait qu'elles portent le même horodatage." data-en="Figure 1 — What makes the dataset valuable is neither the video alone nor the declarations alone, but the fact that both carry the same timestamp.">Figure 1 — Ce qui fait la valeur du jeu de données n'est pas la vidéo seule ni les déclarations seules, mais le fait qu'elles portent le même horodatage.</figcaption>
     </figure>
 
-    <p data-fr="C'est cette jonction qui compte. Un enregistrement vidéo sans contexte oblige à tout regarder pour trouver quelque chose. Des déclarations sans image ne disent pas ce qui s'est passé pendant les blancs. Mises à la même horloge, les deux se répondent : chaque opération déclarée pointe directement sur la séquence vidéo qui la montre." data-en="That junction is the point. A video recording without context forces you to watch everything to find anything. Declarations without images say nothing about what happened during the gaps. Put on the same clock, the two answer each other: every declared operation points straight at the video sequence showing it.">C'est cette jonction qui compte. Un enregistrement vidéo sans contexte oblige à tout regarder pour trouver quelque chose. Des déclarations sans image ne disent pas ce qui s'est passé pendant les blancs. Mises à la même horloge, les deux se répondent : chaque opération déclarée pointe directement sur la séquence vidéo qui la montre.</p>
+    <h3 data-fr="Ce que l'opérateur déclare" data-en="What the operator declares">Ce que l'opérateur déclare</h3>
+    <p data-fr="Le module Odoo guide l'opérateur à travers quatre états. Il quitte une zone non productive, scanne la pièce qu'il prend, réalise l'opération, puis déclare son résultat : terminée, interrompue ou défectueuse. Chaque passage est horodaté." data-en="The Odoo module guides the operator through four states. They leave a non-productive zone, scan the part they pick up, carry out the operation, then declare its outcome: completed, interrupted or defective. Every transition is timestamped.">Le module Odoo guide l'opérateur à travers quatre états. Il quitte une zone non productive, scanne la pièce qu'il prend, réalise l'opération, puis déclare son résultat : terminée, interrompue ou défectueuse. Chaque passage est horodaté.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 142" role="img" aria-labelledby="b3t">
+        <title id="b3t" data-fr="Les quatre états du suivi d'une opération" data-en="The four states of operation tracking">Les quatre états du suivi d'une opération</title>
+        <defs><marker id="ab3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+
+        <rect class="s-box2" x="10" y="20" width="165" height="58" rx="7"/>
+        <text class="s-t" x="92" y="44" text-anchor="middle" data-fr="Zone non productive" data-en="Non-productive zone">Zone non productive</text>
+        <text class="s-s" x="92" y="62" text-anchor="middle" data-fr="pause, formation" data-en="break, training">pause, formation</text>
+        <path class="s-l" d="M175,49 L201,49" marker-end="url(#ab3)"/>
+
+        <rect class="s-box" x="205" y="20" width="165" height="58" rx="7"/>
+        <text class="s-t" x="287" y="44" text-anchor="middle" data-fr="Pièce" data-en="Part">Pièce</text>
+        <text class="s-s" x="287" y="62" text-anchor="middle" data-fr="référence lue par QR code" data-en="reference read from a QR code">référence lue par QR code</text>
+        <path class="s-l" d="M370,49 L396,49" marker-end="url(#ab3)"/>
+
+        <rect class="s-box" x="400" y="20" width="165" height="58" rx="7"/>
+        <text class="s-t" x="482" y="44" text-anchor="middle" data-fr="Opération" data-en="Operation">Opération</text>
+        <text class="s-s" x="482" y="62" text-anchor="middle" data-fr="tâche à réaliser" data-en="task to carry out">tâche à réaliser</text>
+        <path class="s-l" d="M565,49 L581,49" marker-end="url(#ab3)"/>
+
+        <rect class="s-box" x="585" y="20" width="165" height="58" rx="7"/>
+        <text class="s-t" x="667" y="44" text-anchor="middle" data-fr="Résultat" data-en="Outcome">Résultat</text>
+        <text class="s-s" x="667" y="62" text-anchor="middle" data-fr="terminée · interrompue · défectueuse" data-en="completed · interrupted · defective">terminée · interrompue · défectueuse</text>
+
+        <path class="s-l" d="M667,78 L667,108 L287,108 L287,82" marker-end="url(#ab3)"/>
+        <text class="s-s" x="477" y="126" text-anchor="middle" data-fr="opération ou pièce suivante" data-en="next operation or part">opération ou pièce suivante</text>
+      </svg>
+      <figcaption data-fr="Figure 2 — Les états du module de suivi. C'est le temps passé hors de la zone productive qui alimente les modèles de ponctualité." data-en="Figure 2 — The states of the tracking module. The time spent outside the productive zone is what feeds the punctuality models.">Figure 2 — Les états du module de suivi. C'est le temps passé hors de la zone productive qui alimente les modèles de ponctualité.</figcaption>
+    </figure>
+
+    <p data-fr="C'est la jonction des deux canaux qui compte. Un enregistrement vidéo sans contexte oblige à tout regarder pour trouver quelque chose. Des déclarations sans image ne disent pas ce qui s'est passé pendant les blancs. Mises à la même horloge, les deux se répondent : chaque opération déclarée pointe directement sur la séquence vidéo qui la montre." data-en="The junction of the two channels is the point. A video recording without context forces you to watch everything to find anything. Declarations without images say nothing about what happened during the gaps. Put on the same clock, the two answer each other: every declared operation points straight at the video sequence showing it.">C'est la jonction des deux canaux qui compte. Un enregistrement vidéo sans contexte oblige à tout regarder pour trouver quelque chose. Des déclarations sans image ne disent pas ce qui s'est passé pendant les blancs. Mises à la même horloge, les deux se répondent : chaque opération déclarée pointe directement sur la séquence vidéo qui la montre.</p>
 
     <figure class="fig">
       <svg viewBox="0 0 760 200" role="img" aria-labelledby="b2t">
@@ -184,23 +139,98 @@
         <path class="s-l" d="M120,158 L740,158"/>
         <text class="s-s" x="740" y="178" text-anchor="end" data-fr="temps" data-en="time">temps</text>
       </svg>
-      <figcaption data-fr="Figure 2 — Les deux scans bornent l'opération ; la même horloge découpe automatiquement la séquence vidéo correspondante." data-en="Figure 2 — The two scans bound the operation; the shared clock automatically cuts out the matching video sequence.">Figure 2 — Les deux scans bornent l'opération ; la même horloge découpe automatiquement la séquence vidéo correspondante.</figcaption>
+      <figcaption data-fr="Figure 3 — Les deux scans bornent l'opération ; la même horloge découpe automatiquement la séquence vidéo correspondante." data-en="Figure 3 — The two scans bound the operation; the shared clock automatically cuts out the matching video sequence.">Figure 3 — Les deux scans bornent l'opération ; la même horloge découpe automatiquement la séquence vidéo correspondante.</figcaption>
     </figure>
   </section>
 
   <section>
-    <h2 data-fr="Les deux cas d'étude" data-en="The two case studies">Les deux cas d'étude</h2>
-    <p data-fr="Deux activités ont été retenues parce qu'elles produisent des gestes répétitifs, comparables d'une personne à l'autre et mesurables sans capteur porté : la maintenance de robots éducatifs et le pliage d'origami. La répétition est ce qui rend l'apprentissage et la fatigue visibles dans les durées." data-en="Two activities were chosen because they produce repetitive gestures, comparable across people and measurable without any worn sensor: educational-robot maintenance and origami folding. Repetition is what makes learning and fatigue visible in the durations.">Deux activités ont été retenues parce qu'elles produisent des gestes répétitifs, comparables d'une personne à l'autre et mesurables sans capteur porté : la maintenance de robots éducatifs et le pliage d'origami. La répétition est ce qui rend l'apprentissage et la fatigue visibles dans les durées.</p>
-    <p data-fr="Au total : plus de quinze heures de vidéo annotée et six opérateurs. Un manuscrit de description du jeu de données est en préparation." data-en="In total: more than fifteen hours of annotated video and six operators. A dataset paper is in preparation.">Au total : plus de quinze heures de vidéo annotée et six opérateurs. Un manuscrit de description du jeu de données est en préparation.</p>
+    <h2 data-fr="Des grenouilles et des robots" data-en="Frogs and bots">Des grenouilles et des robots</h2>
+    <p data-fr="Deux activités ont été retenues parce qu'elles produisent des gestes répétitifs, comparables d'une personne à l'autre et mesurables sans capteur porté. Elles donnent son nom au jeu de données : des grenouilles en origami — frogs — et des robots éducatifs — bots." data-en="Two activities were chosen because they produce repetitive gestures, comparable across people and measurable without any worn sensor. They give the dataset its name: origami frogs, and educational robots — bots.">Deux activités ont été retenues parce qu'elles produisent des gestes répétitifs, comparables d'une personne à l'autre et mesurables sans capteur porté. Elles donnent son nom au jeu de données : des grenouilles en origami — frogs — et des robots éducatifs — bots.</p>
+
+    <div class="media-grid">
+      <figure class="media">
+        <img src="../media/img/frogsnbots-sambot.jpg" width="391" height="284" loading="lazy" alt="Un petit robot éducatif à deux roues, carte électronique apparente">
+        <figcaption data-fr="Maintenance : test et entretien de petits robots éducatifs. Deux opérateurs, quatre postes, dix opérations par robot, 80 robots traités en 12 heures." data-en="Maintenance: testing and servicing small educational robots. Two operators, four workstations, ten operations per robot, 80 robots handled in 12 hours.">Maintenance : test et entretien de petits robots éducatifs. Deux opérateurs, quatre postes, dix opérations par robot, 80 robots traités en 12 heures.</figcaption>
+      </figure>
+      <figure class="media">
+        <img src="../media/img/frogsnbots-grenouilles.jpg" width="569" height="311" loading="lazy" alt="Deux grenouilles en origami, rose et bleue, portant chacune un QR code">
+        <figcaption data-fr="Production : pliage de grenouilles en origami, chacune identifiée par un QR code. Quatre postes en séquence, un opérateur par poste, des gestes choisis pour étudier l'apprentissage et la fatigue." data-en="Production: folding origami frogs, each identified by a QR code. Four workstations in sequence, one operator per workstation, gestures chosen to study learning and fatigue.">Production : pliage de grenouilles en origami, chacune identifiée par un QR code. Quatre postes en séquence, un opérateur par poste, des gestes choisis pour étudier l'apprentissage et la fatigue.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-fr="Ce que voit le dispositif" data-en="What the setup sees">Ce que voit le dispositif</h2>
+    <p data-fr="Trois courts extraits de la vue à la première personne, pendant une session de pliage. On y suit le geste, le scan de la pièce et la validation de l'étape sur la tablette — les trois événements que le dispositif relie entre eux." data-en="Three short excerpts from the first-person view, during a folding session. They show the gesture, the scan of the part and the validation of the step on the tablet — the three events the setup ties together.">Trois courts extraits de la vue à la première personne, pendant une session de pliage. On y suit le geste, le scan de la pièce et la validation de l'étape sur la tablette — les trois événements que le dispositif relie entre eux.</p>
+
+    <div class="media-grid">
+      <figure class="media">
+        <video controls preload="none" playsinline muted loop poster="../media/frogsnbots-pliage.jpg">
+          <source src="../media/frogsnbots-pliage.mp4" type="video/mp4">
+        </video>
+        <figcaption data-fr="Le geste : pliage d'une grenouille, le scanner QR à portée de main (12 s)." data-en="The gesture: folding a frog, with the QR scanner within reach (12 s).">Le geste : pliage d'une grenouille, le scanner QR à portée de main (12 s).</figcaption>
+      </figure>
+      <figure class="media">
+        <video controls preload="none" playsinline muted loop poster="../media/frogsnbots-tablette.jpg">
+          <source src="../media/frogsnbots-tablette.mp4" type="video/mp4">
+        </video>
+        <figcaption data-fr="La déclaration : scan, puis validation de l'étape sur la tablette Odoo (12 s)." data-en="The declaration: scan, then validation of the step on the Odoo tablet (12 s).">La déclaration : scan, puis validation de l'étape sur la tablette Odoo (12 s).</figcaption>
+      </figure>
+      <figure class="media">
+        <video controls preload="none" playsinline muted loop poster="../media/frogsnbots-origami.jpg">
+          <source src="../media/frogsnbots-origami.mp4" type="video/mp4">
+        </video>
+        <figcaption data-fr="L'enchaînement : fin d'un pli, passage à l'étape suivante (12 s)." data-en="The sequence: end of a fold, move to the next step (12 s).">L'enchaînement : fin d'un pli, passage à l'étape suivante (12 s).</figcaption>
+      </figure>
+    </div>
+    <p class="credit" data-fr="Extraits recadrés sur la vue rapprochée : ils ne montrent que des mains et des objets. Projet AntiHpert, CESI LINEACT et ESIGELEC." data-en="Excerpts cropped to the close-up view: they show only hands and objects. AntiHpert project, CESI LINEACT and ESIGELEC.">Extraits recadrés sur la vue rapprochée : ils ne montrent que des mains et des objets. Projet AntiHpert, CESI LINEACT et ESIGELEC.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Le jeu de données" data-en="The dataset">Le jeu de données</h2>
+    <p data-fr="Au total : plus de quinze heures de vidéo annotée et six opérateurs différents. Chaque opération donne une fiche qui relie l'opérateur, la pièce, l'opération, sa durée et les caméras qui la montrent." data-en="In total: more than fifteen hours of annotated video and six different operators. Each operation yields a record linking the operator, the part, the operation, its duration and the cameras showing it.">Au total : plus de quinze heures de vidéo annotée et six opérateurs différents. Chaque opération donne une fiche qui relie l'opérateur, la pièce, l'opération, sa durée et les caméras qui la montrent.</p>
+
+<pre class="code">{
+  "Date": "2024-06-27 07:42:44",
+  "User": "User01",
+  "zone": "ahpt zone(6,)",
+  "Ref": "PrD013",
+  "operation": "F0p21-00",
+  "start video time": "00:01:10",
+  "end video time": "00:01:45",
+  "durations": "0:00:34",
+  "Top cam": "7",
+  "Side cam": "8",
+  "act": "nextOP",
+  "AR": "0"
+}</pre>
+    <p class="credit" data-fr="Exemple d'annotation d'une opération, tel que présenté à la soutenance. L'opérateur y est désigné par un pseudonyme." data-en="Example annotation of one operation, as shown at the defence. The operator is referred to by a pseudonym.">Exemple d'annotation d'une opération, tel que présenté à la soutenance. L'opérateur y est désigné par un pseudonyme.</p>
+
+    <p data-fr="Les fichiers sont rangés par activité, par site et par session : pour chacune, les vidéos de toutes les caméras, les annotations de chaque opérateur et une fiche de session." data-en="Files are organised by activity, site and session: for each one, the videos from every camera, each operator's annotations and a session record.">Les fichiers sont rangés par activité, par site et par session : pour chacune, les vidéos de toutes les caméras, les annotations de chaque opérateur et une fiche de session.</p>
+
+<pre class="code">AntiHPert_Dataset/
+├── Origami/
+│   ├── CESI/Session_1/date1/
+│   │   ├── Video/         Cam1.mp4 … Cam10.mp4, PTZcamera.mp4, AR.mp4
+│   │   ├── Annotations/   user_1.json, user_2.json, …
+│   │   └── session_info.txt
+│   └── ESIGELEC/ …
+├── Maintenance/
+│   └── ESIGELEC/Session_01/ …
+├── README.md
+└── LICENSE.txt</pre>
+
+    <p class="note" data-fr="Un manuscrit de description du jeu de données est en préparation." data-en="A dataset paper is in preparation.">Un manuscrit de description du jeu de données est en préparation.</p>
 
     <div class="callout">
-      <p data-fr="Ce dispositif filme des personnes au travail. Aucune image, aucune vidéo et aucune donnée individuelle ne sont publiées sur ce site : seuls la méthode, l'architecture et les résultats agrégés le sont. Les enregistrements restent dans le cadre du projet de recherche qui les a recueillis." data-en="This setup films people at work. No image, no video and no individual data is published on this site: only the method, the architecture and the aggregated results are. The recordings stay within the research project that collected them.">Ce dispositif filme des personnes au travail. Aucune image, aucune vidéo et aucune donnée individuelle ne sont publiées sur ce site : seuls la méthode, l'architecture et les résultats agrégés le sont. Les enregistrements restent dans le cadre du projet de recherche qui les a recueillis.</p>
+      <p data-fr="Ce dispositif filme des personnes au travail. Les enregistrements complets, les vues où une personne est reconnaissable et les données individuelles ne sont pas publiés sur ce site : ils restent dans le cadre du projet de recherche qui les a recueillis." data-en="This setup films people at work. The full recordings, the views in which a person can be recognised and individual data are not published on this site: they stay within the research project that collected them.">Ce dispositif filme des personnes au travail. Les enregistrements complets, les vues où une personne est reconnaissable et les données individuelles ne sont pas publiés sur ce site : ils restent dans le cadre du projet de recherche qui les a recueillis.</p>
     </div>
 
     <div class="tags">
       <span class="tag">Odoo</span>
       <span class="tag">QR</span>
       <span class="tag" data-fr="Vidéo multicaméra" data-en="Multi-camera video">Vidéo multicaméra</span>
+      <span class="tag" data-fr="Réalité augmentée" data-en="Augmented reality">Réalité augmentée</span>
       <span class="tag">JSON</span>
       <span class="tag" data-fr="Collecte de données" data-en="Data collection">Collecte de données</span>
       <span class="tag" data-fr="Facteurs humains" data-en="Human factors">Facteurs humains</span>
@@ -217,46 +247,7 @@
 
 </div>
 
-<script>
-(function(){
-  var bFr = document.getElementById('btn-fr'),
-      bEn = document.getElementById('btn-en'),
-      bTh = document.getElementById('btn-theme'),
-      root = document.documentElement,
-      titleFr = document.title,
-      titleEn = root.getAttribute('data-title-en') || document.title;
-
-  function setLang(l){
-    var isFr = (l === 'fr');
-    bFr.setAttribute('aria-pressed', isFr);
-    bEn.setAttribute('aria-pressed', !isFr);
-    root.lang = l;
-    document.title = isFr ? titleFr : titleEn;
-    document.querySelectorAll('[data-fr]').forEach(function(el){
-      var v = el.getAttribute(isFr ? 'data-fr' : 'data-en');
-      if (v !== null) el.textContent = v;
-    });
-    try { localStorage.setItem('lang', l); } catch(e){}
-  }
-
-  bFr.addEventListener('click', function(){ setLang('fr'); });
-  bEn.addEventListener('click', function(){ setLang('en'); });
-
-  bTh.addEventListener('click', function(){
-    var dark = root.getAttribute('data-theme') === 'dark';
-    root.setAttribute('data-theme', dark ? 'light' : 'dark');
-    bTh.setAttribute('aria-pressed', String(!dark));
-    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
-  });
-
-  try {
-    var l = localStorage.getItem('lang');
-    if (l) setLang(l);
-    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
-    var t = localStorage.getItem('theme');
-    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
-  } catch(e){}
-})();
-</script>
+<script src="../assets/projet.js"></script>
+<script data-goatcounter="https://bouaziznourddine.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

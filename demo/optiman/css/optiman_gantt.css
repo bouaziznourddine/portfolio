@@ -1,0 +1,201 @@
+.optiman_json textarea,
+.optiman_json {
+    font-family: Consolas, monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+.optiman_json textarea { min-height: 280px; }
+.o_optiman_gantt {
+    --optiman-ink: #163249;
+    --optiman-muted: #566d82;
+    --optiman-line: #dce4eb;
+    --optiman-accent: #087d79;
+    padding: 22px;
+    overflow: auto;
+    background: #f4f6f8;
+    color: var(--optiman-ink);
+    height: 100%;
+    min-width: 0;
+}
+.o_optiman_gantt *, .o_optiman_gantt *::before, .o_optiman_gantt *::after { box-sizing: border-box; }
+.o_optiman_gantt button, .o_optiman_gantt select {
+    font: inherit;
+    font-size: 13px;
+    color: var(--optiman-ink);
+}
+.o_optiman_gantt button:not(.optiman_bar) {
+    min-height: 36px;
+    padding: 7px 11px;
+    border: 1px solid var(--optiman-line);
+    border-radius: 7px;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: none;
+}
+.o_optiman_gantt button:not(.optiman_bar):hover { background: #eff6f5; border-color: #91bdbb; }
+.o_optiman_gantt button:disabled { opacity: .45; cursor: default; }
+.o_optiman_gantt button:focus-visible, .o_optiman_gantt select:focus-visible,
+.o_optiman_gantt .optiman_gantt_scroll:focus-visible { outline: 2px solid var(--optiman-accent); outline-offset: 3px; }
+.optiman_gantt_header { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.optiman_gantt_eyebrow { color: var(--optiman-muted); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+.o_optiman_gantt .optiman_gantt_name { margin: 6px 0; font-size: 22px; line-height: 1.3; font-weight: 600; overflow-wrap: anywhere; }
+.optiman_gantt_timezone { margin: 0; color: var(--optiman-muted); font-size: 12px; }
+.optiman_kiosk_status { margin: 4px 0 0; color: var(--optiman-accent); font-size: 12px; }
+.optiman_gantt_actions { display: flex; gap: 8px; flex-wrap: wrap; max-width: 100%; }
+.optiman_gantt_main { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: start; }
+.optiman_gantt_card, .optiman_gantt_details { min-width: 0; border: 1px solid var(--optiman-line); border-radius: 12px; background: #fff; padding: 18px; }
+.optiman_card_heading { display: flex; gap: 12px; justify-content: space-between; align-items: center; }
+.o_optiman_gantt .optiman_gantt_day { font-size: 16px; font-weight: 600; margin: 0; line-height: 1.4; }
+.optiman_gantt_day::first-letter { text-transform: uppercase; }
+.optiman_gantt_algorithm { font-size: 11px; padding: 5px 9px; border-radius: 6px; color: var(--optiman-muted); background: #f4f6f8; }
+.optiman_metrics_scope { margin: 13px 0 5px; font-size: 11px; color: var(--optiman-muted); }
+.optiman_gantt_metrics { display: flex; gap: 10px 20px; flex-wrap: wrap; margin-bottom: 20px; font-size: 12px; color: var(--optiman-muted); }
+.optiman_gantt_metrics strong { color: var(--optiman-ink); font-size: 15px; font-weight: 600; margin-right: 4px; }
+.optiman_gantt_filters { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 10px; }
+.optiman_resource_filters, .optiman_zoom_buttons { display: flex; gap: 3px; flex-wrap: wrap; }
+.o_optiman_gantt button.optiman_resource_filter, .o_optiman_gantt button.optiman_zoom_button { border-color: transparent; }
+.o_optiman_gantt button.is-active { background: #eaf6f3; color: var(--optiman-accent); font-weight: 600; }
+.optiman_of_label { display: flex; align-items: center; gap: 7px; margin: 0; color: var(--optiman-muted); font-weight: normal; font-size: 12px; min-width: 0; }
+.optiman_of_controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+.optiman_piece_filter_status { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; margin: 0 0 12px; padding: 8px 10px; background: #eaf6f3; border-radius: 7px; color: var(--optiman-accent); }
+.optiman_piece_filter_label { overflow-wrap: anywhere; }
+.optiman_of_filter { width: auto; max-width: 220px; min-width: 98px; height: 36px; border: 1px solid var(--optiman-line); border-radius: 7px; padding: 6px 8px; background: #fff; }
+.optiman_gantt_toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 12px; }
+.optiman_navigation { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.optiman_gantt_period { font-size: 11px; color: var(--optiman-muted); }
+.o_optiman_gantt .optiman_previous, .o_optiman_gantt .optiman_next { width: 34px; padding: 4px; font-size: 20px; }
+.optiman_gantt_notice { padding: 10px 12px; border-radius: 7px; font-size: 12px; background: #eaf6f3; color: #225a58; margin: 0 0 12px; }
+.optiman_gantt_notice.alert-warning { background: #fff4da; color: #755914; }
+.optiman_gantt_scroll { overflow: auto; max-height: 65vh; min-height: 200px; background: #fff; }
+.optiman_gantt_timeline { min-width: 640px; width: 100%; }
+.optiman_gantt_timeline.optiman_week { min-width: 960px; }
+.optiman_chart_row { display: flex; width: 100%; border-bottom: 1px solid var(--optiman-line); }
+.optiman_resource { position: sticky; left: 0; z-index: 2; flex: 0 0 74px; width: 74px; display: flex; align-items: center; padding: 8px 6px 8px 0; background: #fff; border-right: 1px solid var(--optiman-line); color: var(--optiman-ink); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+.optiman_track { position: relative; flex: 1 1 0; min-width: 0; background-image: linear-gradient(to right, var(--optiman-line) 1px, transparent 1px); }
+.optiman_axis { height: 34px; position: sticky; top: 0; z-index: 4; background: #fff; }
+.optiman_axis .optiman_resource { font-size: 10px; color: var(--optiman-muted); border-right-color: transparent; }
+.optiman_axis .optiman_track { background-image: none; }
+.optiman_tick { position: absolute; top: 8px; white-space: nowrap; color: var(--optiman-muted); font-size: 10px; padding-left: 2px; }
+.optiman_tick_last { transform: translateX(-100%); padding-right: 2px; }
+.o_optiman_gantt .optiman_bar { position: absolute; height: 32px; min-width: 4px; border: 0; border-radius: 5px; color: #17324a; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 10px; font-weight: 500; padding: 0 3px; cursor: pointer; box-shadow: none; }
+.o_optiman_gantt .optiman_bar:hover { filter: brightness(.96); outline: 1px solid #64999a; z-index: 1; }
+.o_optiman_gantt .optiman_bar.is-selected { outline: 2px solid var(--optiman-accent); outline-offset: 2px; z-index: 1; }
+.o_optiman_gantt .optiman_bar:focus-visible { outline: 3px solid #163249; outline-offset: 2px; z-index: 3; }
+.optiman_montage,
+.o_optiman_gantt button.optiman_legend_toggle[data-type="montage"]:not(.is-muted) { background-color: #c9eee9; }
+.optiman_rotation,
+.o_optiman_gantt button.optiman_legend_toggle[data-type="rotation"]:not(.is-muted) { background-color: #dcebc9; }
+.optiman_demontage,
+.o_optiman_gantt button.optiman_legend_toggle[data-type="demontage"]:not(.is-muted) { background-color: #f8d5d9; }
+.optiman_usinage,
+.o_optiman_gantt button.optiman_legend_toggle[data-type="usinage"]:not(.is-muted) { background-color: #d4e9fc; }
+.optiman_supervised,
+.o_optiman_gantt button.optiman_legend_toggle[data-type="supervised"]:not(.is-muted) { background-color: #ffe3bc; }
+.optiman_empty,
+.o_optiman_gantt button.optiman_legend_toggle[data-type="empty"]:not(.is-muted) { background-color: #d4e9fc; background-image: repeating-linear-gradient(135deg, transparent, transparent 4px, #fff 4px, #fff 7px); }
+.optiman_robot_out, .optiman_robot_back,
+.o_optiman_gantt button.optiman_legend_toggle[data-type="transport"]:not(.is-muted) { background-color: #e3dbf5; }
+.optiman_other { background-color: #dbe2e7; }
+.optiman_gantt_legend { display: flex; gap: 8px 13px; flex-wrap: wrap; margin-top: 16px; }
+.optiman_gantt_legend span { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--optiman-muted); }
+.o_optiman_gantt button.optiman_legend_toggle { display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 4px 7px; font-size: 12px; }
+.o_optiman_gantt button.optiman_legend_toggle.is-muted { color: #64717c; background: #f4f6f8; text-decoration: line-through; border-style: dashed; }
+.optiman_legend_toggle.is-muted .optiman_swatch { opacity: .35; }
+.o_optiman_gantt button.optiman_legend_reset { min-height: 30px; padding: 4px 8px; font-size: 12px; color: var(--optiman-accent); }
+.optiman_legend_help { font-size: 11px; line-height: 1.5; color: var(--optiman-muted); margin: 8px 0 0; }
+.optiman_legend_summary { color: var(--optiman-accent); font-weight: 600; }
+.optiman_swatch { display: inline-block; width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+.optiman_gantt_hint { font-size: 11px; line-height: 1.5; color: var(--optiman-muted); margin: 12px 0 0; }
+.optiman_detail_eyebrow { font-size: 10px; color: var(--optiman-muted); text-transform: uppercase; letter-spacing: .02em; }
+.o_optiman_gantt .optiman_gantt_details h3 { font-size: 16px; font-weight: 600; margin: 8px 0; line-height: 1.4; }
+.optiman_detail_ref, .optiman_detail_context, .optiman_detail_empty p { font-size: 12px; line-height: 1.6; color: var(--optiman-muted); overflow-wrap: anywhere; }
+.optiman_detail_context { padding: 8px; background: #eaf6f3; border-radius: 6px; }
+.optiman_detail_list { margin: 20px 0 16px; font-size: 12px; }
+.optiman_detail_list > div { display: grid; grid-template-columns: 65px minmax(0, 1fr); gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--optiman-line); align-items: start; }
+.optiman_detail_list dt { color: var(--optiman-muted); font-weight: normal; }
+.optiman_detail_list dd { margin: 0; text-align: right; overflow-wrap: anywhere; line-height: 1.5; }
+.optiman_detail_explanation { background: #f4f6f8; border-radius: 7px; padding: 12px; }
+.o_optiman_gantt .optiman_detail_explanation h4 { margin: 0 0 8px; font-size: 13px; line-height: 1.4; font-weight: 600; }
+.optiman_detail_explanation p { font-size: 12px; line-height: 1.6; margin: 0; }
+.optiman_detail_actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.optiman_piece_actions { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.optiman_piece_choice_label { display: flex; flex-direction: column; gap: 6px; font-weight: normal; color: var(--optiman-muted); font-size: 12px; }
+.optiman_piece_choice { min-width: 0; width: 100%; height: 36px; border: 1px solid var(--optiman-line); border-radius: 7px; padding: 6px 8px; background: #fff; color: var(--optiman-ink); }
+.o_optiman_gantt .optiman_open_operation { color: var(--optiman-accent); margin-top: 10px; width: 100%; }
+@media (max-width: 1000px) {
+    .optiman_gantt_main { grid-template-columns: minmax(0, 1fr); }
+    .optiman_gantt_details { max-width: none; }
+    .optiman_detail_list > div { grid-template-columns: 90px minmax(0, 1fr); }
+}
+.o_optiman_gantt.optiman_is_kiosk {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1035;
+    margin: 0;
+    padding-top: 0;
+    overscroll-behavior: contain;
+}
+.optiman_is_kiosk .optiman_gantt_header {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    background: #f4f6f8;
+    padding: 14px 0;
+    margin-bottom: 8px;
+}
+.optiman_is_kiosk .optiman_gantt_eyebrow,
+.optiman_is_kiosk .optiman_gantt_hint { display: none; }
+.optiman_is_kiosk .optiman_gantt_scroll { max-height: calc(100vh - 300px); }
+/* Odoo 12 normally forces a 650px sheet, including inside mobile dialogs. */
+.o_form_view.optiman_operation_form .o_form_sheet_bg > .o_form_sheet { min-width: 0; }
+.o_form_view.optiman_operation_form .o_field_char,
+.o_form_view.optiman_operation_form .o_field_text { overflow-wrap: break-word; }
+
+.o_optiman_gantt.optiman_is_kiosk .optiman_bar { font-size: 12px; }
+.o_optiman_gantt.optiman_is_kiosk button:not(.optiman_bar) { min-height: 40px; }
+.o_optiman_gantt.optiman_is_kiosk button.optiman_kiosk_toggle { background: #087d79; border-color: #087d79; color: #fff; }
+.o_optiman_gantt.optiman_is_kiosk button.optiman_kiosk_toggle:hover { background: #06645f; border-color: #06645f; color: #fff; }
+@media (max-width: 540px) {
+    .o_optiman_gantt { padding: 12px; }
+    .optiman_gantt_header { display: block; margin-bottom: 14px; }
+    .optiman_gantt_actions { margin-top: 12px; }
+    .optiman_gantt_card, .optiman_gantt_details { padding: 14px; }
+    .optiman_gantt_metrics { gap: 10px 14px; }
+    .optiman_gantt_filters, .optiman_gantt_toolbar { align-items: flex-start; }
+    .optiman_resource_filters { gap: 1px; }
+    .o_optiman_gantt .optiman_resource_filter { padding: 7px 9px; }
+    .optiman_of_label { width: 100%; }
+    .optiman_of_controls { width: 100%; }
+    .optiman_of_filter { max-width: 100%; flex: 1; }
+    .optiman_gantt_scroll { max-height: 60vh; }
+}
+.o_optiman_gantt .optiman_stock_panel { max-width: 1200px; margin: 20px auto; }
+.o_optiman_gantt .optiman_stock_clock { display: block; width: 100%; margin: 16px 0 24px; }
+.o_optiman_gantt .optiman_stock_grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 8px; margin: 16px 0; }
+.o_optiman_gantt .optiman_stock_slot { border: 1px solid #9ebcb7; border-radius: 8px; padding: 12px 8px; color: #18334e; cursor: pointer; }
+.o_optiman_gantt .optiman_stock_slot.is-free { background: #e7f4ee; }
+.o_optiman_gantt .optiman_stock_slot.is-occupied { background: #d3e6fc; border-color: #87a9d1; }
+.o_optiman_gantt .optiman_stock_slot[aria-pressed="true"] { outline: 3px solid #146c70; outline-offset: 1px; }
+.o_optiman_gantt .optiman_stock_pages { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.o_optiman_gantt .optiman_stock_detail { margin-top: 20px; padding: 12px; background: #f3f6f8; border-radius: 8px; }
+.o_optiman_gantt .optiman_stock_detail:empty { display: none; }
+
+.o_optiman_gantt .optiman_stock_panel { max-width: none; }
+.o_optiman_gantt button.optiman_stock_bar:not(.optiman_bar) { position: absolute; top: 12px; height: 32px; min-width: 3px; border: 0; border-radius: 5px; background: #d4e9fc; color: #17324a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px; font-size: 11px; }
+.o_optiman_gantt .optiman_stock_bar.is-selected { outline: 2px solid #146c70; outline-offset: 1px; z-index: 1; }
+.o_optiman_gantt .optiman_stock_bar:focus-visible { outline: 3px solid #17324a; }
+.optiman_stock_timeline .optiman_resource { flex-basis: 100px; width: 100px; }
+
+.o_optiman_gantt button.optiman_stock_bar.optiman_stock_montage:not(.optiman_bar) { background: #c9eee9; }
+.optiman_montage_view .optiman_resource { flex-basis: 160px; width: 160px; }
+.optiman_montage_view .optiman_resource { display: block; padding-top: 10px; }
+.optiman_stock_montage_id { display: block; font-weight: 600; color: var(--optiman-ink); }
+.optiman_stock_montage_of { display: block; margin-top: 2px; color: var(--optiman-muted); font-size: 10px; }
+.optiman_stock_unused_row .optiman_resource { color: var(--optiman-muted); }
+.optiman_stock_unused_row .optiman_track { background-color: #f8fafb; }
+.optiman_stock_unused_label { display: block; margin-top: 3px; color: var(--optiman-muted); font-size: 10px; line-height: 1.2; }

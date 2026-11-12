@@ -4,94 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Netlogopy — piloter NetLogo depuis Python · Nourddine Bouaziz</title>
-<meta name="description" content="Netlogopy : bibliothèque open source (MIT, PyPI) qui permet de créer, lire et modifier les agents NetLogo directement depuis Python.">
+<meta name="description" content="Netlogopy : bibliothèque open source (MIT, PyPI) qui permet de créer, lire et modifier les agents NetLogo directement depuis Python, pour coupler simulation multi-agents et optimisation.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
-<style>
-  :root{
-    --bg:#ffffff; --fg:#16202a; --muted:#5b6774; --accent:#1f4e79;
-    --accent-soft:#eaf0f7; --border:#e3e8ed; --card:#ffffff;
-    --maxw:860px;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-      --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#10161c; --fg:#e7ebef; --muted:#97a3b0; --accent:#7fb2dd;
-    --accent-soft:#17222d; --border:#242f3a; --card:#151d25;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--fg);
-    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    padding:0 16px;
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto}
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  .toolbar{display:flex; justify-content:flex-end; gap:8px; padding-top:18px}
-  .toolbar button{
-    font:inherit; font-size:.82rem; padding:4px 10px; cursor:pointer;
-    background:var(--card); color:var(--muted);
-    border:1px solid var(--border); border-radius:999px;
-  }
-  .toolbar button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent); border-color:var(--accent)}
-
-  .back{display:inline-block; margin-top:16px; font-size:.9rem; color:var(--muted)}
-  .back:hover{color:var(--accent)}
-
-  header{padding:12px 0 24px; border-bottom:1px solid var(--border)}
-  h1{font-family:Georgia,"Times New Roman",serif; font-size:2rem; line-height:1.2; margin:10px 0 10px}
-  .meta{color:var(--muted); font-size:.93rem; margin:0 0 3px}
-
-  section{padding:30px 0; border-bottom:1px solid var(--border)}
-  section:last-of-type{border-bottom:none}
-  h2{font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; color:var(--accent); margin:0 0 16px; font-weight:700}
-  h3{font-size:1rem; margin:24px 0 8px}
-  p{margin:0 0 12px}
-  ul{margin:0 0 12px; padding-left:20px}
-  li{margin-bottom:6px}
-
-  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px}
-  .tag{font-size:.76rem; padding:2px 9px; border-radius:4px; background:var(--accent-soft); color:var(--accent)}
-  .note{font-size:.87rem; color:var(--muted); font-style:italic}
-  .callout{
-    border-left:3px solid var(--accent); background:var(--accent-soft);
-    padding:12px 14px; border-radius:0 8px 8px 0; margin:18px 0; font-size:.94rem;
-  }
-  .callout p:last-child{margin-bottom:0}
-  .links{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px}
-  .links a{
-    display:inline-block; padding:5px 11px; border:1px solid var(--border);
-    border-radius:999px; font-size:.88rem; color:var(--fg); background:var(--card);
-  }
-  .links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
-
-  .fig{margin:22px 0; padding:16px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); overflow-x:auto}
-  .fig svg{display:block; width:100%; min-width:600px; height:auto}
-  .fig figcaption{font-size:.85rem; color:var(--muted); margin-top:10px; text-align:center}
-  .s-box{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.2}
-  .s-box2{fill:var(--bg); stroke:var(--border); stroke-width:1.2}
-  .s-pane{fill:none; stroke:var(--border); stroke-width:1.2}
-  .s-t{fill:var(--fg); font:600 12.5px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-s{fill:var(--muted); font:11px system-ui,-apple-system,"Segoe UI",sans-serif}
-  .s-h{fill:var(--accent); font:600 12px system-ui,-apple-system,"Segoe UI",sans-serif; letter-spacing:.06em}
-  .s-l{stroke:var(--muted); stroke-width:1.4; fill:none}
-  .s-dash{stroke:var(--muted); stroke-width:1.3; fill:none; stroke-dasharray:4 4}
-  .s-ar{fill:var(--muted)}
-
-  footer{padding:26px 0 50px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--border)}
-  [hidden]{display:none !important}
-
-  @media (max-width:600px){
-    h1{font-size:1.6rem}
-    section{padding:24px 0}
-  }
-</style>
+<link rel="canonical" href="https://bouaziznourddine.github.io/portfolio/projets/netlogopy.html">
+<link rel="stylesheet" href="../assets/projet.css">
 </head>
 <body>
 <div class="wrap">
@@ -107,7 +23,7 @@
   <header>
     <h1 data-fr="Netlogopy — piloter NetLogo depuis Python" data-en="Netlogopy — driving NetLogo from Python">Netlogopy — piloter NetLogo depuis Python</h1>
     <p class="meta" data-fr="2024 – aujourd'hui · Bibliothèque open source, licence MIT, distribuée sur PyPI" data-en="2024 – present · Open-source library, MIT licence, distributed on PyPI">2024 – aujourd'hui · Bibliothèque open source, licence MIT, distribuée sur PyPI</p>
-    <p class="meta" data-fr="Auteur principal · présentée au Simulation Workshop 2025, Exeter" data-en="Main author · presented at Simulation Workshop 2025, Exeter">Auteur principal · présentée au Simulation Workshop 2025, Exeter</p>
+    <p class="meta" data-fr="Auteur principal · présentée au Simulation Workshop 2025 (SW25), Exeter, le 31 mars 2025" data-en="Main author · presented at Simulation Workshop 2025 (SW25), Exeter, on 31 March 2025">Auteur principal · présentée au Simulation Workshop 2025 (SW25), Exeter, le 31 mars 2025</p>
     <nav class="links">
       <a href="https://pypi.org/project/netlogopy/">PyPI</a>
       <a href="https://github.com/Bouaziz19/netlogopy" data-fr="Code source" data-en="Source code">Code source</a>
@@ -117,43 +33,75 @@
 
   <section>
     <h2 data-fr="Le manque" data-en="The gap">Le manque</h2>
-    <p data-fr="NetLogo est un excellent outil de simulation multi-agents : on y décrit des comportements individuels et on observe ce qui en émerge. Mais il vit à l'écart de l'écosystème Python. Pas de solveur d'optimisation, pas de pandas, pas de bibliothèque d'apprentissage automatique." data-en="NetLogo is an excellent agent-based simulation tool: you describe individual behaviours and watch what emerges. But it lives apart from the Python ecosystem. No optimisation solver, no pandas, no machine-learning library.">NetLogo est un excellent outil de simulation multi-agents : on y décrit des comportements individuels et on observe ce qui en émerge. Mais il vit à l'écart de l'écosystème Python. Pas de solveur d'optimisation, pas de pandas, pas de bibliothèque d'apprentissage automatique.</p>
-    <p data-fr="Des passerelles existent. Elles permettent de lancer une simulation depuis Python et d'en récupérer les résultats, mais elles traitent le modèle comme une boîte noire : on règle des paramètres au départ, on lit des mesures à l'arrivée. Impossible de créer un agent, de l'interroger ou de changer une de ses propriétés pendant que la simulation tourne." data-en="Bridges exist. They let you launch a simulation from Python and collect its results, but they treat the model as a black box: you set parameters at the start and read measures at the end. There is no way to create an agent, query it or change one of its properties while the simulation is running.">Des passerelles existent. Elles permettent de lancer une simulation depuis Python et d'en récupérer les résultats, mais elles traitent le modèle comme une boîte noire : on règle des paramètres au départ, on lit des mesures à l'arrivée. Impossible de créer un agent, de l'interroger ou de changer une de ses propriétés pendant que la simulation tourne.</p>
-    <p data-fr="C'est exactement ce dont j'avais besoin pour ma thèse : les profils d'opérateurs changent en cours de poste sous l'effet de la fatigue et de l'apprentissage, et une boucle de réoptimisation doit pouvoir intervenir sur la simulation en marche." data-en="That is exactly what I needed for my thesis: operator profiles change during the shift under fatigue and learning, and a re-optimisation loop has to be able to act on a running simulation.">C'est exactement ce dont j'avais besoin pour ma thèse : les profils d'opérateurs changent en cours de poste sous l'effet de la fatigue et de l'apprentissage, et une boucle de réoptimisation doit pouvoir intervenir sur la simulation en marche.</p>
+    <p data-fr="NetLogo est un excellent outil de simulation multi-agents : on y décrit des comportements individuels et on observe ce qui en émerge. Son interface graphique est immédiate, sa bibliothèque de modèles est vaste. Mais il vit à l'écart de l'écosystème Python : peu de bibliothèques d'optimisation, pas de pandas, pas d'apprentissage automatique." data-en="NetLogo is an excellent agent-based simulation tool: you describe individual behaviours and watch what emerges. Its graphical interface is immediate and its model library is vast. But it lives apart from the Python ecosystem: few optimisation libraries, no pandas, no machine learning.">NetLogo est un excellent outil de simulation multi-agents : on y décrit des comportements individuels et on observe ce qui en émerge. Son interface graphique est immédiate, sa bibliothèque de modèles est vaste. Mais il vit à l'écart de l'écosystème Python : peu de bibliothèques d'optimisation, pas de pandas, pas d'apprentissage automatique.</p>
+    <p data-fr="C'était un obstacle direct pour ma thèse : les profils d'opérateurs changent en cours de poste sous l'effet de la fatigue et de l'apprentissage, et une boucle de réoptimisation doit pouvoir intervenir sur la simulation en marche." data-en="That was a direct obstacle for my thesis: operator profiles change during the shift under fatigue and learning, and a re-optimisation loop has to be able to act on a running simulation.">C'était un obstacle direct pour ma thèse : les profils d'opérateurs changent en cours de poste sous l'effet de la fatigue et de l'apprentissage, et une boucle de réoptimisation doit pouvoir intervenir sur la simulation en marche.</p>
+
+    <h3 data-fr="Quatre façons d'associer simulation et optimisation" data-en="Four ways to combine simulation and optimisation">Quatre façons d'associer simulation et optimisation</h3>
 
     <figure class="fig">
-      <svg viewBox="0 0 760 256" role="img" aria-labelledby="n1t">
-        <title id="n1t" data-fr="Passerelles existantes et Netlogopy" data-en="Existing bridges and Netlogopy">Passerelles existantes et Netlogopy</title>
-        <defs><marker id="an1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
+      <svg viewBox="0 0 760 196" role="img" aria-labelledby="n0t">
+        <title id="n0t" data-fr="Quatre façons d'associer NetLogo et Python" data-en="Four ways to combine NetLogo and Python">Quatre façons d'associer NetLogo et Python</title>
+        <defs><marker id="an0" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" class="s-ar"/></marker></defs>
 
-        <rect class="s-pane" x="10" y="22" width="360" height="222" rx="9"/>
-        <text class="s-h" x="190" y="48" text-anchor="middle" data-fr="PASSERELLES EXISTANTES" data-en="EXISTING BRIDGES">PASSERELLES EXISTANTES</text>
-        <rect class="s-box2" x="120" y="66" width="140" height="44" rx="7"/>
-        <text class="s-t" x="190" y="93" text-anchor="middle">Python</text>
-        <path class="s-l" d="M160,110 L160,150" marker-end="url(#an1)"/>
-        <text class="s-s" x="150" y="134" text-anchor="end" data-fr="paramètres" data-en="parameters">paramètres</text>
-        <path class="s-dash" d="M220,150 L220,112" marker-end="url(#an1)"/>
-        <text class="s-s" x="230" y="134" data-fr="résultats finaux" data-en="final results">résultats finaux</text>
-        <rect class="s-box2" x="120" y="152" width="140" height="44" rx="7"/>
-        <text class="s-t" x="190" y="179" text-anchor="middle">NetLogo</text>
-        <text class="s-s" x="190" y="222" text-anchor="middle" data-fr="les agents restent hors de portée" data-en="the agents stay out of reach">les agents restent hors de portée</text>
+        <rect class="s-pane" x="10" y="12" width="176" height="172" rx="9"/>
+        <text class="s-t" x="98" y="38" text-anchor="middle" data-fr="1 · NetLogo seul" data-en="1 · NetLogo alone">1 · NetLogo seul</text>
+        <rect class="s-box2" x="38" y="72" width="120" height="40" rx="7"/>
+        <text class="s-t" x="98" y="97" text-anchor="middle">NetLogo</text>
+        <text class="s-s" x="98" y="148" text-anchor="middle" data-fr="simple, mais trop limité" data-en="simple, but too limited">simple, mais trop limité</text>
+        <text class="s-s" x="98" y="163" text-anchor="middle" data-fr="pour l'optimisation" data-en="for optimisation">pour l'optimisation</text>
 
-        <rect class="s-pane" x="390" y="22" width="360" height="222" rx="9"/>
-        <text class="s-h" x="570" y="48" text-anchor="middle">NETLOGOPY</text>
-        <rect class="s-box" x="500" y="66" width="140" height="44" rx="7"/>
-        <text class="s-t" x="570" y="93" text-anchor="middle">Python</text>
-        <path class="s-l" d="M540,110 L540,150" marker-end="url(#an1)"/>
-        <text class="s-s" x="530" y="128" text-anchor="end" data-fr="créer · modifier" data-en="create · modify">créer · modifier</text>
-        <text class="s-s" x="530" y="143" text-anchor="end" data-fr="les agents" data-en="the agents">les agents</text>
-        <path class="s-l" d="M600,150 L600,112" marker-end="url(#an1)"/>
-        <text class="s-s" x="610" y="128" data-fr="lire leur état" data-en="read their state">lire leur état</text>
-        <text class="s-s" x="610" y="143" data-fr="à tout instant" data-en="at any moment">à tout instant</text>
-        <rect class="s-box" x="500" y="152" width="140" height="44" rx="7"/>
-        <text class="s-t" x="570" y="179" text-anchor="middle">NetLogo</text>
-        <text class="s-s" x="570" y="222" text-anchor="middle" data-fr="les agents sont manipulables en cours d'exécution" data-en="the agents can be handled while the model runs">les agents sont manipulables en cours d'exécution</text>
+        <rect class="s-pane" x="198" y="12" width="176" height="172" rx="9"/>
+        <text class="s-t" x="286" y="38" text-anchor="middle" data-fr="2 · Python seul" data-en="2 · Python alone">2 · Python seul</text>
+        <rect class="s-box2" x="226" y="72" width="120" height="40" rx="7"/>
+        <text class="s-t" x="286" y="97" text-anchor="middle">SimPy · Mesa</text>
+        <text class="s-s" x="286" y="148" text-anchor="middle" data-fr="la visualisation" data-en="visualisation">la visualisation</text>
+        <text class="s-s" x="286" y="163" text-anchor="middle" data-fr="reste à coder" data-en="still has to be coded">reste à coder</text>
+
+        <rect class="s-pane" x="386" y="12" width="176" height="172" rx="9"/>
+        <text class="s-t" x="474" y="38" text-anchor="middle" data-fr="3 · Python dans NetLogo" data-en="3 · Python inside NetLogo">3 · Python dans NetLogo</text>
+        <rect class="s-box2" x="398" y="72" width="66" height="40" rx="7"/>
+        <text class="s-t" x="431" y="97" text-anchor="middle">NetLogo</text>
+        <path class="s-l" d="M464,92 L480,92" marker-end="url(#an0)"/>
+        <rect class="s-box2" x="484" y="72" width="66" height="40" rx="7"/>
+        <text class="s-t" x="517" y="97" text-anchor="middle">Python</text>
+        <text class="s-s" x="474" y="148" text-anchor="middle" data-fr="exécute du Python," data-en="runs Python code,">exécute du Python,</text>
+        <text class="s-s" x="474" y="163" text-anchor="middle" data-fr="sans contrôler les agents" data-en="without controlling agents">sans contrôler les agents</text>
+
+        <rect class="s-box" x="574" y="12" width="176" height="172" rx="9"/>
+        <text class="s-t" x="662" y="38" text-anchor="middle" data-fr="4 · NetLogo dans Python" data-en="4 · NetLogo inside Python">4 · NetLogo dans Python</text>
+        <rect class="s-box2" x="586" y="72" width="66" height="40" rx="7"/>
+        <text class="s-t" x="619" y="97" text-anchor="middle">Python</text>
+        <path class="s-l" d="M652,92 L668,92" marker-end="url(#an0)"/>
+        <rect class="s-box2" x="672" y="72" width="66" height="40" rx="7"/>
+        <text class="s-t" x="705" y="97" text-anchor="middle">NetLogo</text>
+        <text class="s-t" x="662" y="148" text-anchor="middle">Netlogopy</text>
+        <text class="s-s" x="662" y="165" text-anchor="middle" data-fr="contrôle complet depuis Python" data-en="full control from Python">contrôle complet depuis Python</text>
       </svg>
-      <figcaption data-fr="Figure 1 — La différence n'est pas la vitesse, c'est l'accès : la simulation cesse d'être une boîte noire lancée puis relevée." data-en="Figure 1 — The difference is not speed, it is access: the simulation stops being a black box you launch and then read.">Figure 1 — La différence n'est pas la vitesse, c'est l'accès : la simulation cesse d'être une boîte noire lancée puis relevée.</figcaption>
+      <figcaption data-fr="Figure 1 — Netlogopy relève de la quatrième voie : garder NetLogo pour ce qu'il fait bien, et le piloter depuis Python." data-en="Figure 1 — Netlogopy takes the fourth route: keep NetLogo for what it does well, and drive it from Python.">Figure 1 — Netlogopy relève de la quatrième voie : garder NetLogo pour ce qu'il fait bien, et le piloter depuis Python.</figcaption>
     </figure>
+
+    <p data-fr="Cette quatrième voie existait déjà, mais incomplètement. Les passerelles disponibles permettent de lancer une simulation depuis Python et d'en récupérer les résultats ; elles traitent le modèle comme une boîte noire. Impossible de créer un agent, de l'interroger ou de changer une de ses propriétés pendant que la simulation tourne." data-en="That fourth route already existed, but incompletely. The available bridges let you launch a simulation from Python and collect its results; they treat the model as a black box. There is no way to create an agent, query it or change one of its properties while the simulation is running.">Cette quatrième voie existait déjà, mais incomplètement. Les passerelles disponibles permettent de lancer une simulation depuis Python et d'en récupérer les résultats ; elles traitent le modèle comme une boîte noire. Impossible de créer un agent, de l'interroger ou de changer une de ses propriétés pendant que la simulation tourne.</p>
+
+    <div class="table-scroll">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th scope="col" data-fr="Bibliothèque" data-en="Library">Bibliothèque</th>
+            <th scope="col" data-fr="Langage requis" data-en="Language required">Langage requis</th>
+            <th scope="col" data-fr="Bibliothèques Python" data-en="Python libraries">Bibliothèques Python</th>
+            <th scope="col" data-fr="Simulation gérée depuis Python" data-en="Simulation managed from Python">Simulation gérée depuis Python</th>
+            <th scope="col" data-fr="Manipulation directe des agents" data-en="Direct agent manipulation">Manipulation directe des agents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">pyNetLogo</th><td data-fr="Python et code NetLogo" data-en="Python and NetLogo code">Python et code NetLogo</td><td data-fr="limitées" data-en="limited">limitées</td><td>—</td><td>—</td></tr>
+          <tr><th scope="row">Py4J</th><td data-fr="Python et Java" data-en="Python and Java">Python et Java</td><td data-fr="limitées" data-en="limited">limitées</td><td>—</td><td>—</td></tr>
+          <tr><th scope="row">NL4Py</th><td data-fr="Python et code NetLogo" data-en="Python and NetLogo code">Python et code NetLogo</td><td class="yes" data-fr="oui" data-en="yes">oui</td><td>—</td><td>—</td></tr>
+          <tr class="is-ours"><th scope="row">Netlogopy</th><td data-fr="Python seul" data-en="Python only">Python seul</td><td class="yes" data-fr="oui" data-en="yes">oui</td><td class="yes" data-fr="oui" data-en="yes">oui</td><td class="yes" data-fr="oui" data-en="yes">oui</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="credit" data-fr="Comparaison présentée au Simulation Workshop 2025." data-en="Comparison presented at Simulation Workshop 2025.">Comparaison présentée au Simulation Workshop 2025.</p>
   </section>
 
   <section>
@@ -161,7 +109,8 @@
     <ul>
       <li data-fr="Créer et contrôler des agents directement depuis Python, sans passer par le langage de NetLogo." data-en="Create and control agents directly from Python, without going through the NetLogo language.">Créer et contrôler des agents directement depuis Python, sans passer par le langage de NetLogo.</li>
       <li data-fr="Lire et modifier leurs propriétés en cours d'exécution, ce qui rend possible une boucle de décision externe." data-en="Read and change their properties at runtime, which makes an external decision loop possible.">Lire et modifier leurs propriétés en cours d'exécution, ce qui rend possible une boucle de décision externe.</li>
-      <li data-fr="Réutiliser les modèles NetLogo existants tels quels — rien à réécrire pour commencer." data-en="Reuse existing NetLogo models as they are — nothing to rewrite to get started.">Réutiliser les modèles NetLogo existants tels quels — rien à réécrire pour commencer.</li>
+      <li data-fr="Configurer le monde simulé depuis Python." data-en="Configure the simulated world from Python.">Configurer le monde simulé depuis Python.</li>
+      <li data-fr="Réutiliser les modèles NetLogo existants : des agents pilotés par Python viennent s'ajouter au modèle d'origine, sans le réécrire." data-en="Reuse existing NetLogo models: Python-controlled agents are layered on top of the original model, without rewriting it.">Réutiliser les modèles NetLogo existants : des agents pilotés par Python viennent s'ajouter au modèle d'origine, sans le réécrire.</li>
       <li data-fr="Brancher la simulation sur tout ce que Python sait faire : analyse de données, solveurs d'optimisation, plans d'expérience automatisés." data-en="Plug the simulation into everything Python can do: data analysis, optimisation solvers, automated designed experiments.">Brancher la simulation sur tout ce que Python sait faire : analyse de données, solveurs d'optimisation, plans d'expérience automatisés.</li>
     </ul>
 
@@ -193,14 +142,58 @@
       <figcaption data-fr="Figure 2 — Netlogopy n'est pas un nouveau simulateur : c'est le chaînon qui rend NetLogo adressable depuis Python dans les deux sens." data-en="Figure 2 — Netlogopy is not a new simulator: it is the link that makes NetLogo addressable from Python in both directions.">Figure 2 — Netlogopy n'est pas un nouveau simulateur : c'est le chaînon qui rend NetLogo adressable depuis Python dans les deux sens.</figcaption>
     </figure>
 
+    <p data-fr="Sous le capot, la bibliothèque s'organise en couches : une interface Python de haut niveau, un cœur qui gère la connexion, un protocole de communication, et une extension du côté de NetLogo." data-en="Under the hood, the library is organised in layers: a high-level Python interface, a core that manages the connection, a communication protocol, and an extension on the NetLogo side.">Sous le capot, la bibliothèque s'organise en couches : une interface Python de haut niveau, un cœur qui gère la connexion, un protocole de communication, et une extension du côté de NetLogo.</p>
+
+    <h3 data-fr="Installation" data-en="Installation">Installation</h3>
+    <p data-fr="Il faut Conda, Java et NetLogo 6.2.2 ou plus récent. La bibliothèque s'installe ensuite depuis PyPI :" data-en="You need Conda, Java and NetLogo 6.2.2 or later. The library then installs from PyPI:">Il faut Conda, Java et NetLogo 6.2.2 ou plus récent. La bibliothèque s'installe ensuite depuis PyPI :</p>
+<pre class="code">pip install netlogopy</pre>
+
     <div class="callout">
       <p data-fr="La bibliothèque est publiée sous licence MIT : elle est libre d'usage, y compris en entreprise, et le code est consultable." data-en="The library is released under the MIT licence: free to use, including commercially, and the code is open to inspection.">La bibliothèque est publiée sous licence MIT : elle est libre d'usage, y compris en entreprise, et le code est consultable.</p>
     </div>
+  </section>
+
+  <section>
+    <h2 data-fr="Un exemple : simulation et optimisation en boucle" data-en="An example: simulation and optimisation in a loop">Un exemple : simulation et optimisation en boucle</h2>
+    <p data-fr="L'exemple présenté à Exeter est celui de ma thèse : un atelier en environnement dynamique, où l'on cherche à terminer le plus de travaux possible avant un horizon donné. Un solveur d'optimisation, Gurobi, calcule un planning côté Python ; NetLogo le joue avec des opérateurs dont la présence, la fatigue et l'expérience évoluent ; Netlogopy met à jour les agents en cours de simulation selon les décisions du solveur." data-en="The example presented in Exeter is the one from my thesis: a workshop in a dynamic environment, where the aim is to complete as many jobs as possible before a given horizon. An optimisation solver, Gurobi, computes a schedule on the Python side; NetLogo plays it with operators whose presence, fatigue and experience evolve; Netlogopy updates the agents during the simulation according to the solver's decisions.">L'exemple présenté à Exeter est celui de ma thèse : un atelier en environnement dynamique, où l'on cherche à terminer le plus de travaux possible avant un horizon donné. Un solveur d'optimisation, Gurobi, calcule un planning côté Python ; NetLogo le joue avec des opérateurs dont la présence, la fatigue et l'expérience évoluent ; Netlogopy met à jour les agents en cours de simulation selon les décisions du solveur.</p>
+
+    <figure class="media narrow">
+      <img src="../media/img/netlogopy-simulateur.jpg" width="1000" height="727" loading="lazy" alt="Fenêtre NetLogo du simulateur piloté par Netlogopy : opérateurs, postes de travail et files d'attente">
+      <figcaption data-fr="Figure 3 — Le simulateur piloté par Netlogopy : quatre types d'agents — opérateurs, tâches, zones et postes de travail." data-en="Figure 3 — The simulator driven by Netlogopy: four types of agents — operators, tasks, zones and workstations.">Figure 3 — Le simulateur piloté par Netlogopy : quatre types d'agents — opérateurs, tâches, zones et postes de travail.</figcaption>
+    </figure>
+
+    <p data-fr="Comme tout passe par Python, les indicateurs se tracent pendant que la simulation tourne." data-en="Since everything goes through Python, the indicators are plotted while the simulation runs.">Comme tout passe par Python, les indicateurs se tracent pendant que la simulation tourne.</p>
+
+    <div class="media-grid">
+      <figure class="media">
+        <img src="../media/img/netlogopy-production.png" width="1000" height="513" loading="lazy" alt="Courbes du temps de production cumulé par poste">
+        <figcaption data-fr="Temps de production cumulé." data-en="Cumulative production time.">Temps de production cumulé.</figcaption>
+      </figure>
+      <figure class="media">
+        <img src="../media/img/netlogopy-ponctualite.png" width="1000" height="528" loading="lazy" alt="Suivi de la position et de l'état de trois opérateurs">
+        <figcaption data-fr="Ponctualité : position et état de chaque opérateur." data-en="Punctuality: position and state of each operator.">Ponctualité : position et état de chaque opérateur.</figcaption>
+      </figure>
+      <figure class="media">
+        <img src="../media/img/netlogopy-fatigue-experience.png" width="1000" height="528" loading="lazy" alt="Courbes de fatigue, d'expérience et de vitesse de trois opérateurs">
+        <figcaption data-fr="Fatigue et expérience, d'où découle la vitesse de chacun." data-en="Fatigue and experience, which determine each operator's speed.">Fatigue et expérience, d'où découle la vitesse de chacun.</figcaption>
+      </figure>
+      <figure class="media">
+        <img src="../media/img/netlogopy-gantt.png" width="1000" height="379" loading="lazy" alt="Diagramme de Gantt de l'avancement des opérations">
+        <figcaption data-fr="Diagramme de Gantt de l'avancement réel." data-en="Gantt chart of actual progress.">Diagramme de Gantt de l'avancement réel.</figcaption>
+      </figure>
+    </div>
+    <p class="credit" data-fr="Figures tirées de la présentation au Simulation Workshop 2025 et du support de soutenance." data-en="Figures taken from the Simulation Workshop 2025 presentation and the defence slides.">Figures tirées de la présentation au Simulation Workshop 2025 et du support de soutenance.</p>
+  </section>
+
+  <section>
+    <h2 data-fr="Où en est la bibliothèque" data-en="Where the library stands">Où en est la bibliothèque</h2>
+    <p data-fr="Netlogopy est publiée et utilisable. Une version développée de l'article a été soumise à une revue en 2025. Les pistes annoncées pour la suite — simulations en 3D, calcul parallèle et accélération par GPU — ne sont pas encore livrées." data-en="Netlogopy is released and usable. An extended version of the paper was submitted to a journal in 2025. The directions announced for the future — 3D simulations, parallel processing and GPU acceleration — have not been delivered yet.">Netlogopy est publiée et utilisable. Une version développée de l'article a été soumise à une revue en 2025. Les pistes annoncées pour la suite — simulations en 3D, calcul parallèle et accélération par GPU — ne sont pas encore livrées.</p>
 
     <div class="tags">
       <span class="tag">Python</span>
       <span class="tag">NetLogo</span>
       <span class="tag" data-fr="Simulation multi-agents" data-en="Agent-based simulation">Simulation multi-agents</span>
+      <span class="tag" data-fr="Simulation–optimisation" data-en="Simulation–optimisation">Simulation–optimisation</span>
       <span class="tag">Open source</span>
       <span class="tag">MIT</span>
       <span class="tag">PyPI</span>
@@ -219,46 +212,7 @@
 
 </div>
 
-<script>
-(function(){
-  var bFr = document.getElementById('btn-fr'),
-      bEn = document.getElementById('btn-en'),
-      bTh = document.getElementById('btn-theme'),
-      root = document.documentElement,
-      titleFr = document.title,
-      titleEn = root.getAttribute('data-title-en') || document.title;
-
-  function setLang(l){
-    var isFr = (l === 'fr');
-    bFr.setAttribute('aria-pressed', isFr);
-    bEn.setAttribute('aria-pressed', !isFr);
-    root.lang = l;
-    document.title = isFr ? titleFr : titleEn;
-    document.querySelectorAll('[data-fr]').forEach(function(el){
-      var v = el.getAttribute(isFr ? 'data-fr' : 'data-en');
-      if (v !== null) el.textContent = v;
-    });
-    try { localStorage.setItem('lang', l); } catch(e){}
-  }
-
-  bFr.addEventListener('click', function(){ setLang('fr'); });
-  bEn.addEventListener('click', function(){ setLang('en'); });
-
-  bTh.addEventListener('click', function(){
-    var dark = root.getAttribute('data-theme') === 'dark';
-    root.setAttribute('data-theme', dark ? 'light' : 'dark');
-    bTh.setAttribute('aria-pressed', String(!dark));
-    try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e){}
-  });
-
-  try {
-    var l = localStorage.getItem('lang');
-    if (l) setLang(l);
-    else if ((navigator.language || '').slice(0,2) !== 'fr') setLang('en');
-    var t = localStorage.getItem('theme');
-    if (t) { root.setAttribute('data-theme', t); bTh.setAttribute('aria-pressed', String(t === 'dark')); }
-  } catch(e){}
-})();
-</script>
+<script src="../assets/projet.js"></script>
+<script data-goatcounter="https://bouaziznourddine.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
